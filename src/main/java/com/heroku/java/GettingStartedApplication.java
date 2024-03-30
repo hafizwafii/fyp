@@ -26,6 +26,21 @@ public class GettingStartedApplication {
         return "index";
     }
 
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+    
+    // @GetMapping("/apis")
+    // public String apis() {
+    //     return "apis";
+    // }
+
+    @GetMapping("/signup")
+    public String signup() {
+        return "signup";
+    }
+
     @GetMapping("/database")
     String database(Map<String, Object> model) {
         try (Connection connection = dataSource.getConnection()) {
