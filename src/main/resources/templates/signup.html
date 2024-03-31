@@ -1,5 +1,5 @@
 <!DOCTYPE html> 
-<html lang="en"> 
+<html lang="en" th:replace="~{fragments/volunteerlayout :: volunteerlayout (~{::body},'signup')}"> 
 <head> 
     <meta charset="utf-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1"> 
@@ -13,9 +13,9 @@
 
 </head> 
 <body style="background-color:#dfdfdf;"> 
-    <nav class="navbar navbar-expand-lg"> 
+    <!-- <nav class="navbar navbar-expand-lg"> 
         <div class="container-fluid"> 
-          <!-- <a class="navbar-brand" href="#">DZ EMPIRE RENTAL</a>  -->
+          <a class="navbar-brand" href="#">FILANTROPI FAKIR GELANDANGAN</a> 
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> 
             <span class="navbar-toggler-icon"></span> 
           </button> 
@@ -30,7 +30,7 @@
             </ul>
           </div> 
         </div> 
-    </nav> 
+    </nav>  -->
  
     <div class="container-fluid" style="background-color:#dfdfdf;"> 
         <div class="container-fluid card col-7 mt-4" style="background-color:#dfdfdf;"> 
@@ -111,40 +111,58 @@
                 <input type="icnumber"  
                  class="form-control"  
                  id="InputUsername"  
-                 placeholder="000000-00-0000"
+                 placeholder="000000101111"
                  pattern="\d{6}-\d{2}-\d{4}"
                  min="0"
                  aria-describedby="usernameHelp"  
                  name="icnumber"
+                 maxlength="14"
                  required> 
-              </div> 
-              <div class="col"> 
-                <label for="InputPhonenum">Phone Number</label> 
-                <input type="number" 
-                 placeholder="0123456789" 
-                 class="form-control"  
-                 id="InputPhonenum"
-                 min="0"
-                 name="phonenumC" required> 
               </div> 
 
               <div class="col"> 
-                  <label for="Birthdate">Birth Date</label> 
-                  <input type="birthdate"  
-                  class="form-control"  
-                  id="Inputbirthdate"  
-                  aria-describedby="birthdateHelp"  
-                  placeholder="YYYY-MM-DD"  
-                  name="birthdate"
-                  required>
-              </div> 
-                <script>
-                  // Initialize Flatpickr for the input field with ID 'InputValidity'
-                  flatpickr("#InputValidity", {
-                      dateFormat: "Y-m-d", // Date format
-                      minDate: "today", // Restrict date selection to today onwards
-                  });
-                </script>
+                <label for="InputPhonenum">Phone Number</label> 
+                <input type="tel" 
+                       placeholder="0123456789" 
+                       class="form-control"  
+                       id="InputPhonenum"
+                       pattern="\d{10,11}"  
+                       maxlength="11"  
+                       name="phonenumC" required
+                       oninput="this.value = this.value.replace(/\D/g, '')"> 
+            </div> 
+            
+
+              <!-- <div class="col"> 
+                <label for="InputPhonenum">Phone Number</label> 
+                <input type="text" 
+                 placeholder="0123456789" 
+                 class="form-control"  
+                 id="InputPhonenum"
+                pattern="\d{10,11}"  
+                maxlength="11"  
+                name="phonenumC" required> 
+              </div>  -->
+
+              <!-- <div class="col"> 
+                <label for="Birthdate">Birth Date</label> 
+                <input type="text"  
+                       class="form-control"  
+                       id="Inputbirthdate"  
+                       aria-describedby="birthdateHelp"  
+                       placeholder="YYYY-MM-DD"  
+                       name="birthdate"
+                       required>
+            </div> 
+            <script>
+                // Initialize Flatpickr for the input field with ID 'Inputbirthdate'
+                flatpickr("#Inputbirthdate", {
+                    dateFormat: "Y-m-d", // Date format
+                    minDate: "2006-01-01", // Set minimum date to January 1st, 2006
+                });
+            </script>
+
+             
 
             <div class="col"> 
                 <label for="Age">Age</label> 
@@ -155,18 +173,54 @@
                 placeholder="YYYY-MM-DD"  
                 name="birthdate"
                 required>
-            </div> 
+            </div>  -->
+
+            <div class="col"> 
+              <label for="Birthdate">Birth Date</label> 
+              <input type="text"  
+                     class="form-control"  
+                     id="Inputbirthdate"  
+                     aria-describedby="birthdateHelp"  
+                     placeholder="YYYY-MM-DD"  
+                     name="birthdate"
+                     required>
+          </div> 
+          <div class="col"> 
+              <label for="Age">Age</label> 
+              <input type="text"  
+                     class="form-control"  
+                     id="InputAge"  
+                     aria-describedby="ageHelp"  
+                     name="age"
+                     readonly>
+          </div> 
+          <script>
+              // Initialize Flatpickr for the input field with ID 'Inputbirthdate'
+              flatpickr("#Inputbirthdate", {
+                  dateFormat: "Y-m-d", // Date format
+                  maxDate: "2006-01-01", // Set maximum date to January 1st, 2006
+                  onChange: function(selectedDates, dateStr, instance) {
+                      // Calculate age
+                      const birthdate = new Date(dateStr);
+                      const today = new Date();
+                      const age = today.getFullYear() - birthdate.getFullYear();
+                      document.getElementById("InputAge").value = age;
+                  }
+              });
+          </script>
+          
                 
  
-              <button type="submit" class="btn btn-danger col-10 mx-5 mt-4" style="margin-bottom: 10px;">SIGN UP</button> 
+            <button type="submit" class="btn btn-dark col-10 mx-5 mt-4" style="margin-bottom: 10px; ">SIGN UP</button>
+
             </form> 
         </div> 
     </div> 
-      <footer class="py-3 bg-dark text-white mt-4 fixed-bottom"> 
+      <!-- <footer class="py-3 bg-dark text-white mt-4 fixed-bottom"> 
         <div class="container"> 
           <p class="m-0 text-center">Copyright &copy; 2023 <a href="#">DZ EMPIRE CAR RENTAL</a></p> 
         </div> 
-      </footer> 
+      </footer>  -->
          
 </body> 
   <script th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js}" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script> 
