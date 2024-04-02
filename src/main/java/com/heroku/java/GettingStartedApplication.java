@@ -37,6 +37,11 @@ public class GettingStartedApplication {
         return "homepage";
     }
 
+    @GetMapping("/homevolunteer")
+    public String homevolunteer() {
+        return "homevolunteer";
+    }
+
     // @GetMapping("/login") 
     // public String login(HttpSession session) { 
     //         return "login"; 
