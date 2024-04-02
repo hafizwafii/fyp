@@ -28,15 +28,16 @@
 <body>
 
     <!-- Login Form -->
+    <form action="/login" method="POST">
     <div class="login-box">
         <div class="login-header">
             <header>Login</header>
         </div>
         <div class="input-box">
-            <input type="text" class="input-field" placeholder="Username" autocomplete="off" required>
+            <input type="text" class="input-field" placeholder="Username" name="username" autocomplete="off" required>
         </div>
         <div class="input-box">
-            <input type="password" class="input-field" placeholder="Password" autocomplete="off" required>
+            <input type="password" class="input-field" placeholder="Password" name="password" autocomplete="off" required>
         </div>
         <div class="forgot">
             <!-- <section>
@@ -48,13 +49,14 @@
             </section>
         </div>
         <div class="input-submit">
-            <button class="submit-btn" id="submit"></button>
+            <button class="submit-btn" type="submit" ></button>
             <label for="submit">Sign In</label>
         </div>
         <div class="sign-up-link">
-            <p>Don't have account? <a href="#">Sign Up</a></p>
+            <p>Don't have an account? <a th:href="@{/signup}">Sign Up</a></p>
         </div>
     </div>
+</form>
 </body>
 
 <script th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js}"

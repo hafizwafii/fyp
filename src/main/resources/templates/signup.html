@@ -47,7 +47,8 @@
                 <label for="InputFullName">Full Name</label> 
                 <input type="fullname"  
                   class="form-control" 
-                  id="InputFullName"  
+                  id="InputFullName" 
+                  placeholder="Ali Bin Abu" 
                  aria-describedby="fullnameHelp"  
                  name="name"
                  required> 
@@ -114,7 +115,7 @@
           // Initialize Flatpickr for the input field with ID 'Inputbirthdate'
           flatpickr("#Inputbirthdate", {
               dateFormat: "Y-m-d", // Date format
-              maxDate: "2006-01-01", // Set maximum date to January 1st, 2006
+              maxDate: "2006-12-31", // Set maximum date to 31st Dec, 2006
               onChange: function(selectedDates, dateStr, instance) {
                   // Calculate age
                   const birthdate = new Date(dateStr);
@@ -133,7 +134,7 @@
                    class="form-control"  
                   id="InputUsername"  
                   aria-describedby="phonenumberHelp"  
-                  placeholder="example: johndoe"  
+                  placeholder="example: apeswafi"  
                   name="username"
                   required> 
                 </div> 
@@ -143,7 +144,7 @@
                   <input type="password"  
                    class="form-control"  
                    id="InputPassword"    
-                   placeholder="#####"  
+                   placeholder="****"  
                    name="password"
                    required> 
                 </div> 
