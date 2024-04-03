@@ -38,7 +38,7 @@ public class LoginController {
         if (isVolunteer) {
             session.setAttribute("username", username);
             System.out.println("Player who login: "+ username);
-            return "redirect:/homepage"; // Replace with the appropriate customer home page URL
+            return "redirect:/homevolunteer"; // Replace with the appropriate customer home page URL
         } else {
             System.out.println("Invalid username or password");
             model.addAttribute("error", true);
