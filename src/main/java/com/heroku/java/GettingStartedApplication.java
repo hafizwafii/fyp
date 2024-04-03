@@ -42,10 +42,10 @@ public class GettingStartedApplication {
         return "homevolunteer";
     }
 
-    @GetMapping("/profilevolunteer")
-    public String profilevolunteer() {
-        return "profilevolunteer";
-    }
+    // @GetMapping("/profilevolunteer")
+    // public String profilevolunteer() {
+    //     return "profilevolunteer";
+    // }
 
     // @GetMapping("/login") 
     // public String login(HttpSession session) { 

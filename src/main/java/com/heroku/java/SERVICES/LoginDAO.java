@@ -24,25 +24,27 @@ public class LoginDAO {
     public LoginDAO(DataSource dataSource) {
         this.dataSource = dataSource;
     }
-
-    public boolean checkVolunteer(String username, String password) throws SQLException {
+    //model V
+    public Volunteer checkVolunteer(String username, String password) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             System.out.println("password : "+ password);
             System.out.println("username : "+ username);
-            String sql = "SELECT COUNT(*) FROM volunteer WHERE vusername = ? AND vpassword = ?";// check attribute database
+            String sql = "SELECT vid, vfullname FROM volunteer WHERE vusername = ? AND vpassword = ?";// check attribute database
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, username);
             statement.setString(2, password);
             ResultSet resultSet = statement.executeQuery();
+            
+            //selagi db tu baca dia amik benda tu yang declare 
             if (resultSet.next()) {
-                int rowCount = resultSet.getInt(1);
-                return rowCount > 0;
+                int id = resultSet.getInt("vid");
+                String name = resultSet.getString("vfullname");
+                // attribute dia amik dari db pass ke controller
+                return new Volunteer(id, name, username, password);
             }
             connection.close();
-        } catch (SQLException e) {
-            throw e;
-        }
-        return false;
+        } 
+        return null;
     }
 
 

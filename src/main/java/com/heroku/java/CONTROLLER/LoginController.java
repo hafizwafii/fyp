@@ -31,13 +31,18 @@ public class LoginController {
     public String login(HttpSession session, @RequestParam("username") String username,
                     @RequestParam("password") String password, Model model,Volunteer volunteer) {
     try {
-        // loginDAO = new LoginDAO();
         
-        boolean isVolunteer = loginDAO.checkVolunteer(username, password);
-        
-        if (isVolunteer) {
+        // panggil logindao tadi (checkvolunteer = function kat logindao)
+        Volunteer isVolunteer = loginDAO.checkVolunteer(username, password);
+
+        //setup session
+        if (isVolunteer !=null) {
             session.setAttribute("username", username);
+            session.setAttribute("volunteerid", isVolunteer.getId());
+
+            //try debug
             System.out.println("Player who login: "+ username);
+            System.out.println("Player id who login: "+ isVolunteer.getId());
             return "redirect:/homevolunteer"; // Replace with the appropriate customer home page URL
         } else {
             System.out.println("Invalid username or password");
@@ -59,6 +64,12 @@ public class LoginController {
         return "login";
     }
 }
+
+@GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/homepage";
+    }
 
 
 
