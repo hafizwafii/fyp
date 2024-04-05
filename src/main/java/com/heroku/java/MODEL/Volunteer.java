@@ -151,6 +151,55 @@ public class Volunteer {
         this.password = password;
     }
 
+
+
+    public String getVolunteerpassword() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getVolunteerpassword'");
+    }
+
+
+
+    public String getVolunteername() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getVolunteername'");
+    }
+
+
+
+    public String getVolunteeremail() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getVolunteeremail'");
+    }
+
+
+
+    public int getVolunteerphonenum() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getVolunteerphonenum'");
+    }
+
+
+
+    public String getVolunteericnum() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getVolunteericnum'");
+    }
+
+
+
+    public Date getVolunteerbirthdate() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getVolunteerbirthdate'");
+    }
+
+
+
+    public String getVolunteerusername() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getVolunteerusername'");
+    }
+
    
 
     

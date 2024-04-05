@@ -55,9 +55,9 @@
               
 
                   <form 
-                  th:action="@{/provilevolunteer}"
+                  th:action="@{/profilevolunteer}"
                   method="post"
-                  th:object="${profievolunteer}"
+                  th:object="${profilevolunteer}"
                   modelAttribute="VolunteerProfile"
                   >
                     <div class="mb-3">
@@ -78,7 +78,7 @@
                     </div>
                     <div class="mb-3">
                       <label for="birthdaydate" class="form-label fw-semibold">Birthday Date</label>
-                      <input type="date" class="form-control" th:value="${VolunteerProfile.birthdate}" id="birthdaydate" name="birthdaydate" required>
+                      <input type="date" class="form-control" th:value="${VolunteerProfile.birthdate}" id="birthdate" name="birthdate" required>
                     </div>
                     <div class="mb-3">
                       <label for="age" class="form-label fw-semibold">Age</label>

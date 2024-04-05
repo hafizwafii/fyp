@@ -52,5 +52,29 @@ public String volunteerProfile(@RequestParam(name = "success", required = false)
     return "/profilevolunteer";
 }
 
+ @PostMapping("UpdateProfile")
+    public String updateProfile(HttpSession session, @ModelAttribute("VolunteerProfile") Volunteer volunteer, Model model) {
+        int vid = (int) session.getAttribute("vid");
+        String vfullname = (String) session.getAttribute("vname");
+        System.out.println("Volunteer id in session (volunteer update): " + vid);
+        System.out.println("Volunteer name in session (volunteer update): " + vfullname);
+
+        if (vid != 0) {
+            try {
+                volunteer.setId(vid);
+                volunteer = volunteerProfileDAO.UpdateProfile(volunteer);
+                return "redirect:/profilevolunteer?profileSuccess=true";
+            } catch (SQLException sqe) {
+                System.out.println("Error Code = " + sqe.getErrorCode());
+                System.out.println("SQL state = " + sqe.getSQLState());
+                System.out.println("Message = " + sqe.getMessage());
+                System.out.println("printTrace /n");
+                sqe.printStackTrace();
+                return "redirect:/homevolunteer";
+            }
+        }
+        return "/profilevolunteer?profileSuccess=true";
+    }
+
     
 }

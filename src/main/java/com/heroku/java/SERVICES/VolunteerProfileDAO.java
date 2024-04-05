@@ -11,7 +11,9 @@ import java.util.List;
 import javax.sql.DataSource; 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service; 
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
 import jakarta.servlet.http.HttpSession;
 
 import javax.sql.DataSource;
@@ -64,6 +66,34 @@ public class VolunteerProfileDAO {
         }
         return null;
     }
+
+    //update profile
+    public Volunteer UpdateProfile (@ModelAttribute("VolunteerProfile") Volunteer volunteer) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            String sql = "UPDATE volunteer SET vfullname=?, vemail=?, vphonenum=?, vicnum=?, vbirthdate=? , vusername=? , vpassword=? WHERE vid=?";
+            final var statement = connection.prepareStatement(sql);
+
+            String vpassword = volunteer.getVolunteerpassword();
+            System.out.println("password: " + vpassword);
+
+            statement.setString(1, volunteer.getVolunteername());
+            statement.setString(2, volunteer.getVolunteeremail());
+            statement.setInt(3, volunteer.getVolunteerphonenum());
+            statement.setString(4, volunteer.getVolunteericnum());
+            statement.setDate(5, volunteer.getVolunteerbirthdate());
+            statement.setString(6, volunteer.getVolunteerusername());
+            statement.setString(7, volunteerpassword());
+
+            statement.executeUpdate();
+        }
+        return volunteer;
+    }
+
+    private String volunteerpassword() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'volunteerpassword'");
+    }
+
 
 
 
