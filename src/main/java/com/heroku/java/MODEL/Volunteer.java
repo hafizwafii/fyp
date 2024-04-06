@@ -153,24 +153,24 @@ public class Volunteer {
 
 
 
-    public String getVolunteerpassword() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getVolunteerpassword'");
-    }
+    // public String getVolunteerpassword() {
+    //     // TODO Auto-generated method stub
+    //     throw new UnsupportedOperationException("Unimplemented method 'getVolunteerpassword'");
+    // }
 
 
 
-    public String getVolunteername() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getVolunteername'");
-    }
+    // public String getVolunteername() {
+    //     // TODO Auto-generated method stub
+    //     throw new UnsupportedOperationException("Unimplemented method 'getVolunteername'");
+    // }
 
 
 
-    public String getVolunteeremail() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getVolunteeremail'");
-    }
+    // public String getVolunteeremail() {
+    //     // TODO Auto-generated method stub
+    //     throw new UnsupportedOperationException("Unimplemented method 'getVolunteeremail'");
+    // }
 
 
 

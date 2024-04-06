@@ -55,11 +55,15 @@
               
 
                   <form 
-                  th:action="@{/profilevolunteer}"
+                  th:action="@{/UpdateProfile}"
                   method="post"
                   th:object="${profilevolunteer}"
                   modelAttribute="VolunteerProfile"
                   >
+
+                  <div>
+                    <input type="text" class="form-control" th:value="${VolunteerProfile.id}" id="id" name="id" required>
+                  </div>
                     <div class="mb-3">
                       <label for="name" class="form-label fw-semibold">Name</label>
                       <input type="text" class="form-control" th:value="${VolunteerProfile.name}" id="name" name="name" required>
@@ -70,7 +74,7 @@
                     </div>
                     <div class="mb-3">
                       <label for="phonenum" class="form-label fw-semibold">Phone Number</label>
-                      <input type="tel" class="form-control" th:value="${VolunteerProfile.phonenum}" id="phonenum" name="phonenum" required>
+                      <input type="text" class="form-control" th:value="${VolunteerProfile.phonenum}" id="phonenum" name="phonenum" required>
                     </div>
                     <div class="mb-3">
                       <label for="icnum" class="form-label fw-semibold">IC Number</label>

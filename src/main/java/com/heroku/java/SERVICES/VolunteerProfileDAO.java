@@ -42,20 +42,32 @@ public class VolunteerProfileDAO {
 
             // dia amik dari db so naming kena betul ; selagi dia baca dia akan amik data
             while (resultSet.next()) {
-                String vfullname = resultSet.getString("vfullname");
-                String vemail = resultSet.getString("vemail");
-                int vphonenum = resultSet.getInt("vphonenum");
-                String vicnum = resultSet.getString("vicnum");
-                Date vbirthdate = resultSet.getDate("vbirthdate");
-                int vage = resultSet.getInt("vage");
-                String vusername = resultSet.getString("vusername");
-                String vpassword = resultSet.getString("vpassword");
+                Volunteer volunteer=new Volunteer();
+                volunteer.setId(resultSet.getInt("vid"));
+                volunteer.setName(resultSet.getString("vfullname"));
+                volunteer.setEmail(resultSet.getString("vemail"));
+                volunteer.setPhonenum(resultSet.getInt("vphonenum"));
+                volunteer.setIcnum(resultSet.getString("vicnum"));
+                volunteer.setBirthdate(resultSet.getDate("vbirthdate"));
+                volunteer.setAge(resultSet.getInt("vage"));
+                volunteer.setUsername(resultSet.getString("vusername"));
+                volunteer.setPassword(resultSet.getString("vpassword"));
+
+                // String vfullname = resultSet.getString("vfullname");
+                // String vemail = resultSet.getString("vemail");
+                // int vphonenum = resultSet.getInt("vphonenum");
+                // String vicnum = resultSet.getString("vicnum");
+                // Date vbirthdate = resultSet.getDate("vbirthdate");
+                // int vage = resultSet.getInt("vage");
+                // String vusername = resultSet.getString("vusername");
+                // String vpassword = resultSet.getString("vpassword");
 
                 // debug
-                System.out.println("Volunteer name from db = " + vfullname);
+                // System.out.println("Volunteer name from db = " + vfullname);
 
-                // hantar dekat bean untuk dia baca pastu pass data kat controller
-                return new Volunteer(vid, vfullname, vemail, vphonenum, vicnum , vbirthdate ,vage , vusername , vpassword);
+                // // hantar dekat bean untuk dia baca pastu pass data kat controller
+                // return new Volunteer(vid, vfullname, vemail, vphonenum, vicnum , vbirthdate ,vage , vusername , vpassword);
+                return volunteer;
             }
         } catch (SQLException sqe) {
             System.out.println("Error Code = " + sqe.getErrorCode());
@@ -68,21 +80,23 @@ public class VolunteerProfileDAO {
     }
 
     //update profile
-    public Volunteer UpdateProfile (@ModelAttribute("VolunteerProfile") Volunteer volunteer) throws SQLException {
+    public Volunteer UpdateProfile (Volunteer volunteer) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             String sql = "UPDATE volunteer SET vfullname=?, vemail=?, vphonenum=?, vicnum=?, vbirthdate=? , vusername=? , vpassword=? WHERE vid=?";
             final var statement = connection.prepareStatement(sql);
 
-            String vpassword = volunteer.getVolunteerpassword();
+            String vpassword = volunteer.getPassword();
             System.out.println("password: " + vpassword);
+            
 
-            statement.setString(1, volunteer.getVolunteername());
-            statement.setString(2, volunteer.getVolunteeremail());
-            statement.setInt(3, volunteer.getVolunteerphonenum());
-            statement.setString(4, volunteer.getVolunteericnum());
-            statement.setDate(5, volunteer.getVolunteerbirthdate());
-            statement.setString(6, volunteer.getVolunteerusername());
-            statement.setString(7, volunteerpassword());
+            statement.setString(1, volunteer.getName());
+            statement.setString(2, volunteer.getEmail());
+            statement.setInt(3, volunteer.getPhonenum());
+            statement.setString(4, volunteer.getIcnum());
+            statement.setDate(5, volunteer.getBirthdate());
+            statement.setString(6, volunteer.getUsername());
+            statement.setString(7, volunteer.getPassword());
+            statement.setInt(8, volunteer.getId());
 
             statement.executeUpdate();
         }
