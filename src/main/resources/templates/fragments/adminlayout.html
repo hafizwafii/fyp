@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="adminlayout (template, menu)">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous"> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <style>
+      /* Custom styles for the navigation bar */
+      .navbar {
+          background-color: black;
+          position: fixed;
+          width: 100%;
+          z-index: 1000;
+          top: 0;
+      }
+
+      .navbar a {
+          color: white;
+          text-decoration: none; /* Remove default underline */
+          transition: text-decoration 0.3s; /* Smooth transition for underline */
+      }
+
+      .navbar a:hover {
+          text-decoration: underline; /* Underline on hover */
+      }
+
+      .nav-link:hover {
+          text-decoration: underline; /* Underline on hover */
+      }
+
+      /* Style for sidebar */
+      #sidebar {
+          position: fixed;
+          top: 56px; /* Height of the navbar */
+          left: 0;
+          width: 200px;
+          height: calc(100vh - 56px); /* Height of viewport minus height of navbar */
+          background-color: #fff;
+          border-right: 1px solid #ddd;
+          overflow-y: auto; /* Enable scrolling if content exceeds height */
+      }
+  </style>
+</head>
+<body style="background-color:#dfdfdf;">
+    
+  
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">FILANTROPI FAKIR GELANDANGAN</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" th:href="@{/homepageadmin}">Home</a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" th:href="@{/login}">Login</a>
+                    </li> -->
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/logout}">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <h5>Menu</h5>
+        <ul class="nav flex-column">
+            <li><a th:href="@{/}" 
+                class="nav-link text-black d-flex justify-content-start" 
+                aria-current="page">
+                <span class="material-symbols-outlined" 
+                style="margin-right: 0px;">
+                </span>Program</a>
+            </li> 
+
+            <li><a th:href="@{/}" 
+                class="nav-link text-black d-flex justify-content-start" 
+                aria-current="page">
+                <span class="material-symbols-outlined" 
+                style="margin-right: 0px;">
+                </span>Volunteer</a>
+            </li> 
+
+            <li><a th:href="@{/}" 
+                            class="nav-link text-black d-flex justify-content-start" 
+                            aria-current="page">
+                            <span class="material-symbols-outlined" 
+                            style="margin-right: 0px;">
+                            </span>Isuue</a>
+            </li> 
+        </ul>
+    </div>
+
+
+    <div th:replace="${template}"></div>
+</body>
+<script th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js}" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script> 
+<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js}" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script> 
+<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js}" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script> 
+</html>
