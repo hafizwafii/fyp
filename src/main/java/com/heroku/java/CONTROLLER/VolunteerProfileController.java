@@ -33,7 +33,7 @@ public String volunteerProfile(@RequestParam(name = "success", required = false)
     //debug
     System.out.println("Volunteer id in session (volunteer profile): " + vid);
     System.out.println("Volunteer name in session (volunteer profile): " + username);
-    // System.out.println("Volunteerid :" + volunteer.getId());
+    
 
     if (vid != 0) {
         try {
@@ -55,18 +55,18 @@ public String volunteerProfile(@RequestParam(name = "success", required = false)
 
  @PostMapping("/UpdateProfile")
     public String updateProfile(HttpSession session, @ModelAttribute("VolunteerProfile") Volunteer volunteer, Model model) {
-        // int vid = (int) session.getAttribute("vid");
+       
         int vid=volunteer.getId();
 
         String vfullname = volunteer.getName();
-        // String vfullname = (String) session.getAttribute("vname");
+       
         System.out.println("Volunteer id in session (volunteer update): " + vid);
         System.out.println("Volunteer name in session (volunteer update): " + vfullname);
         
 
         if (vid != 0) {
             try {
-                // volunteer.setId((int) session.getAttribute("vid"));
+                
                 volunteer = volunteerProfileDAO.UpdateProfile(volunteer);
                 session.setAttribute("VolunteerProfile", volunteer);
                 return "redirect:/profilevolunteer?profileSuccess=true";

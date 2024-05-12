@@ -47,15 +47,24 @@ public class GettingStartedApplication {
         return "homepageadmin";
     }
 
-    @GetMapping("/viewIssue")
-    public String viewIssue() {
-        return "viewIssue";
-    }
+    
 
-    @GetMapping("/addIssue")
-    public String addIssue() {
-        return "addIssue";
-    }
+    // @GetMapping("/addProgram")
+    // public String addProgram() {
+    //     return "addProgram";
+    // }
+
+
+
+    // @GetMapping("/viewIssue")
+    // public String viewIssue() {
+    //     return "viewIssue";
+    // }
+
+    // @GetMapping("/addIssue")
+    // public String addIssue() {
+    //     return "addIssue";
+    // }
     
 
     // @GetMapping("/profilevolunteer")

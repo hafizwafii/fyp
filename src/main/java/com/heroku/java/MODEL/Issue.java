@@ -3,6 +3,7 @@ package com.heroku.java.MODEL;
 import java.sql.Date;
 
 public class Issue {
+    private int iid;
     private String iname;
     private String idesc;
     private Date idate;
@@ -11,11 +12,20 @@ public class Issue {
     public Issue(){
     }
 
-    public Issue(String iname, String idesc, Date idate, String iremark) {
+    public Issue(int iid, String iname, String idesc, Date idate, String iremark) {
+        this.iid=iid;
         this.iname = iname;
         this.idesc = idesc;
         this.idate = idate;
         this.iremark = iremark;
+    }
+
+    public int getIid(){
+        return iid;
+    }
+
+    public void setIid(int iid){
+        this.iid=iid;
     }
 
     public String getIname() {
@@ -49,8 +59,5 @@ public class Issue {
     public void setIremark(String iremark) {
         this.iremark = iremark;
     }
-
-    
-    
     
 }
