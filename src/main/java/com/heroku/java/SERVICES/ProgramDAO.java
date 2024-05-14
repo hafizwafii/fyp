@@ -52,8 +52,8 @@ public class ProgramDAO {
         }
     }
 
-    public ArrayList<Program> listProgram() throws SQLException {
-        ArrayList<Program> programlist = new ArrayList<>();
+    public List<Program> listProgram() throws SQLException {
+        List<Program> programlist = new ArrayList<>();
         try (Connection connection = dataSource.getConnection()) {
             String sql = "SELECT * FROM program ORDER BY programid";
             PreparedStatement statement = connection.prepareStatement(sql);

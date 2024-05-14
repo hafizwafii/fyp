@@ -41,6 +41,11 @@
           border-right: 1px solid #ddd;
           overflow-y: auto; /* Enable scrolling if content exceeds height */
       }
+
+      /* Ensure content area doesn't overlap with the sidebar */
+      .content {
+          margin-left: 210px; /* Adjust the margin to fit the sidebar */
+      }
   </style>
 </head>
 <body style="background-color:#dfdfdf;">
@@ -58,9 +63,6 @@
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" th:href="@{/homepageadmin}">Home</a>
                     </li>
-                    <!-- <li class="nav-item">
-                        <a class="nav-link" th:href="@{/login}">Login</a>
-                    </li> -->
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/logout}">Logout</a>
                     </li>
@@ -94,15 +96,19 @@
                             aria-current="page">
                             <span class="material-symbols-outlined" 
                             style="margin-right: 0px;">
-                            </span>Isuue</a>
+                            </span>Issue</a>
             </li> 
         </ul>
     </div>
 
-
     <div th:replace="${template}"></div>
 </body>
-<script th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js}" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script> 
-<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js}" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script> 
-<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js}" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script> 
-</html>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+        integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+</body>
+

@@ -69,6 +69,7 @@ public class IssueViewController {
         }
         return "redirect:/updateIssue"; // Replace with the appropriate redirect URL after updating the staff details
     }
+    
 
     // @PostMapping("/deleteStaff")
     // public String deleteStaff(@RequestParam("id") int employeeId) {

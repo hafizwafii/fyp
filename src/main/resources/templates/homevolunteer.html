@@ -61,110 +61,81 @@
         </div>
 
         <div class="row justify-content-evenly container-fluid">
-          <div class="col-3">
-            <div class="card-header text-center">Program 1</div>
-            <div class="card-body">
-              <h5 class="card-title text-center">Food Distribution</h5>
-              <p class="card-text">
-                "Our food distribution program is a cornerstone of our efforts
-                to support individuals experiencing homelessness in our
-                community. Through partnerships with local organizations,
-                businesses, and volunteers, we provide nutritious meals to those
-                in need.
-              </p>
-              <img
-                th:src="@{fooddist.jpg}"
-                class="img-fluid"
-                style="height: 300px; max-width: auto"
-              />
 
-              <div class="text-center mt-2">
-                <a href="#" class="btn btn-secondary">See Detail</a>
-              </div>  
-            </div>
-            <div class="card-footer text-body-secondary">2 days ago</div>
-          </div>
+          <div class="offset-2 justify-content-evenly align-items-center col-9"></div>
+                    <table class="table table-striped text-center m-2">
+                      <thead>
+                        <tr>
+                          <th scope="col" style="display:none;">Program ID</th>
+                          <th scope="col">Program Image</th>
+                          <th scope="col">Program  Name</th>
+                          <th scope="col">Program  Description</th>
+                          <th scope="col">Program Venue</th>
+                          <th scope="col">Program Time</th>
+                          <th scope="col">Program Date</th>
+                          <th scope="col">Action</th>
+                        </tr>
+                      </thead>
 
-          <div class="col-3">
-            <div class="card-header text-center">Program 2</div>
-            <div class="card-body">
-              <h5 class="card-title text-center">Cloth Distribution</h5>
-              <p class="card-text">
-                "Our food distribution program is a cornerstone of our efforts
-                to support individuals experiencing homelessness in our
-                community. Through partnerships with local organizations,
-                businesses, and volunteers, we provide nutritious meals to those
-                in need.
-              </p>
-              <img
-                th:src="@{clothdist.jpg}"
-                class="img-fluid"
-                style="height: 300px; max-width: auto"
-              />
+                      <tbody>
+                        
+                        <tr th:each="program: ${programs}">
+                          <td th:text="${program.pid}" style="display:none;"></td>
+                          <td><img th:src="${program.imageSrc}" alt="Program Image" style="width: 250px; height: 150px;margin-top:10px"></td>
+                            <td th:text="${program.pname}"></td>
+                            <td th:text="${program.pdesc}"></td>
+                            <td th:text="${program.pvenue}"></td>
+                            <td th:text="${program.ptime}"></td>
+                            <td th:text="${program.pdate}"></td>
+                            <td
+                            >
 
-              <div class="text-center mt-2">
-                <a href="#" class="btn btn-secondary">See Detail</a>
-              </div>  
+                            <div class="btn-group" role="group" aria-label="Action buttons">
+                              <a th:href="@{/registrationform}" class="btn btn-primary">Register</a>
+                            </div>
+                            
+                            
 
-            </div>
-            <div class="card-footer text-body-secondary">2 days ago</div>
-          </div>
+                        </div>
 
-          <div class="col-3">
-            <div class="card-header text-center">Program 3</div>
-            <div class="card-body">
-              <h5 class="card-title text-center">Hygiene Kit Distribution</h5>
-              <p class="card-text">
-                "Our food distribution program is a cornerstone of our efforts
-                to support individuals experiencing homelessness in our
-                community. Through partnerships with local organizations,
-                businesses, and volunteers, we provide nutritious meals to those
-                in need.
-              </p>
-              <img
-                th:src="@{hygienedist.jpg}"
-                class="img-fluid"
-                style="height: 300px; max-width: auto"
-              />
+                        </td>
+                    </tr>   
 
-              <div class="text-center mt-2">
-                <a href="#" class="btn btn-secondary">See Detail</a>
-              </div>  
+                    <div class="offset-2 justify-content-evenly align-items-center col-9"></div>
+                    <table class="table table-striped text-center m-3">
+                      <thead>
+                        <tr>
+                          <th scope="col" style="display:none;">Issue ID</th>
+                          <th scope="col">Issue Name</th>
+                          <th scope="col">Issue Description</th>
+                          <th scope="col">Issue Date</th>
+                          <th scope="col">Issue Remark</th>
+                          <th scope="col">Action</th>
+                        </tr>
+                      </thead>
 
-            </div>
+                      <tbody>
+                        <!-- Use Thymeleaf loop to iterate over the employees -->
+                        <tr th:each="issue: ${issuess}">
+                            <td th:text="${issue.iid}" style="display:none;"></td>
+                            <td th:text="${issue.iname}"></td>
+                            <td th:text="${issue.idesc}"></td>
+                            <td th:text="${issue.idate}"></td>
+                            <td th:text="${issue.iremark}"></td>
+                            <td
+                            >
 
-            <div class="card-footer text-body-secondary" id="posted-date">
-              2 days ago
-            </div>
-          </div>
+                            <div class="btn-group" role="group" aria-label="Action buttons">
+                              <a th:href="@{'/updateIssue?id=' + ${issue.iid}}" class="btn btn-primary">Update</a>
+                  
+                              <!-- <button type="button" class="btn btn-danger" data-bs-toggle="modal" th:data-bs-target="'#exampleModal-' + ${issue.iid}">Remove</button> -->
+                          </div>
 
-          <script>
-            // Get the posted date from the card-footer
-            let postedDateElement = document.getElementById("posted-date");
-            let postedDate = new Date(postedDateElement.innerText.trim());
+                        </td>
+                    </tr>   
 
-            // Get the current date
-            let currentDate = new Date();
+                    
 
-            // Calculate the difference in days
-            let differenceInTime = currentDate.getTime() - postedDate.getTime();
-            let differenceInDays = differenceInTime / (1000 * 3600 * 24);
-
-            // Update the text in the card-footer
-            postedDateElement.innerText =
-              Math.floor(differenceInDays) + " days ago";
-          </script>
-        </div>
-
-        <div class="col-3">
-          <div class="card-header text-center">Problem 1</div>
-          <div class="card-body">
-            <h5 class="card-title text-center">Hygiene Kit Distribution</h5>
-            <p class="card-text">
-              The homeless people always feeling sick lately due to insufficient of medicine
-            </p>
-          </div>
-        </div>
 
 
 
@@ -188,23 +159,7 @@
           </div>
         </div> -->
 
-        <!-- <div class="row justify-content-evenly container-fluid">
-                <div class="col-3" style="background-color: blue; border-radius:10px;">
-                    <div class="row justify-content-evenly container-fluid mb-5">
-                        <div class="col-3" style="background-color: #301959; border-radius:10px;">
-                            <img th:src="@{fooddist.jpg}" class="container-fluid mt-3 rounded" style="height: auto;width: auto;">
-                            <div class="row justify-content-between">
-                                <p class="col-4 container-fluid text-light mt-2 mb-0" name="car_name">Honda FK8</p>
-                                <p class="col-5 container-fluid text-light mt-2 mb-0" name="car_price">Price: RM150/DAY</p>
-                            </div>
-                            <p class="col-12 container-fluid text-light mb-3" name="condition">Condition: 6/10</p>
-                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <button class="btn btn-warning" type="button">SEE DETAILS</button>
-                            </div>
-                        </div>
-                    </div>            
-                </div>
-            </div> -->
+      
       </div>
     </div>
   </body>
