@@ -77,6 +77,18 @@ public class GettingStartedApplication {
         return "registrationform";
     }
 
+    @GetMapping("/viewVolunteer")
+    public String viewVolunteer() {
+        return "viewVolunteer";
+    }
+
+    // @GetMapping("/addAccount")
+    // public String addAccount () {
+    //     return "addAccount";
+    // }
+
+
+
 
     // @GetMapping("/homepage")
     // public String homepage(Model model, Issue issue) {

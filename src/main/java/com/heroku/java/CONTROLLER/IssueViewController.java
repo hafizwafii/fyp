@@ -44,18 +44,19 @@ public class IssueViewController {
         }
 
     //updateissue
-    @GetMapping("/updateIssue")
-    public String updateIssue(@RequestParam("iid")int issueid, Model model) {
-      try {
-        IssueViewDAO issueViewDAO = new IssueViewDAO(dataSource);
-        Issue issue = issueViewDAO.getIssueById(issueid);
-        model.addAttribute("updateIssue", issue);
-        return "updateIssue";
-      } catch (SQLException e) {
-        e.printStackTrace();
-        System.out.println("damn error bro");
-        return "error";
-    }
+     @GetMapping("/updateIssue")
+    public String updateIssue(@RequestParam("iid") int issueid, Model model) {
+        try {
+            System.out.println("issueid in controller :"+ issueid);
+
+            IssueViewDAO issueViewDAO = new IssueViewDAO(dataSource);
+            Issue issue = issueViewDAO.getIssueById(issueid);
+            model.addAttribute("issue", issue);
+            return "updateIssue";
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "error";
+        }
     }
 
     @PostMapping("/updateIssue")
@@ -63,29 +64,31 @@ public class IssueViewController {
         try {
             IssueViewDAO issueViewDAO = new IssueViewDAO(dataSource);
             issueViewDAO.updateIssue(issue);
+            return "redirect:/viewIssue"; // Redirect to the viewIssue page after updating the issue
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Damn error BRO!");
+            return "error";
         }
-        return "redirect:/updateIssue"; // Replace with the appropriate redirect URL after updating the staff details
+    }
+    
+    //Delete the issue//
+    @PostMapping("/deleteIssue")
+    public String deleteIssue(@RequestParam("iid") int issueid) {
+        try {
+            IssueViewDAO issueViewDAO = new IssueViewDAO(dataSource);
+            issueViewDAO.deleteIssue(issueid);
+            return "redirect:/viewIssue";
+        } catch (SQLException e) {
+            System.out.println("Error deleting issue: " + e.getMessage());
+            // Handle the exception or display an error message to the user
+            // You can redirect to an error page or display a meaningful message
+            return "error";
+        }
     }
     
 
-    // @PostMapping("/deleteStaff")
-    // public String deleteStaff(@RequestParam("id") int employeeId) {
-    //     try {
-    //         EmployeeDAO employeeDAO = new EmployeeDAO(dataSource);
-    //         employeeDAO.deleteEmployee(employeeId);
-    //         return "redirect:/listStaff";
-    //     } catch (SQLException e) {
-    //         System.out.println("Error deleting employee: " + e.getMessage());
-    //         // Handle the exception or display an error message to the user
-    //         // You can redirect to an error page or display a meaningful message
-    //         return "error";
-    //     }
-    // }
-
 
         
-    }
+    
+}
 

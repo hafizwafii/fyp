@@ -16,9 +16,8 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.List;
 
-import com.heroku.java.SERVICES.IssueViewDAO;
 import com.heroku.java.SERVICES.ProgramDAO; //nama file dao
-import com.heroku.java.MODEL.Issue;
+
 import com.heroku.java.MODEL.Program; // nama model/bean
 
 @Controller
@@ -64,5 +63,54 @@ public class ProgramController {
         return "viewProgram";    
       
         }
+
+        // update program
+        @GetMapping("/updateProgram")
+        public String updateProgram(@RequestParam("programid") int programid, Model model) {
+            try {
+
+                System.out.println("programid in controller :"+ programid);
+                ProgramDAO programDAO = new ProgramDAO(dataSource);
+                Program program = programDAO.getProgramById(programid);
+    
+                if (program != null) {
+                    model.addAttribute("programs", program);
+                }
+    
+                return "updateProgram";
+            } catch (SQLException sqe) {
+                System.out.println("Error Code = " + sqe.getErrorCode());
+                System.out.println("SQL state = " + sqe.getSQLState());
+                System.out.println("Message = " + sqe.getMessage());
+                System.out.println("printTrace /n");
+                sqe.printStackTrace();
+                return "redirect:/viewProgram";
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("E message : " + e.getMessage());
+                return "error";
+            }
+        }
+
+        @PostMapping("/updateProgram")
+        public String updateProgram(@ModelAttribute("ProgramDetail") Program program, @RequestParam("pimage") MultipartFile pimage) {
+        ProgramDAO programDAO = new ProgramDAO(dataSource);
+        boolean success = programDAO.updateProgram(program, pimage);
+        if (success) {
+        return "redirect:/viewProgram";
+    }   else {
+        return "error";
+    }
+}
+
+
+
+
+
+
+       
+
+
+
     
 }

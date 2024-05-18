@@ -45,4 +45,36 @@ public class VolunteerDAO {
             throw e;
         }
     }
+
+    //search volunteer
+    public List<Volunteer> searchVolunteerByName(String name) throws SQLException{
+        List<Volunteer> volunteers = new ArrayList<>();
+    
+        try (Connection connection = dataSource.getConnection()) {
+            String sql = "SELECT * FROM volunteer WHERE vfullname LIKE ?";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setString(1, "%" + name + "%");
+                
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+                        Volunteer volunteer = new Volunteer();
+                        // volunteer.setId(resultSet.getInt("staffid"));
+                        volunteer.setName(resultSet.getString("vfullname"));
+                        volunteer.setEmail(resultSet.getString("vemail"));
+                        volunteer.setPhonenum(resultSet.getInt("vphonenum"));
+                        volunteer.setIcnum(resultSet.getString("vicnum"));
+                        volunteer.setBirthdate(resultSet.getDate("vbirthdate"));
+                        volunteer.setAge(resultSet.getInt("vage"));
+                        volunteer.setUsername(resultSet.getString("vusername"));
+                        volunteer.setPassword(resultSet.getString("vpassword"));
+    
+                        volunteers.add(volunteer);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            throw new SQLException("Error retrieving volunteer: " + e.getMessage());
+        }
+        return volunteers;
+        }
 }

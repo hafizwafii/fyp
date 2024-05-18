@@ -89,6 +89,109 @@ public class ProgramDAO {
         return programlist;
     }
 
+    public Program getProgramById(int programid) throws SQLException {
+        Program program = null;
+        try (Connection connection = dataSource.getConnection()) {
+            String sql = "SELECT pname, pdesc, pvenue, ptime, pdate, pimage FROM program WHERE programid = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, programid);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                String pname = resultSet.getString("pname");
+                String pdesc = resultSet.getString("pdesc");
+                String pvenue = resultSet.getString("pvenue");
+                String ptime = resultSet.getString("ptime");
+                Date pdate = resultSet.getDate("pdate");
+
+                System.out.println("pname: " + pname);
+
+                byte[] pimageBytes = resultSet.getBytes("pimage");
+                String base64Image = Base64.getEncoder().encodeToString(pimageBytes);
+                String imageSrc = "data:image/jpeg;base64," + base64Image;
+
+                program = new Program(programid, pname, pdesc, pvenue, ptime, pdate, null, null,imageSrc);
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+
+        return program;
+        
+    }
+
+    public boolean updateProgram(Program program, MultipartFile pImage) {
+        try (Connection connection = dataSource.getConnection()) {
+            String sql;
+            PreparedStatement statement;
+
+            // Check if a new image is provided
+            if (!pImage.isEmpty()) {
+                sql = "UPDATE program SET pname=?, pdesc=?, pvenue=?, ptime=?, pdate=?, pimage=? WHERE programid=?";
+                statement = connection.prepareStatement(sql);
+                statement.setString(1, program.getPname());
+                statement.setString(2, program.getPdesc());
+                statement.setString(3, program.getPvenue());
+                statement.setString(4, program.getPtime());
+                statement.setDate(5, program.getPdate());
+
+                statement.setBytes(6, pImage.getBytes());
+                statement.setInt(7, program.getPid());
+            } else {
+                sql = "UPDATE program SET pname=?, pdesc=?, pvenue=?, ptime=? , pdate=?  WHERE programid=?";
+                statement = connection.prepareStatement(sql);
+                statement.setString(1, program.getPname());
+                statement.setString(2, program.getPdesc());
+                statement.setString(3, program.getPvenue());
+                statement.setString(4, program.getPtime());
+                statement.setDate(5, program.getPdate());
+                statement.setInt(6, program.getPid());
+            }
+
+            // execute update
+            int rowsAffected = statement.executeUpdate();
+            connection.close();
+            return rowsAffected > 0;
+
+        } catch (SQLException sqe) {
+            System.out.println("Error Code = " + sqe.getErrorCode());
+            System.out.println("SQL state = " + sqe.getSQLState());
+            System.out.println("Message = " + sqe.getMessage());
+            sqe.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("E message: " + e.getMessage());
+        }
+        return false;
+    }
+
+    // delete program
+    public boolean deleteProgram(int programid) {
+        try (Connection connection = dataSource.getConnection()) {
+            // Check if the car is currently rented
+            // if (isCarRented(connection, carid)) {
+            //     System.out.println("Cannot delete the car because it is currently rented.");
+            //     return false;
+            // }
+                String sql = "DELETE FROM program WHERE programid = ?";
+                PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setInt(1, programid);
+                int rowsAffected = statement.executeUpdate();
+                return rowsAffected > 0;
+            }
+        } catch (SQLException sqe) {
+            System.out.println("Error Code = " + sqe.getErrorCode());
+            System.out.println("SQL state = " + sqe.getSQLState());
+            System.out.println("Message = " + sqe.getMessage());
+            sqe.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("E message: " + e.getMessage());
+        }
+        return false;
+    }
+
+
 
 
 

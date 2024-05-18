@@ -89,10 +89,31 @@ public class IssueViewDAO {
             String sql = "UPDATE issue SET issuename=?, issuedesc=?, issuedate=?, issueremark=? "
                     + "WHERE issueid=?";
             PreparedStatement statement = connection.prepareStatement(sql);
+
+            // String iname = issue.getIname();
+            // System.out.println("name: " + iname);
+
+
             statement.setString(1, issue.getIname());
             statement.setString(2, issue.getIdesc());
             statement.setDate(3, issue.getIdate());
             statement.setString(4, issue.getIremark());
+            statement.setInt(5, issue.getIid());
+
+            statement.executeUpdate();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    //delete staff
+    public void deleteIssue(int issueid) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            String sql = "DELETE FROM issue WHERE iid=?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, issueid);
 
             statement.executeUpdate();
             connection.close();
