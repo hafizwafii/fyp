@@ -167,29 +167,29 @@ public class ProgramDAO {
     }
 
     // delete program
-    public boolean deleteProgram(int programid) {
-        try (Connection connection = dataSource.getConnection()) {
-            // Check if the car is currently rented
-            // if (isCarRented(connection, carid)) {
-            //     System.out.println("Cannot delete the car because it is currently rented.");
-            //     return false;
-            // }
-                String sql = "DELETE FROM program WHERE programid = ?";
-                PreparedStatement statement = connection.prepareStatement(sql)) {
-                statement.setInt(1, programid);
-                int rowsAffected = statement.executeUpdate();
-                return rowsAffected > 0;
-            }
-        } catch (SQLException sqe) {
-            System.out.println("Error Code = " + sqe.getErrorCode());
-            System.out.println("SQL state = " + sqe.getSQLState());
-            System.out.println("Message = " + sqe.getMessage());
-            sqe.printStackTrace();
-        } catch (Exception e) {
-            System.out.println("E message: " + e.getMessage());
-        }
-        return false;
-    }
+    // public boolean deleteProgram(int programid) {
+    //     try (Connection connection = dataSource.getConnection()) {
+    //         // Check if the car is currently rented
+    //         // if (isCarRented(connection, carid)) {
+    //         //     System.out.println("Cannot delete the car because it is currently rented.");
+    //         //     return false;
+    //         // }
+    //             String sql = "DELETE FROM program WHERE programid = ?";
+    //             PreparedStatement statement = connection.prepareStatement(sql)) {
+    //             statement.setInt(1, programid);
+    //             int rowsAffected = statement.executeUpdate();
+    //             return rowsAffected > 0;
+    //         }
+    //     } catch (SQLException sqe) {
+    //         System.out.println("Error Code = " + sqe.getErrorCode());
+    //         System.out.println("SQL state = " + sqe.getSQLState());
+    //         System.out.println("Message = " + sqe.getMessage());
+    //         sqe.printStackTrace();
+    //     } catch (Exception e) {
+    //         System.out.println("E message: " + e.getMessage());
+    //     }
+    //     return false;
+    // }
 
 
 

@@ -7,50 +7,60 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <style>
-      /* Custom styles for the navigation bar */
-      .navbar {
-          background-color: black;
-          position: fixed;
-          width: 100%;
-          z-index: 1000;
-          top: 0;
-      }
+        /* Custom styles for the navigation bar */
+        .navbar {
+            background-color: black;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            top: 0;
+        }
 
-      .navbar a {
-          color: white;
-          text-decoration: none; /* Remove default underline */
-          transition: text-decoration 0.3s; /* Smooth transition for underline */
-      }
+        .navbar a {
+            color: white;
+            text-decoration: none; /* Remove default underline */
+            transition: text-decoration 0.3s; /* Smooth transition for underline */
+        }
 
-      .navbar a:hover {
-          text-decoration: underline; /* Underline on hover */
-      }
+        .navbar a:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
 
-      .nav-link:hover {
-          text-decoration: underline; /* Underline on hover */
-      }
+        .nav-link:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
 
-      /* Style for sidebar */
-      #sidebar {
-          position: fixed;
-          top: 56px; /* Height of the navbar */
-          left: 0;
-          width: 200px;
-          height: calc(100vh - 56px); /* Height of viewport minus height of navbar */
-          background-color: #fff;
-          border-right: 1px solid #ddd;
-          overflow-y: auto; /* Enable scrolling if content exceeds height */
-      }
+        /* Style for sidebar */
+        #sidebar {
+            position: fixed;
+            top: 56px; /* Height of the navbar */
+            left: 0;
+            width: 200px;
+            height: calc(100vh - 56px); /* Height of viewport minus height of navbar */
+            background-color: #fff;
+            border-right: 1px solid #ddd;
+            overflow-y: auto; /* Enable scrolling if content exceeds height */
+            text-align: center; /* Center the menu items */
+        }
 
-      /* Ensure content area doesn't overlap with the sidebar */
-      .content {
-          margin-left: 210px; /* Adjust the margin to fit the sidebar */
-      }
-  </style>
+        #sidebar h5 {
+            font-size: 1.5rem; /* Larger font size for the title */
+            margin-top: 20px;
+            margin-bottom: 40px; /* More gap between the title and the menu items */
+        }
+
+        #sidebar .nav-link {
+            font-size: 1.2rem; /* Larger font size for the menu items */
+            margin-bottom: 30px; /* Increase gap between menu items */
+        }
+
+        /* Ensure content area doesn't overlap with the sidebar */
+        .content {
+            margin-left: 210px; /* Adjust the margin to fit the sidebar */
+        }
+    </style>
 </head>
 <body style="background-color:#dfdfdf;">
-    
-  
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">FILANTROPI FAKIR GELANDANGAN</a>
@@ -75,37 +85,10 @@
     <div id="sidebar">
         <h5>Menu</h5>
         <ul class="nav flex-column">
-            <li><a th:href="@{/addProgram}" 
-                class="nav-link text-black d-flex justify-content-start" 
-                aria-current="page">
-                <span class="material-symbols-outlined" 
-                style="margin-right: 0px;">
-                </span>Program</a>
-            </li> 
-
-            <li><a th:href="@{/}" 
-                class="nav-link text-black d-flex justify-content-start" 
-                aria-current="page">
-                <span class="material-symbols-outlined" 
-                style="margin-right: 0px;">
-                </span>Volunteer</a>
-            </li> 
-
-            <li><a th:href="@{/addIssue}" 
-                            class="nav-link text-black d-flex justify-content-start" 
-                            aria-current="page">
-                            <span class="material-symbols-outlined" 
-                            style="margin-right: 0px;">
-                            </span>Issue</a>
-            </li> 
-
-            <li><a th:href="@{/addAccount}" 
-                class="nav-link text-black d-flex justify-content-start" 
-                aria-current="page">
-                <span class="material-symbols-outlined" 
-                style="margin-right: 0px;">
-                </span>Admin</a>
-</li> 
+            <li><a th:href="@{/addProgram}" class="nav-link text-black" aria-current="page">Program</a></li>
+            <li><a th:href="@{/viewVolunteer}" class="nav-link text-black" aria-current="page">Volunteer</a></li>
+            <li><a th:href="@{/addIssue}" class="nav-link text-black" aria-current="page">Issue</a></li>
+            <li><a th:href="@{/addAccount}" class="nav-link text-black" aria-current="page">Admin</a></li>
         </ul>
     </div>
 
@@ -119,4 +102,4 @@
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
 </body>
-
+</html>

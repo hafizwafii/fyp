@@ -47,6 +47,48 @@ public class LoginDAO {
         return null;
     }
 
+    public Volunteer checkAdmin(String adminusername, String adminpassword) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            System.out.println("password : "+ adminpassword);
+            System.out.println("username : "+ adminusername);
+            String sql = "SELECT adminid, adminname FROM admin WHERE adminusername = ? AND adminpassword = ?";// check attribute database
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, adminusername);
+            statement.setString(2, adminpassword);
+            ResultSet resultSet = statement.executeQuery();
+            
+            //selagi db tu baca dia amik benda tu yang declare 
+            if (resultSet.next()) {
+                int adminid = resultSet.getInt("adminid");
+                String adminname = resultSet.getString("adminname");
+                // attribute dia amik dari db pass ke controller
+                return new Volunteer(adminid, adminname, adminusername, adminpassword);
+            }
+            connection.close();
+        } 
+        return null;
+    }
+
+    // public boolean checkAdmin(String username, String password) throws SQLException {
+    //     try (Connection connection = dataSource.getConnection()) {
+    //         String sql = "SELECT COUNT(*) FROM employee WHERE username = ? AND password = ?";
+    //         PreparedStatement statement = connection.prepareStatement(sql);
+    //         statement.setString(1, username);
+    //         statement.setString(2, password);
+    //         ResultSet resultSet = statement.executeQuery();
+    //         if (resultSet.next()) {
+    //             int rowCount = resultSet.getInt(1);
+    //             return rowCount > 0;
+    //         }
+    //         connection.close();
+    //     } catch (SQLException e) {
+    //         throw e;
+    //     }
+    //     return false;
+    // }
+
+
+
 
     
 }

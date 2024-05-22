@@ -53,7 +53,6 @@
             </thead>
 
             <tbody>
-              <!-- Use Thymeleaf loop to iterate over the employees -->
               <tr th:each="issue: ${issuess}">
                 <td th:text="${issue.iid}"></td>
                 <td th:text="${issue.iname}"></td>

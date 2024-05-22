@@ -110,27 +110,18 @@
                           <th scope="col">Issue Description</th>
                           <th scope="col">Issue Date</th>
                           <th scope="col">Issue Remark</th>
-                          <th scope="col">Action</th>
                         </tr>
                       </thead>
 
                       <tbody>
-                        <!-- Use Thymeleaf loop to iterate over the employees -->
+                        
                         <tr th:each="issue: ${issuess}">
                             <td th:text="${issue.iid}" style="display:none;"></td>
                             <td th:text="${issue.iname}"></td>
                             <td th:text="${issue.idesc}"></td>
                             <td th:text="${issue.idate}"></td>
                             <td th:text="${issue.iremark}"></td>
-                            <td
-                            >
-
-                            <div class="btn-group" role="group" aria-label="Action buttons">
-                              <a th:href="@{'/updateIssue?id=' + ${issue.iid}}" class="btn btn-primary">Update</a>
-                  
-                              <!-- <button type="button" class="btn btn-danger" data-bs-toggle="modal" th:data-bs-target="'#exampleModal-' + ${issue.iid}">Remove</button> -->
-                          </div>
-
+                            
                         </td>
                     </tr>   
 

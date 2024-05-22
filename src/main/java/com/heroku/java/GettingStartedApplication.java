@@ -38,8 +38,6 @@ public class GettingStartedApplication {
         return "index";
     }
     
-    
-
     @GetMapping("/homepage")
     public String homepage(Model model, Program program, Issue issue) {
         ProgramDAO programDAO = new ProgramDAO(dataSource);
@@ -77,76 +75,18 @@ public class GettingStartedApplication {
         return "registrationform";
     }
 
-    @GetMapping("/viewVolunteer")
-    public String viewVolunteer() {
-        return "viewVolunteer";
-    }
-
-    // @GetMapping("/addAccount")
-    // public String addAccount () {
-    //     return "addAccount";
+    // @GetMapping("/viewVolunteer")
+    // public String viewVolunteer() {
+    //     return "viewVolunteer";
     // }
 
-
-
-
-    // @GetMapping("/homepage")
-    // public String homepage(Model model, Issue issue) {
-    //     IssueViewDAO issueViewDAO = new IssueViewDAO(dataSource);
-    //     try{
-    //         List<Issue> issuelist = issueViewDAO.listIssue();
-    //         model.addAttribute("issuess", issuelist);
-    //     }  catch (SQLException e) {
-    //         e.printStackTrace();
-    //         return "error";
-    //     }
-    //     return "homepage";
-    // }
-
-
-    // @GetMapping("/homevolunteer")
-    // public String homevolunteer() {
-    //     return "homevolunteer";
-    // }
-
+    
     @GetMapping("/homepageadmin")
     public String homepageadmin() {
         return "homepageadmin";
     }
 
     
-
-    // @GetMapping("/addProgram")
-    // public String addProgram() {
-    //     return "addProgram";
-    // }
-
-
-
-    // @GetMapping("/viewIssue")
-    // public String viewIssue() {
-    //     return "viewIssue";
-    // }
-
-    // @GetMapping("/addIssue")
-    // public String addIssue() {
-    //     return "addIssue";
-    // }
-    
-
-    // @GetMapping("/profilevolunteer")
-    // public String profilevolunteer() {
-    //     return "profilevolunteer";
-    // }
-
-    // @GetMapping("/login") 
-    // public String login(HttpSession session) { 
-    //         return "login"; 
-    // }
-    // @PostMapping("/login")
-    // public String login(HttpSession session, @RequestParam("username") String username,
-    //                 @RequestParam("password") String password, Model model) {
-
     // @GetMapping("/database")
     // String database(Map<String, Object> model) {
     //     try (Connection connection = dataSource.getConnection()) {

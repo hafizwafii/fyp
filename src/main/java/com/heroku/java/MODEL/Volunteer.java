@@ -3,15 +3,15 @@ package com.heroku.java.MODEL;
 import java.sql.Date;
 
 public class Volunteer {
-    private int id;
-    private String name;
-    private String email;
-    private int phonenum;
-    private String icnum;
-    private Date birthdate;
-    private int age;
-    private String username;
-    private String password;
+    public int id;
+    public String name;
+    public String email;
+    public int phonenum;
+    public String icnum;
+    public Date birthdate;
+    public int age;
+    public String username;
+    public String password;
 
     
     public Volunteer() {
@@ -174,17 +174,17 @@ public class Volunteer {
 
 
 
-    public int getVolunteerphonenum() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getVolunteerphonenum'");
-    }
+    // public int getVolunteerphonenum() {
+    //     // TODO Auto-generated method stub
+    //     throw new UnsupportedOperationException("Unimplemented method 'getVolunteerphonenum'");
+    // }
 
 
 
-    public String getVolunteericnum() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getVolunteericnum'");
-    }
+    // public String getVolunteericnum() {
+    //     // TODO Auto-generated method stub
+    //     throw new UnsupportedOperationException("Unimplemented method 'getVolunteericnum'");
+    // }
 
 
 

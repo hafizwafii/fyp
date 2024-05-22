@@ -12,6 +12,7 @@ import java.util.List;
 
 import com.heroku.java.SERVICES.LoginDAO;
 import com.heroku.java.SERVICES.VolunteerDAO;
+import com.heroku.java.MODEL.Admin;
 import com.heroku.java.MODEL.Volunteer;
 
 @Controller
@@ -34,6 +35,7 @@ public class LoginController {
         
         // panggil logindao tadi (checkvolunteer = function kat logindao)
         Volunteer isVolunteer = loginDAO.checkVolunteer(username, password);
+        // Admin isAdmin = loginDAO.checkAdmin(username, adminpassword);
 
         //setup session
         if (isVolunteer !=null) {

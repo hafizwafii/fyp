@@ -14,7 +14,10 @@ import java.sql.*;
 import java.util.List;
 
 import com.heroku.java.SERVICES.AdminDAO; //nama file dao
+import com.heroku.java.SERVICES.VolunteerDAO;
 import com.heroku.java.MODEL.Admin; // nama model/bean
+import com.heroku.java.MODEL.Volunteer;
+
 
 
 
@@ -52,11 +55,57 @@ public AdminController(DataSource dataSource) {
     }
 
     @GetMapping("/viewAccount")
-    public String viewAccount() {
-        return "viewAccount";
-    }
+    public String viewAccount(Model model, Admin admin) {
+        AdminDAO adminDAO = new AdminDAO(dataSource);
+        try{
+            List<Admin> adminlist = adminDAO.listAdmin();
+            model.addAttribute("admins", adminlist);
+        }  catch (SQLException e) {
+            e.printStackTrace();
+            return "error";
+        }
+        return "viewAccount";    
+      
+        }
 
-}   
+        // view volunteer
+        @GetMapping("/viewVolunteer")
+        public String listVolunteer(Model model) {
+        try {
+            AdminDAO adminDAO = new AdminDAO(dataSource);
+            List<Volunteer> volunteers = adminDAO.getAllVolunteers();
+            model.addAttribute("volunteers", volunteers);
+            return "viewVolunteer";
+        } catch (SQLException e) {
+            System.out.println("Error retrieving volunteers: " + e.getMessage());
+            return "homepage";
+        }
+    
+    }   
+
+    @GetMapping("/searchCustomer")
+    public String searchCustomer(@RequestParam(name = "searchValue", required = false) String searchValue, Model model) {
+        try {
+            // Perform the search based on the searchValue
+            VolunteerDAO volunteerDAO = new VolunteerDAO(dataSource);
+            List<Volunteer> searchResults = volunteerDAO.searchVolunteersByName(searchValue);
+    
+            // Add the search results and the searchValue to the model
+            model.addAttribute("volunteers", searchResults);
+            model.addAttribute("searchValue", searchValue);
+        } catch (SQLException e) {
+            // Handle the SQLException, log it, or rethrow it as a RuntimeException if needed
+            e.printStackTrace(); // You may want to log the exception instead
+            // You can also redirect to an error page or handle it in a way that makes sense for your application
+            model.addAttribute("error", "An error occurred during the search: " + e.getMessage());
+        }
+    // Return the view name to display the search results
+    return "viewVolunteer";
+    }
+}
+
+
+    
 
 
 

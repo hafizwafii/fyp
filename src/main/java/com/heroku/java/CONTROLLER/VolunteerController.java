@@ -59,7 +59,7 @@ public class VolunteerController  {
         try {
             // Perform the search based on the searchValue
             VolunteerDAO volunteerDAO = new VolunteerDAO(dataSource);
-            List<Volunteer> searchResults = volunteerDAO.searchVolunteerByName(searchValue);
+            List<Volunteer> searchResults = volunteerDAO.searchVolunteersByName(searchValue);
     
             // Add the search results and the searchValue to the model
             model.addAttribute("volunteers", searchResults);

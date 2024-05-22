@@ -22,9 +22,9 @@
 
                 <div class="offset-2 justify-content-evenly align-items-center col-9"></div>
 
-                <form th:action="@{/searchCustomer}" method="get">
+                <form th:action="@{/searchVolunteer}" method="get">
                     <div class="input-group mb-3">
-                        <input id="customerSearchInput" name="searchValue" type="text" class="form-control" placeholder="Search Volunteer Name" aria-label="Search" aria-describedby="basic-addon2">
+                        <input id="volunteerSearchInput" name="searchValue" type="text" class="form-control" placeholder="Search Volunteer Name" aria-label="Search" aria-describedby="basic-addon2">
                         <div class="input-group-append">
                             <button class="btn btn-primary" type="submit">Search</button>
                         </div>
@@ -34,53 +34,36 @@
                     <table class="table table-bordered border-dark image-table">
                       <thead>
                         <tr>
+                          <!-- <th scope="col">ID</th>   -->
                           <th scope="col">Full Name</th>
                           <th scope="col">Email</th>
                           <th scope="col">Phone Number</th>
                           <th scope="col">IC Number</th>
+                          <th scope="col">Username</th>
                           <th scope="col">Action</th>
                         </tr>
                       </thead>
 
                       <tbody>
-                        <!-- Use Thymeleaf loop to iterate over the employees -->
-                        <tr th:each="volunteer: ${signup}">
-                            <td th:text="${volunteer.vfullname}"></td>
-                            <td th:text="${volunteer.vemail}"></td>
-                            <td th:text="${volunteer.vphonenum}"></td>
-                            <td th:text="${volunteer.vicnum}"></td>
+                        <tr th:each="volunteer: ${volunteers}">
+                            <!-- <td th:text="${volunteer.id}"></td> -->
+                            <td th:text="${volunteer.name}"></td>
+                            <td th:text="${volunteer.email}"></td>
+                            <td th:text="${volunteer.phonenum}"></td>
+                            <td th:text="${volunteer.icnum}"></td>
+                            <td th:text="${volunteer.username}"></td>
                             <td
                             >
 
-                        <div class="btn-group" role="group" aria-label="Action buttons">
-                            <a th:href="@{'/updateIssue?id=' + ${issue.iid}}" class="btn btn-primary">Update</a>
+                        <!-- <div class="btn-group" role="group" aria-label="Action buttons">
+                            <a th:href="@{'/updateIssue?id=' + ${issue.iid}}" class="btn btn-primary">Update</a> -->
                 
-                            <!-- <button type="button" class="btn btn-danger" data-bs-toggle="modal" th:data-bs-target="'#exampleModal-' + ${issue.iid}">Remove</button> -->
+                           
                         </div>
 
                         </td>
                     </tr>   
                 
-                        <!-- <form action="/Deleteissue" method="post">
-                            <input th:value="${issue.iid}" name="id" hidden/>
-                            <div class="modal fade" th:id="'exampleModal-' + ${issue.iid}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="deleteModalLabel">Delete Issue</h5>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p>Are you sure you want to delete this issue?</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                            <button id="deleteButton" class="btn btn-danger" type="submit">Delete</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form> -->
-
                       </tbody>    
 
             </div>

@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import com.heroku.java.MODEL.Admin;
-import com.heroku.java.MODEL.Issue;
+import com.heroku.java.MODEL.Volunteer;
 
 @Repository
 public class AdminDAO {
@@ -31,13 +31,13 @@ public class AdminDAO {
 
      public void addAdmin(@ModelAttribute("AdminDetail") Admin admin) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
-            String insertIssueSql = "INSERT INTO admin ( adminname, adminemail, admincontactnum, adminusername, adminpassword) VALUES (?, ?, ?, ?, ?)";
+            String insertIssueSql = "INSERT INTO admin ( adminname, adminemail, adminusername, adminpassword, role) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement insertStatement = connection.prepareStatement(insertIssueSql); 
             insertStatement.setString(1, admin.getAdminname());
             insertStatement.setString(2, admin.getAdminemail());
-            insertStatement.setInt(3, admin.getAdmincontactnum());
-            insertStatement.setString(4, admin.getAdminusername());
-            insertStatement.setString(5, admin.getAdminpassword());
+            insertStatement.setString(3, admin.getAdminusername());
+            insertStatement.setString(4, admin.getAdminpassword());
+            insertStatement.setString(5, admin.getRole());
 
 
             insertStatement.execute(); 
@@ -50,7 +50,91 @@ public class AdminDAO {
         }
     }
 
-    
+    public List<Admin> listAdmin() throws SQLException {
+        List<Admin> adminlist = new ArrayList<>();
+        try (Connection connection = dataSource.getConnection()) {
+            String sql = "SELECT * FROM admin ORDER BY adminid";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
 
+            while (resultSet.next()) {
+
+                Admin admin = new Admin();
+                admin.setAdminid(resultSet.getInt("adminid"));
+                admin.setAdminname(resultSet.getString("adminname"));
+                admin.setAdminemail(resultSet.getString("adminemail"));
+                admin.setAdminusername(resultSet.getString("adminusername"));
+                admin.setAdminpassword(resultSet.getString("adminpassword"));
+                admin.setRole(resultSet.getString("role"));
+
+                adminlist.add(admin);
+            }
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw e;
+            }
+            return adminlist;
+  
+    }
+
+        //getProgram by ID
+        public Admin getAdminById(int adminid) throws SQLException {
+            Admin admin = null;
+            try (Connection connection = dataSource.getConnection()) {
+                String sql = "SELECT * FROM admin WHERE adminid=?";
+                PreparedStatement statement = connection.prepareStatement(sql);
+                statement.setInt(1, adminid);
+                ResultSet resultSet = statement.executeQuery();
     
+                if (resultSet.next()) {
+                    admin = new Admin();
+                    admin.setAdminid(resultSet.getInt("adminid"));
+                    admin.setAdminname(resultSet.getString("adminname"));
+                    admin.setAdminemail(resultSet.getString("adminemail"));
+                    admin.setAdminusername(resultSet.getString("adminusername"));
+                    admin.setAdminpassword(resultSet.getString("adminpassword"));
+                    admin.setRole(resultSet.getString("role"));
+                }
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw e;
+            }
+    
+            return admin;
+        }
+
+        // view volunteer
+        public List<Volunteer> getAllVolunteers() throws SQLException {
+            List<Volunteer> volunteers = new ArrayList<>();
+            
+            try (Connection connection = dataSource.getConnection()) {
+                String sql = "SELECT * FROM volunteer";
+                // String sql = "SELECT vid,vfullname,vemail,vphonenum,vicnum FROM volunteer";
+                PreparedStatement statement = connection.prepareStatement(sql);
+                ResultSet resultSet = statement.executeQuery();
+                
+                while (resultSet.next()) {
+                    int vid = resultSet.getInt("vid");
+                    String vfullname = resultSet.getString("vfullname");
+                    String vemail = resultSet.getString("vemail");
+                    int vphonenum = resultSet.getInt("vphonenum");
+                    String vicnum = resultSet.getString("vicnum");
+                    String vusername = resultSet.getString("vusername");
+                    
+                    Volunteer volunteer = new Volunteer(vid,vfullname, vemail, vphonenum , vicnum ,null, vphonenum, vusername, vusername);
+                    volunteers.add(volunteer);
+                }
+                connection.close();
+            } catch (SQLException e) {
+                    e.printStackTrace();
+            }
+            
+            return volunteers;
+        }
+
+
+
 }
+    

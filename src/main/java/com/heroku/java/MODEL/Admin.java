@@ -4,21 +4,21 @@ public class Admin {
     private int adminid;
     private String adminname;
     private String adminemail;
-    private int admincontactnum;
     private String adminusername;
     private String adminpassword;
+    private String role;
 
     public Admin(){
     }
 
-    public Admin(int adminid, String adminname, String adminemail, int admincontactnum, String adminusername,
-            String adminpassword) {
+    public Admin(int adminid, String adminname, String adminemail, String adminusername,
+            String adminpassword, String role) {
         this.adminid = adminid;
         this.adminname = adminname;
         this.adminemail = adminemail;
-        this.admincontactnum = admincontactnum;
         this.adminusername = adminusername;
         this.adminpassword = adminpassword;
+        this.role = role;
     }
 
     public int getAdminid() {
@@ -45,14 +45,7 @@ public class Admin {
         this.adminemail = adminemail;
     }
 
-    public int getAdmincontactnum() {
-        return admincontactnum;
-    }
-
-    public void setAdmincontactnum(int admincontactnum) {
-        this.admincontactnum = admincontactnum;
-    }
-
+    
     public String getAdminusername() {
         return adminusername;
     }
@@ -68,6 +61,16 @@ public class Admin {
     public void setAdminpassword(String adminpassword) {
         this.adminpassword = adminpassword;
     }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    
 
     
     
