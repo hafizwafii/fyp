@@ -108,13 +108,13 @@ public class AdminDAO {
         // view volunteer
         public List<Volunteer> getAllVolunteers() throws SQLException {
             List<Volunteer> volunteers = new ArrayList<>();
-            
+
             try (Connection connection = dataSource.getConnection()) {
                 String sql = "SELECT * FROM volunteer";
                 // String sql = "SELECT vid,vfullname,vemail,vphonenum,vicnum FROM volunteer";
                 PreparedStatement statement = connection.prepareStatement(sql);
                 ResultSet resultSet = statement.executeQuery();
-                
+
                 while (resultSet.next()) {
                     int vid = resultSet.getInt("vid");
                     String vfullname = resultSet.getString("vfullname");
@@ -122,7 +122,7 @@ public class AdminDAO {
                     int vphonenum = resultSet.getInt("vphonenum");
                     String vicnum = resultSet.getString("vicnum");
                     String vusername = resultSet.getString("vusername");
-                    
+
                     Volunteer volunteer = new Volunteer(vid,vfullname, vemail, vphonenum , vicnum ,null, vphonenum, vusername, vusername);
                     volunteers.add(volunteer);
                 }
@@ -130,10 +130,9 @@ public class AdminDAO {
             } catch (SQLException e) {
                     e.printStackTrace();
             }
-            
+
             return volunteers;
         }
-
 
 
 }

@@ -13,6 +13,8 @@ public class Volunteer {
     public String username;
     public String password;
 
+    // public int programId; // fk 
+
     
     public Volunteer() {
     }
@@ -30,6 +32,8 @@ public class Volunteer {
         this.age = age;
         this.username = username;
         this.password = password;
+
+        // this.programId = programId;
         
     }
 
@@ -150,6 +154,19 @@ public class Volunteer {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
+    // fk program
+
+    // public int getProgramId() {
+    //     return programId;
+    // }
+
+
+
+    // public void setProgramId(int programId) {
+    //     this.programId = programId;
+    // }
 
 
 

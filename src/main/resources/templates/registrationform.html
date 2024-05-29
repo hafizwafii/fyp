@@ -14,6 +14,8 @@
     <div class="container mt-3" style="height: 100%">
         <div class="card col-12 mt-3 mx-auto" style="width: 75rem; background-color: #dfdfdf">
             <div class="card-body">
+
+              
                 <div class="container-fluid mt-2 justify-content-center rounded p-2" style="background-color: #dfdfdf">
                     <p class="text-capitalize text-center mt-3 fw-bold" style="font-family: sans-serif; font-size: 24px; font-weight: bold;">
                         PLEASE READ THE FORM CAREFULLY
@@ -21,89 +23,52 @@
 
                     <div class="container mt-5">
                         <h2 class="text-center">Program Registration</h2>
-                        <form action="#" method="post" enctype="multipart/form-data" class="mx-auto" style="max-width: 600px;">
+                        <!-- <form 
+
+                        th:action="@{/registrationform}"
+                        method="post"  
+                        enctype="multipart/form-data"
+                        modelAttribute="registrations"
+                        class="mx-auto" style="max-width: 600px;"> -->
+
+                            <!-- <div>
+                                <input type="hidden" class="form-control" th:value="${registrations.pid}" id="pid" name="pid" required>
+                            </div> -->
+                        
                             <div class="mb-3">
                                 <label for="programimage" class="form-label">Program Image:</label>
-                                <input type="file" class="form-control" id="programimage" name="programimage" required>
+                                <input type="file" class="form-control"  id="programimage" name="programimage" required>
                             </div>
+
                             <div class="mb-3">
                                 <label for="pname" class="form-label">Program Name:</label>
-                                <input type="text" class="form-control" id="pname" name="pname" required>
+                                <input type="text" class="form-control"  id="pname" name="pname" required>
                             </div>
+
                             <div class="mb-3">
                                 <label for="pdesc" class="form-label">Program Description:</label>
-                                <textarea class="form-control" id="pdesc" name="pdesc" rows="3" required></textarea>
+                                <textarea class="form-control"  id="pdesc" name="pdesc" rows="2" required></textarea>
                             </div>
+
                             <div class="mb-3">
                                 <label for="pvenue" class="form-label">Program Venue:</label>
-                                <input type="text" class="form-control" id="pvenue" name="pvenue" required>
+                                <input type="text" class="form-control"  id="pvenue" name="pvenue" required>
                             </div>
+
                             <div class="mb-3">
                                 <label for="ptime" class="form-label">Program Time:</label>
-                                <input type="time" class="form-control" id="ptime" name="ptime" required>
+                                <input type="time" class="form-control"  id="ptime" name="ptime" required>
                             </div>
+
                             <div class="mb-3">
                                 <label for="pdate" class="form-label">Program Date:</label>
-                                <input type="date" class="form-control" id="pdate" name="pdate" required>
+                                <input type="date" class="form-control"  id="pdate" name="pdate" required>
                             </div>
+
+
                             <button type="submit" class="btn btn-primary d-block mx-auto">I WANT TO BECOME VOLUNTEER</button>
                         </form>
-
-
-                    <!-- <form  
-                    style="max-width: 600px;" 
-                    class="mx-auto"  
-                    method="post"  
-                    th:action="@{/registrationform}"  
-                    modelAttribute="ProgramDetail" 
-                    >
-
-                    <div class="container mt-5">
-                        <h2 class="text-center">Program Registration</h2>
-
-                 <div>
-                    <input type="hidden" class="form-control" th:value="${Programdetail.programid}" id="programid" name="programid" required>
-                  </div>
-                  <div class="mb-3">
-                    <img th:src="@{${Programdetail.imageSrc}}" alt="Program Image" class="img-fluid" style="max-width: 100%; height: auto;">
-                </div>
-                    <input type="file" class="form-control" id="pimage" name="pimage" required>
-                 </div>
-
-                 <div class="mb-3">
-                    <label for="name" class="form-label fw-semibold">Program Name</label>
-                    <input type="text" class="form-control" th:value="${ProgramDetail.pname}" id="pname" name="pname" readonly>
-                  </div>
-
-                    <div class="mb-3">
-                      <label for="description" class="form-label fw-semibold">Program Description</label>
-                      <input type="text" class="form-control" th:value="${ProgramDetail.pdesc}" id="pdesc" name="pdesc" readonly>
-                    </div>
-                    <div class="mb-3">
-                      <label for="venue" class="form-label fw-semibold">Program Venue</label>
-                      <input type="text" class="form-control" th:value="${ProgramDetail.pvenue}" id="pvenue" name="pvenue" >
-                    </div>
-                    <div class="mb-3">
-                      <label for="time" class="form-label fw-semibold">Program Time</label>
-                      <input type="text" class="form-control" th:value="${ProgramDetail.ptime}" id="ptime"  name="ptime" readonly>
-                    </div>
-                    <div class="mb-3">
-                      <label for="date" class="form-label fw-semibold">Program Date</label>
-                      <input type="date" class="form-control" th:value="${ProgramDetail.pdate}" id="pdate" name="pdate" readonly>
-                    </div>
-                    <div class="mb-3">
-                      <label for="age" class="form-label fw-semibold">Age</label>
-                      <input type="number" class="form-control" th:value="${VolunteerProfile.age}" id="age" name="age" readonly>
-                    </div>
-                    
-
-                    <button type="submit" class="btn btn-primary me-2">
-                      I WANT TO REGISTER
-                    </button>
-
-                    <button type="submit" class="btn btn-danger">Delete</button>
-
-                  </form> -->
+                        
                 </div>
                 </div>
             </div>
