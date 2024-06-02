@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpSession;
 
 import javax.sql.DataSource;
 
+import com.heroku.java.MODEL.Admin;
 import com.heroku.java.MODEL.Volunteer;
 
 @Repository
@@ -47,7 +48,7 @@ public class LoginDAO {
         return null;
     }
 
-    public Volunteer checkAdmin(String adminusername, String adminpassword) throws SQLException {
+    public Admin checkAdmin(String adminusername, String adminpassword) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             System.out.println("password : "+ adminpassword);
             System.out.println("username : "+ adminusername);
@@ -62,7 +63,7 @@ public class LoginDAO {
                 int adminid = resultSet.getInt("adminid");
                 String adminname = resultSet.getString("adminname");
                 // attribute dia amik dari db pass ke controller
-                return new Volunteer(adminid, adminname, adminusername, adminpassword);
+                return new Admin(adminid, adminname, adminusername, adminpassword);
             }
             connection.close();
         } 

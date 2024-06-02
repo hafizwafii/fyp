@@ -24,7 +24,7 @@
 
                 <form th:action="@{/searchVolunteer}" method="get">
                     <div class="input-group mb-3">
-                        <input id="volunteerSearchInput" name="searchValue" type="text" class="form-control" placeholder="Search Volunteer Name" aria-label="Search" aria-describedby="basic-addon2">
+                        <input id="volunteerSearchInput" name="vname" type="text" class="form-control" placeholder="Search Volunteer Name" aria-label="Search" aria-describedby="basic-addon2">
                         <div class="input-group-append">
                             <button class="btn btn-primary" type="submit">Search</button>
                         </div>
@@ -52,12 +52,8 @@
                             <td th:text="${volunteer.phonenum}"></td>
                             <td th:text="${volunteer.icnum}"></td>
                             <td th:text="${volunteer.username}"></td>
-                            <!-- <td th:text="${volunteer.programId}"></td> -->
+                            <td th:text="${volunteer.vpid != null ? 'NO' : 'YES'}"></td>
 
-
-                           
-                
-                           
                         </div>
 
                         </td>

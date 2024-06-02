@@ -74,17 +74,16 @@ public class IssueViewController {
     //Delete the issue//
     @PostMapping("/deleteIssue")
     public String deleteIssue(@RequestParam("iid") int issueid) {
-        try {
-            IssueViewDAO issueViewDAO = new IssueViewDAO(dataSource);
-            issueViewDAO.deleteIssue(issueid);
-            return "redirect:/viewIssue";
-        } catch (SQLException e) {
-            System.out.println("Error deleting issue: " + e.getMessage());
-            // Handle the exception or display an error message to the user
-            // You can redirect to an error page or display a meaningful message
-            return "error";
-        }
+    try {
+        IssueViewDAO issueViewDAO = new IssueViewDAO(dataSource);
+        issueViewDAO.deleteIssue(issueid);
+        return "redirect:/viewIssue";
+    } catch (SQLException e) {
+        System.out.println("Error deleting issue: " + e.getMessage());
+        return "error";
     }
+}
+
     
 
 

@@ -69,7 +69,7 @@
                      aria-describedby="usernameHelp"  
                      name="icnum"
                      onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-                     oninput="this.value = this.value.replace(/\D/g, '').replace(/(\d{6})(\d{2})(\d{4})/, '$1-$2-$3')"
+                     oninput="this.value = this.value.replace(/\D/g, '').replace(/(\d{6})(\d{2})(\d{4})/, '$1-$2-$3') ; updateBirthdateAndAge(this.value)"
                      maxlength="14"
                      required> 
           </div>
@@ -96,19 +96,34 @@
       </div> 
       
       <script>
-          // Initialize Flatpickr for the input field with ID 'Inputbirthdate'
-          flatpickr("#Inputbirthdate", {
-              dateFormat: "Y-m-d", // Date format
-              maxDate: "2006-12-31", // Set maximum date to 31st Dec, 2006
-              onChange: function(selectedDates, dateStr, instance) {
-                  // Calculate age
-                  const birthdate = new Date(dateStr);
-                  const today = new Date();
-                  const age = today.getFullYear() - birthdate.getFullYear();
-                  document.getElementById("InputAge").value = age;
-              }
-          });
-      </script>
+        function updateBirthdateAndAge(icnum) {
+            if (icnum.length === 14) {
+                const year = icnum.substring(0, 2);
+                const month = icnum.substring(2, 4);
+                const day = icnum.substring(4, 6);
+
+                const fullYear = (year > 20 ? '19' : '20') + year;
+                const birthdate = `${fullYear}-${month}-${day}`;
+                
+                document.getElementById("Inputbirthdate").value = birthdate;
+
+                const today = new Date();
+                const birthDateObj = new Date(birthdate);
+                let age = today.getFullYear() - birthDateObj.getFullYear();
+                const monthDiff = today.getMonth() - birthDateObj.getMonth();
+                if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDateObj.getDate())) {
+                    age--;
+                }
+                document.getElementById("InputAge").value = age;
+            }
+        }
+        
+        // Initialize Flatpickr for the input field with ID 'Inputbirthdate'
+        flatpickr("#Inputbirthdate", {
+            dateFormat: "Y-m-d",
+            maxDate: "2006-12-31"
+        });
+    </script>
           
                
               <div class="row mt-3"> 

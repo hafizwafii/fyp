@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.List;
 
+import com.heroku.java.SERVICES.IssueViewDAO;
 import com.heroku.java.SERVICES.ProgramDAO; //nama file dao
 
 import com.heroku.java.MODEL.Program; // nama model/bean
@@ -102,6 +103,22 @@ public class ProgramController {
         return "error";
     }
 }
+
+    //Delete the program
+    @PostMapping("/deleteProgram")
+    public String deleteProgram(@RequestParam("pid") int programid) {
+        try {
+            ProgramDAO programDAO = new ProgramDAO(dataSource);
+            programDAO.deleteProgram(programid);
+            
+            return "redirect:/viewProgram";
+        } catch (SQLException e) {
+            System.out.println("Error deleting program: " + e.getMessage());
+            // Handle the exception or display an error message to the user
+            // You can redirect to an error page or display a meaningful message
+            return "error";
+        }
+    }
 
 
 

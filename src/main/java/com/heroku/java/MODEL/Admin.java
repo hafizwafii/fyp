@@ -21,6 +21,13 @@ public class Admin {
         this.role = role;
     }
 
+    public Admin(int adminid, String adminname, String adminusername, String adminpassword) {
+        this.adminid = adminid;
+        this.adminname = adminname;
+        this.adminusername = adminusername;
+        this.adminpassword = adminpassword;
+    }
+
     public int getAdminid() {
         return adminid;
     }

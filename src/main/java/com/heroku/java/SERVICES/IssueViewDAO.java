@@ -108,10 +108,10 @@ public class IssueViewDAO {
         }
     }
 
-    //delete staff
+    //delete issue
     public void deleteIssue(int issueid) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
-            String sql = "DELETE FROM issue WHERE iid=?";
+            String sql = "DELETE FROM issue WHERE issueid=?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, issueid);
 

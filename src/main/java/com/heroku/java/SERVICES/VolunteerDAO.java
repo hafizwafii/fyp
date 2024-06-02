@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement; 
 import java.util.ArrayList; 
 import java.util.List; 
+import java.sql.Date;
 import javax.sql.DataSource; 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -21,6 +22,7 @@ import com.heroku.java.MODEL.Volunteer;
 public class VolunteerDAO {
     private final DataSource dataSource;
 
+    @Autowired
     public VolunteerDAO(DataSource dataSource) {
         this.dataSource = dataSource;
     }
@@ -85,9 +87,9 @@ public class VolunteerDAO {
                     
                     try (ResultSet resultSet = statement.executeQuery()) {
                         while (resultSet.next()) {
-                            Volunteer volunteer = new Volunteer();
-                           volunteer.setName(resultSet.getString("vfullname"));
+                           Volunteer volunteer = new Volunteer();
                            volunteer.setId(resultSet.getInt("vid"));
+                           volunteer.setName(resultSet.getString("vfullname"));
                            volunteer.setEmail(resultSet.getString("vemail"));
                            volunteer.setPhonenum(resultSet.getInt("vphonenum"));
                            volunteer.setIcnum(resultSet.getString("vicnum"));
@@ -101,6 +103,38 @@ public class VolunteerDAO {
                 throw new SQLException("Error retrievingvolunteer: " + e.getMessage());
             }
             return volunteers;
+            }
+
+            public Volunteer getVolunteerByID(int vid) throws SQLException {
+                try (Connection connection = dataSource.getConnection()) {
+                    String sql = "SELECT * FROM volunteer WHERE vid = ?";
+                    PreparedStatement statement = connection.prepareStatement(sql);
+                    statement.setInt(1, vid);
+            
+                    ResultSet resultSet = statement.executeQuery();
+            
+                    if (resultSet.next()) {
+                        Volunteer volunteer = new Volunteer();
+                        volunteer.setId(resultSet.getInt("vid"));
+                        volunteer.setName(resultSet.getString("vfullname"));
+                        volunteer.setEmail(resultSet.getString("vemail"));
+                        volunteer.setPhonenum(resultSet.getInt("vphonenum"));
+                        volunteer.setIcnum(resultSet.getString("vicnum"));
+                        volunteer.setBirthdate(resultSet.getDate("vbirthdate"));
+                        volunteer.setAge(resultSet.getInt("vage"));
+                        volunteer.setUsername(resultSet.getString("vusername"));
+                        volunteer.setPassword(resultSet.getString("vpassword"));
+                        // Set any other properties of the Customer object based on the ResultSet
+            
+                        return volunteer;
+                    }
+                    connection.close();
+                    return null; // Return null if the customer is not found
+                } catch (SQLException e) {
+                    // Handle any exceptions or errors that occurred during the database operation
+                    e.printStackTrace();
+                    throw e;
+                }
             }
 
 

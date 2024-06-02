@@ -5,7 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet; 
 import java.sql.SQLException; 
 import java.sql.Statement; 
-import java.util.ArrayList; 
+import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List; 
 import javax.sql.DataSource; 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,9 +122,15 @@ public class AdminDAO {
                     String vemail = resultSet.getString("vemail");
                     int vphonenum = resultSet.getInt("vphonenum");
                     String vicnum = resultSet.getString("vicnum");
+                    Date vbirthdate = resultSet.getDate("vbirthdate");
+                    int vage = resultSet.getInt("vage");
                     String vusername = resultSet.getString("vusername");
+                    String vpassword = resultSet.getString("vpassword");
+                    int vpid = resultSet.getInt("programid");
 
-                    Volunteer volunteer = new Volunteer(vid,vfullname, vemail, vphonenum , vicnum ,null, vphonenum, vusername, vusername);
+
+                    // Volunteer volunteer = new Volunteer(vid, vfullname, vemail, vphonenum , vicnum ,vbirthdate, vage, vusername, vpassword, vpid);
+                    Volunteer volunteer = new Volunteer(vid, vfullname, vemail, vphonenum,  vicnum, vbirthdate,  vage,  vusername,  vpassword, vpid);
                     volunteers.add(volunteer);
                 }
                 connection.close();
@@ -136,4 +143,3 @@ public class AdminDAO {
 
 
 }
-    

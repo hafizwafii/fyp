@@ -30,12 +30,12 @@ public class LoginController {
     }
     @PostMapping("/login")
     public String login(HttpSession session, @RequestParam("username") String username,
-                    @RequestParam("password") String password, Model model,Volunteer volunteer) {
+                    @RequestParam("password") String password, Model model) {
     try {
         
         // panggil logindao tadi (checkvolunteer = function kat logindao)
         Volunteer isVolunteer = loginDAO.checkVolunteer(username, password);
-        // Admin isAdmin = loginDAO.checkAdmin(username, adminpassword);
+        Admin isAdmin = loginDAO.checkAdmin(username, password);
 
         //setup session
         if (isVolunteer !=null) {
@@ -46,20 +46,26 @@ public class LoginController {
             System.out.println("Volunteer who login: "+ username);
             System.out.println("Volunteer id who login: "+ isVolunteer.getId());
             return "redirect:/homevolunteer"; // Replace with the appropriate customer home page URL
+
+
+        // admin login
+        } else if (isAdmin != null) { 
+
+            session.setAttribute("username", isAdmin.getAdminusername());
+            session.setAttribute("adminid", isAdmin.getAdminid());
+
+            System.out.println("Admin who login: " + isAdmin.getAdminusername());
+            System.out.println("Admin id who login: " + isAdmin.getAdminid());
+            return "redirect:/homepageadmin"; // Replace with the appropriate admin home page URL
+            
+
         } else {
             System.out.println("Invalid username or password");
             model.addAttribute("error", true);
             return "login";
         }
-        // } else if (isEmployee) {
-            
-        //     session.setAttribute("username", username);
-        //     return "redirect:/";
-        // } else {
-        //     System.out.println("Invalid username or password");
-        //     model.addAttribute("error", true); 
-        //     return "login"; 
-        // }
+        
+        
     } catch (SQLException e) {
         e.printStackTrace();
         model.addAttribute("error", true); 

@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam; 
 import org.springframework.ui.Model; 
 import jakarta.servlet.http.HttpSession; 
-import java.sql.SQLException; 
+import java.sql.SQLException;
+
+import javax.sql.DataSource;
 
 import com.heroku.java.SERVICES.VolunteerProfileDAO; //nama file dao
 import com.heroku.java.MODEL.Volunteer; // nama model/bean
@@ -16,6 +18,7 @@ import com.heroku.java.MODEL.Volunteer; // nama model/bean
 @Controller
 public class VolunteerProfileController { //nama controller
     private final VolunteerProfileDAO volunteerProfileDAO; //declare nama dao yang nak pakai
+    // private DataSource dataSource;
 
 @Autowired
 public VolunteerProfileController(VolunteerProfileDAO volunteerProfileDAO) { //declare je
@@ -38,9 +41,10 @@ public String volunteerProfile(@RequestParam(name = "success", required = false)
     if (vid != 0) {
         try {
             //dia amik Volunteerprofiledao (yang biru tu function dalam daoprofile) (vid tu dia nak pass pergi dao)
+            // VolunteerProfileDAO volunteerProfileDAO = new VolunteerProfileDAO(dataSource);
             volunteer = volunteerProfileDAO.VolunteerProfile(vid);
             model.addAttribute("VolunteerProfile", volunteer);
-            return "/profilevolunteer";
+            // return "/profilevolunteer";
         } catch (SQLException sqe) {
             System.out.println("Error Code = " + sqe.getErrorCode());
             System.out.println("SQL state = " + sqe.getSQLState());
@@ -49,6 +53,7 @@ public String volunteerProfile(@RequestParam(name = "success", required = false)
             sqe.printStackTrace();
         }
     }
+    
 
     return "/profilevolunteer";
 }
