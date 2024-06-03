@@ -90,10 +90,6 @@ public class IssueViewDAO {
                     + "WHERE issueid=?";
             PreparedStatement statement = connection.prepareStatement(sql);
 
-            // String iname = issue.getIname();
-            // System.out.println("name: " + iname);
-
-
             statement.setString(1, issue.getIname());
             statement.setString(2, issue.getIdesc());
             statement.setDate(3, issue.getIdate());

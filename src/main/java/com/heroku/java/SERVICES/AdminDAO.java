@@ -19,6 +19,7 @@ import jakarta.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import com.heroku.java.MODEL.Admin;
+import com.heroku.java.MODEL.Issue;
 import com.heroku.java.MODEL.Volunteer;
 
 @Repository
@@ -79,7 +80,7 @@ public class AdminDAO {
   
     }
 
-        //getProgram by ID
+        //get Admin by ID
         public Admin getAdminById(int adminid) throws SQLException {
             Admin admin = null;
             try (Connection connection = dataSource.getConnection()) {
@@ -140,6 +141,43 @@ public class AdminDAO {
 
             return volunteers;
         }
+
+         // update account
+    public void updateAccount(Admin admin) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            String sql = "UPDATE admin SET adminname=?, adminemail=?, adminusername=?, adminpassword=?, role=? "
+                    + "WHERE adminid=?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.setString(1, admin.getAdminname());
+            statement.setString(2, admin.getAdminemail());
+            statement.setString(3, admin.getAdminusername());
+            statement.setString(4, admin.getAdminpassword());
+            statement.setString(5, admin.getRole());
+            statement.setInt(6, admin.getAdminid());
+
+            statement.executeUpdate();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+        //delete account
+    public void deleteAccount(int adminid) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            String sql = "DELETE FROM admin WHERE adminid=?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, adminid);
+
+            statement.executeUpdate();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
 
 
 }

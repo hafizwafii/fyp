@@ -14,8 +14,10 @@ import java.sql.*;
 import java.util.List;
 
 import com.heroku.java.SERVICES.AdminDAO; //nama file dao
+import com.heroku.java.SERVICES.IssueViewDAO;
 import com.heroku.java.SERVICES.VolunteerDAO;
 import com.heroku.java.MODEL.Admin; // nama model/bean
+import com.heroku.java.MODEL.Issue;
 import com.heroku.java.MODEL.Volunteer;
 
 
@@ -83,6 +85,7 @@ public AdminController(DataSource dataSource) {
     
     }   
 
+    // search volunteer
     @GetMapping("/searchCustomer")
     public String searchCustomer(@RequestParam(name = "searchValue", required = false) String searchValue, Model model) {
         try {
@@ -102,6 +105,54 @@ public AdminController(DataSource dataSource) {
     // Return the view name to display the search results
     return "viewVolunteer";
     }
+
+    //update account
+     @GetMapping("/updateAccount")
+    public String updateAccount(@RequestParam("adminid") int adminid, Model model) {
+        try {
+            System.out.println("adminid in controller :"+ adminid);
+
+            AdminDAO adminDAO = new AdminDAO(dataSource);
+            Admin admin = adminDAO.getAdminById(adminid);
+            model.addAttribute("admin", admin);
+            return "updateAccount";
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "error";
+        }
+    }
+
+    @PostMapping("/updateAccount")
+    public String updateAccount(@ModelAttribute("AdminDetail") Admin admin) {
+        try {
+            AdminDAO adminDAO = new AdminDAO(dataSource);
+            adminDAO.updateAccount(admin);
+            return "redirect:/viewAccount"; // Redirect to the viewIssue page after updating the issue
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "error";
+        }
+    }
+
+
+
+    //Delete account
+    @PostMapping("/deleteAccount")
+    public String deleteAccount(@RequestParam("adminid") int adminid) {
+    try {
+        AdminDAO adminDAO = new AdminDAO(dataSource);
+        adminDAO.deleteAccount(adminid);
+        return "redirect:/viewAccount";
+    } catch (SQLException e) {
+        System.out.println("Error deleting issue: " + e.getMessage());
+        return "error";
+    }
+}
+
+
+
+
+
 }
 
 

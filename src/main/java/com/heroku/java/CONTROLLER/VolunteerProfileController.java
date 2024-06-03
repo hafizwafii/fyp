@@ -41,10 +41,9 @@ public String volunteerProfile(@RequestParam(name = "success", required = false)
     if (vid != 0) {
         try {
             //dia amik Volunteerprofiledao (yang biru tu function dalam daoprofile) (vid tu dia nak pass pergi dao)
-            // VolunteerProfileDAO volunteerProfileDAO = new VolunteerProfileDAO(dataSource);
             volunteer = volunteerProfileDAO.VolunteerProfile(vid);
             model.addAttribute("VolunteerProfile", volunteer);
-            // return "/profilevolunteer";
+            
         } catch (SQLException sqe) {
             System.out.println("Error Code = " + sqe.getErrorCode());
             System.out.println("SQL state = " + sqe.getSQLState());

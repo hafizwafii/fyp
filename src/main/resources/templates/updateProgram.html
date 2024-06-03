@@ -65,13 +65,14 @@
 
                   <div class="col-md-6">
                     <label for="programtime" class="form-label">Time:</label>
-                    <select name="ptime" id="programtime" class="form-control" required>
-                      <option value="">Select time</option>
+                    <input type="text"
+                    name="ptime" th:value="${programs.ptime}" id="programtime" class="form-control" readonly required>
+                      <!-- <option value="">Select time</option>
                       <option value="8:00 - 9:00 PM">8:00 - 9:00 PM</option>
                       <option value="8:00 - 10:00 PM">8:00 - 10:00 PM</option>
                       <option value="8:30 - 9:30 PM">8:00 - 9:00 PM</option>
-                      <option value="9:00 - 10:00 PM">9:00 - 10:00 PM</option>
-                  </select>
+                      <option value="9:00 - 10:00 PM">9:00 - 10:00 PM</option> -->
+                  
                   </div>  
 
                   <div class="col-md-6">
@@ -88,6 +89,7 @@
                     <label for="programimage" class="form-label">Input New Image:</label>
                     <input type="file"
                     name="pimage"
+                    th:value="${programs.pimage}"
                     id="pimage"
                     class="form-control"
                     

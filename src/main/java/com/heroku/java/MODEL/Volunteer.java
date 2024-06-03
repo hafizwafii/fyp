@@ -13,9 +13,6 @@ public class Volunteer {
     public String username;
     public String password;
     public int vpid;
-
-    // public int programId; // fk 
-
     
     public Volunteer() {
     }
@@ -169,57 +166,6 @@ public class Volunteer {
     }
 
     
-
-
-    // fk program
-
-    // public int getProgramId() {
-    //     return programId;
-    // }
-
-
-
-    // public void setProgramId(int programId) {
-    //     this.programId = programId;
-    // }
-
-
-
-    // public String getVolunteerpassword() {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'getVolunteerpassword'");
-    // }
-
-
-
-    // public String getVolunteername() {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'getVolunteername'");
-    // }
-
-
-
-    // public String getVolunteeremail() {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'getVolunteeremail'");
-    // }
-
-
-
-    // public int getVolunteerphonenum() {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'getVolunteerphonenum'");
-    // }
-
-
-
-    // public String getVolunteericnum() {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'getVolunteericnum'");
-    // }
-
-
-
     public Date getVolunteerbirthdate() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getVolunteerbirthdate'");

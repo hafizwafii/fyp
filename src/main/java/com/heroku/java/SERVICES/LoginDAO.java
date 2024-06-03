@@ -69,27 +69,5 @@ public class LoginDAO {
         } 
         return null;
     }
-
-    // public boolean checkAdmin(String username, String password) throws SQLException {
-    //     try (Connection connection = dataSource.getConnection()) {
-    //         String sql = "SELECT COUNT(*) FROM employee WHERE username = ? AND password = ?";
-    //         PreparedStatement statement = connection.prepareStatement(sql);
-    //         statement.setString(1, username);
-    //         statement.setString(2, password);
-    //         ResultSet resultSet = statement.executeQuery();
-    //         if (resultSet.next()) {
-    //             int rowCount = resultSet.getInt(1);
-    //             return rowCount > 0;
-    //         }
-    //         connection.close();
-    //     } catch (SQLException e) {
-    //         throw e;
-    //     }
-    //     return false;
-    // }
-
-
-
-
     
 }

@@ -74,12 +74,6 @@ public class GettingStartedApplication {
     public String registrationform() {
         return "registrationform";
     }
-
-    // @GetMapping("/viewVolunteer")
-    // public String viewVolunteer() {
-    //     return "viewVolunteer";
-    // }
-
     
     @GetMapping("/homepageadmin")
     public String homepageadmin() {

@@ -53,20 +53,6 @@ public class VolunteerProfileDAO {
                 volunteer.setUsername(resultSet.getString("vusername"));
                 volunteer.setPassword(resultSet.getString("vpassword"));
 
-                // String vfullname = resultSet.getString("vfullname");
-                // String vemail = resultSet.getString("vemail");
-                // int vphonenum = resultSet.getInt("vphonenum");
-                // String vicnum = resultSet.getString("vicnum");
-                // Date vbirthdate = resultSet.getDate("vbirthdate");
-                // int vage = resultSet.getInt("vage");
-                // String vusername = resultSet.getString("vusername");
-                // String vpassword = resultSet.getString("vpassword");
-
-                // debug
-                // System.out.println("Volunteer name from db = " + vfullname);
-
-                // // hantar dekat bean untuk dia baca pastu pass data kat controller
-                // return new Volunteer(vid, vfullname, vemail, vphonenum, vicnum , vbirthdate ,vage , vusername , vpassword);
                 return volunteer;
             }
         } catch (SQLException sqe) {

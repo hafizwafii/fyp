@@ -43,7 +43,6 @@ public class IssueCreateDAO {
             connection.close();
         } catch (SQLException e) {
 
-            // Handle any exceptions or errors that occurred during the database operation
             e.printStackTrace();
             throw e;
         }
