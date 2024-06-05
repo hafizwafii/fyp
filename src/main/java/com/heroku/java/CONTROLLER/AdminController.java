@@ -10,18 +10,18 @@ import org.springframework.ui.Model;
 import jakarta.servlet.http.HttpSession; 
 import java.sql.SQLException; 
 import javax.sql.DataSource;
+
+import java.security.Principal;
 import java.sql.*;
 import java.util.List;
 
 import com.heroku.java.SERVICES.AdminDAO; //nama file dao
 import com.heroku.java.SERVICES.IssueViewDAO;
 import com.heroku.java.SERVICES.VolunteerDAO;
+
 import com.heroku.java.MODEL.Admin; // nama model/bean
 import com.heroku.java.MODEL.Issue;
 import com.heroku.java.MODEL.Volunteer;
-
-
-
 
 @Controller
 public class AdminController {
@@ -48,27 +48,131 @@ public AdminController(DataSource dataSource) {
             return "redirect:/viewAccount"; 
             // issueCreateDAO.addIssue(issue);
         
-
-        
     } catch (SQLException e) {
         e.printStackTrace();
         return "/homepage";
     }
     }
 
-    @GetMapping("/viewAccount")
-    public String viewAccount(Model model, Admin admin) {
-        AdminDAO adminDAO = new AdminDAO(dataSource);
-        try{
-            List<Admin> adminlist = adminDAO.listAdmin();
-            model.addAttribute("admins", adminlist);
-        }  catch (SQLException e) {
-            e.printStackTrace();
+    // ni original 
+    // @GetMapping("/viewAccount")
+    // public String viewAccount(HttpSession session, Model model, Admin admin) {
+    //     AdminDAO adminDAO = new AdminDAO(dataSource);
+    //     try{
+
+    //         List<Admin> adminlist = adminDAO.listAdmin();
+    //         model.addAttribute("admins", adminlist);
+
+
+    //     }  catch (SQLException e) {
+    //         e.printStackTrace();
+    //         return "error";
+    //     }
+    //     return "viewAccount";    
+      
+    //     }
+
+
+    // ni yang dah dapat bezakan     
+    // @GetMapping("/viewAccount")
+    // public String viewAccount(HttpSession session, Model model) {
+    // AdminDAO adminDAO = new AdminDAO(dataSource);
+    // String adminusername = (String) session.getAttribute("username");  // Ensure you're using the correct session attribute name
+    // try {
+    //     Admin currentAdmin = adminDAO.findAdminByUsername(adminusername);
+
+    //     if (currentAdmin == null) {
+    //         return "error";
+    //     }
+
+    //     String role = currentAdmin.getRole();
+    //     List<Admin> adminlist = adminDAO.listAdmin();
+    //     model.addAttribute("admins", adminlist);
+    //     model.addAttribute("role", role);  // Add the role to the model
+
+    //     return "viewAccount";
+
+    // } catch (SQLException e) {
+    //     e.printStackTrace();
+    //     return "error";
+    // }
+// }
+
+// @GetMapping("/viewAccount")
+// public String viewAccount(HttpSession session, Model model) {
+//     AdminDAO adminDAO = new AdminDAO(dataSource);
+//     String adminusername = (String) session.getAttribute("username");  // Ensure you're using the correct session attribute name
+//     try {
+//         Admin currentAdmin = adminDAO.findAdminByUsername(adminusername);
+
+//         if (currentAdmin == null) {
+//             return "error";
+//         }
+
+//         String role = currentAdmin.getRole();
+//         List<Admin> adminlist;
+        
+//         if ("Super Admin".equals(role)) {
+//             adminlist = adminDAO.listAdmin();  // Super Admin sees all admins
+//         } else {
+//             adminlist = adminDAO.listAdminsByRole(role);  // Normal Admin sees only other Normal Admins
+//         }
+        
+//         model.addAttribute("admins", adminlist);
+//         model.addAttribute("role", role);  // Add the role to the model
+
+//         return "viewAccount";
+        
+//     } catch (SQLException e) {
+//         e.printStackTrace();
+//         return "error";
+//     }
+// }
+
+
+@GetMapping("/viewAccount")
+public String viewAccount(HttpSession session, Model model) {
+    AdminDAO adminDAO = new AdminDAO(dataSource);
+    String adminusername = (String) session.getAttribute("username");  // Ensure you're using the correct session attribute name
+    try {
+        Admin currentAdmin = adminDAO.findAdminByUsername(adminusername);
+
+        if (currentAdmin == null) {
             return "error";
         }
-        return "viewAccount";    
-      
+
+        String role = currentAdmin.getRole();
+        List<Admin> adminlist;
+
+        if ("Super Admin".equals(role)) {
+            // Super Admin can only see Normal Admins, not other Super Admins
+            adminlist = adminDAO.listNormalAdmins();
+        } else {
+            // Normal Admin sees only other Normal Admins
+            adminlist = adminDAO.listAdminsByRole(role);
         }
+
+        model.addAttribute("admins", adminlist);
+        model.addAttribute("role", role);  // Add the role to the model
+
+        return "viewAccount";
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return "error";
+    }
+}
+
+
+
+
+
+
+    
+
+
+      
+        
 
         // view volunteer
         @GetMapping("/viewVolunteer")

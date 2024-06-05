@@ -53,9 +53,14 @@ public class LoginController {
 
             session.setAttribute("username", isAdmin.getAdminusername());
             session.setAttribute("adminid", isAdmin.getAdminid());
+            session.setAttribute("adminname", isAdmin.getAdminname());
+            session.setAttribute("role", isAdmin.getRole()); 
 
             System.out.println("Admin who login: " + isAdmin.getAdminusername());
             System.out.println("Admin id who login: " + isAdmin.getAdminid());
+            System.out.println("Admin name who login: " + isAdmin.getAdminname());
+            System.out.println("Admin role who login: " + isAdmin.getRole());
+            
             return "redirect:/homepageadmin"; // Replace with the appropriate admin home page URL
             
 

@@ -50,20 +50,26 @@ public class LoginDAO {
 
     public Admin checkAdmin(String adminusername, String adminpassword) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
-            System.out.println("password : "+ adminpassword);
             System.out.println("username : "+ adminusername);
-            String sql = "SELECT adminid, adminname FROM admin WHERE adminusername = ? AND adminpassword = ?";// check attribute database
+            System.out.println("password : "+ adminpassword);
+
+            String sql = "SELECT adminid, adminname, role FROM admin WHERE adminusername = ? AND adminpassword = ? ";// check attribute database
             PreparedStatement statement = connection.prepareStatement(sql);
+            // select where
             statement.setString(1, adminusername);
             statement.setString(2, adminpassword);
+            // statement.setString(3, role);
             ResultSet resultSet = statement.executeQuery();
             
             //selagi db tu baca dia amik benda tu yang declare 
             if (resultSet.next()) {
+                // kena declare mana yang amik
                 int adminid = resultSet.getInt("adminid");
                 String adminname = resultSet.getString("adminname");
+                String role = resultSet.getString("role");
                 // attribute dia amik dari db pass ke controller
-                return new Admin(adminid, adminname, adminusername, adminpassword);
+                // kena declare kat model
+                return new Admin(adminid, adminname, adminusername, adminpassword,role);
             }
             connection.close();
         } 

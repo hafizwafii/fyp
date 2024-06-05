@@ -40,6 +40,7 @@ public class VolunteerController  {
         return "signup";
     }
 
+    // volunteer session
     @PostMapping("/signup")
     public String addVolunteer(HttpSession session, @ModelAttribute("signup")Volunteer volunteer) {
         try {
@@ -52,6 +53,18 @@ public class VolunteerController  {
     }
     }
 
+    // admin session
+    // @PostMapping("/addAccount")
+    // public String addAdmin(HttpSession session, @ModelAttribute("addAccount")Admin admin) {
+    //     try {
+    //         adminDAO.addAdmin(admin);
+        
+    //     return "redirect:/login";
+    // } catch (SQLException e) {
+    //     e.printStackTrace();
+    //     return "error";
+    // }
+    // }
     
     @GetMapping("/searchVolunteer")
     public String searchVolunteer(@RequestParam("vname") String volunteerName, Model model) {

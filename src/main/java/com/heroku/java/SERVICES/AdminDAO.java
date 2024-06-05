@@ -52,15 +52,76 @@ public class AdminDAO {
         }
     }
 
-    public List<Admin> listAdmin() throws SQLException {
+    // ni original
+    // public List<Admin> listAdmin() throws SQLException {
+    //     List<Admin> adminlist = new ArrayList<>();
+    //     try (Connection connection = dataSource.getConnection()) {
+    //         String sql = "SELECT * FROM admin ORDER BY adminid";
+    //         PreparedStatement statement = connection.prepareStatement(sql);
+    //         ResultSet resultSet = statement.executeQuery();
+
+    //         while (resultSet.next()) {
+
+    //             Admin admin = new Admin();
+    //             admin.setAdminid(resultSet.getInt("adminid"));
+    //             admin.setAdminname(resultSet.getString("adminname"));
+    //             admin.setAdminemail(resultSet.getString("adminemail"));
+    //             admin.setAdminusername(resultSet.getString("adminusername"));
+    //             admin.setAdminpassword(resultSet.getString("adminpassword"));
+    //             admin.setRole(resultSet.getString("role"));
+
+    //             adminlist.add(admin);
+    //         }
+    //             connection.close();
+    //         } catch (SQLException e) {
+    //             e.printStackTrace();
+    //             throw e;
+    //         }
+    //         return adminlist;
+  
+    // }
+
+    // ni updated
+    // public List<Admin> listAdmin() throws SQLException {
+    //     List<Admin> adminlist = new ArrayList<>();
+    //     try (Connection connection = dataSource.getConnection()) {
+    //         String sql = "SELECT * FROM admin";
+
+    //         PreparedStatement statement = connection.prepareStatement(sql);
+    //         // statement.setString(1, "Normal Admin");
+    //         ResultSet resultSet = statement.executeQuery();
+    //         System.out.println("nak tengok je >>>>>");
+
+    //         while (resultSet.next()) {
+
+    //             Admin admin = new Admin();
+    //             admin.setAdminid(resultSet.getInt("adminid"));
+    //             admin.setAdminname(resultSet.getString("adminname"));
+    //             admin.setAdminemail(resultSet.getString("adminemail"));
+    //             admin.setAdminusername(resultSet.getString("adminusername"));
+    //             admin.setAdminpassword(resultSet.getString("adminpassword"));
+    //             admin.setRole(resultSet.getString("role"));
+
+    //             adminlist.add(admin);
+    //         }
+    //             connection.close();
+    //         } catch (SQLException e) {
+    //             e.printStackTrace();
+    //             throw e;
+    //         }
+    //         return adminlist;
+  
+    // }
+
+    public List<Admin> listAdmin(String role) throws SQLException {
         List<Admin> adminlist = new ArrayList<>();
         try (Connection connection = dataSource.getConnection()) {
-            String sql = "SELECT * FROM admin ORDER BY adminid";
+            String sql = "SELECT * FROM admin WHERE role = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, role);
             ResultSet resultSet = statement.executeQuery();
-
+    
             while (resultSet.next()) {
-
                 Admin admin = new Admin();
                 admin.setAdminid(resultSet.getInt("adminid"));
                 admin.setAdminname(resultSet.getString("adminname"));
@@ -68,17 +129,100 @@ public class AdminDAO {
                 admin.setAdminusername(resultSet.getString("adminusername"));
                 admin.setAdminpassword(resultSet.getString("adminpassword"));
                 admin.setRole(resultSet.getString("role"));
-
+    
                 adminlist.add(admin);
             }
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-                throw e;
-            }
-            return adminlist;
-  
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+        return adminlist;
     }
+    
+    
+    
+
+    public List<Admin> listAdminsByRole(String role) throws SQLException {
+        List<Admin> adminlist = new ArrayList<>();
+        try (Connection connection = dataSource.getConnection()) {
+            String sql = "SELECT * FROM admin WHERE role = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, role);
+            ResultSet resultSet = statement.executeQuery();
+    
+            while (resultSet.next()) {
+                Admin admin = new Admin();
+                admin.setAdminid(resultSet.getInt("adminid"));
+                admin.setAdminname(resultSet.getString("adminname"));
+                admin.setAdminemail(resultSet.getString("adminemail"));
+                admin.setAdminusername(resultSet.getString("adminusername"));
+                admin.setAdminpassword(resultSet.getString("adminpassword"));
+                admin.setRole(resultSet.getString("role"));
+    
+                adminlist.add(admin);
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+        return adminlist;
+    }
+    
+    public List<Admin> listNormalAdmins() throws SQLException {
+        List<Admin> adminlist = new ArrayList<>();
+        try (Connection connection = dataSource.getConnection()) {
+            String sql = "SELECT * FROM admin WHERE role = 'Normal Admin'";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+    
+            while (resultSet.next()) {
+                Admin admin = new Admin();
+                admin.setAdminid(resultSet.getInt("adminid"));
+                admin.setAdminname(resultSet.getString("adminname"));
+                admin.setAdminemail(resultSet.getString("adminemail"));
+                admin.setAdminusername(resultSet.getString("adminusername"));
+                admin.setAdminpassword(resultSet.getString("adminpassword"));
+                admin.setRole(resultSet.getString("role"));
+    
+                adminlist.add(admin);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+        return adminlist;
+    }
+    
+
+    // find admin by username
+    public Admin findAdminByUsername(String adminusername) throws SQLException {
+        Admin admin = null;
+        try (Connection connection = dataSource.getConnection()) {
+            String sql = "SELECT * FROM admin WHERE adminusername = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, adminusername);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                admin = new Admin();
+                admin.setAdminid(resultSet.getInt("adminid"));
+                admin.setAdminname(resultSet.getString("adminname"));
+                admin.setAdminemail(resultSet.getString("adminemail"));
+                admin.setAdminusername(resultSet.getString("adminusername"));
+                admin.setAdminpassword(resultSet.getString("adminpassword"));
+                admin.setRole(resultSet.getString("role"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+        return admin;
+    }
+
+
+
 
         //get Admin by ID
         public Admin getAdminById(int adminid) throws SQLException {

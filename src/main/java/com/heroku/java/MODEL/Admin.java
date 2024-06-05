@@ -21,11 +21,12 @@ public class Admin {
         this.role = role;
     }
 
-    public Admin(int adminid, String adminname, String adminusername, String adminpassword) {
+    public Admin(int adminid, String adminname, String adminusername, String adminpassword,String role) {
         this.adminid = adminid;
         this.adminname = adminname;
         this.adminusername = adminusername;
         this.adminpassword = adminpassword;
+        this.role = role;
     }
 
     public int getAdminid() {
