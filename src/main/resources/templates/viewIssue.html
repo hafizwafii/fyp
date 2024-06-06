@@ -71,14 +71,7 @@
                       >Update</a
                     >
 
-                    <button
-                      type="button"
-                      class="btn btn-danger"
-                      data-bs-toggle="modal"
-                      th:data-bs-target="'#exampleModal-' + ${issue.iid}"
-                    >
-                      Delete
-                    </button>
+                    <button th:if="${role} == 'Super Admin' " type="button" class="btn btn-danger" data-bs-toggle="modal" th:data-bs-target="'#exampleModal-' + ${issue.iid}">Delete</button>
                   </div>
 
                   

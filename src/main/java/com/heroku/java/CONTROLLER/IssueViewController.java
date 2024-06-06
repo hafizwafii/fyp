@@ -30,11 +30,13 @@ public class IssueViewController {
     }
     
     @GetMapping("/viewIssue")
-    public String viewIssue(Model model, Issue issue) {
+    public String viewIssue(Model model, Issue issue, HttpSession session) {
         IssueViewDAO issueViewDAO = new IssueViewDAO(dataSource);
         try{
             List<Issue> issuelist = issueViewDAO.listIssue();
             model.addAttribute("issuess", issuelist);
+            String role = (String) session.getAttribute("role");
+            model.addAttribute("role", role);
         }  catch (SQLException e) {
             e.printStackTrace();
             return "error";

@@ -52,11 +52,13 @@ public class ProgramController {
     }
 
     @GetMapping("/viewProgram")
-    public String viewProgram(Model model, Program program) {
+    public String viewProgram(Model model, Program program, HttpSession session) {
         ProgramDAO programDAO = new ProgramDAO(dataSource);
         try{
             List<Program> programlist = programDAO.listProgram();
             model.addAttribute("programs", programlist);
+            String role = (String) session.getAttribute("role");
+            model.addAttribute("role", role);
         }  catch (SQLException e) {
             e.printStackTrace();
             return "error";

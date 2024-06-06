@@ -162,18 +162,7 @@ public String viewAccount(HttpSession session, Model model) {
         return "error";
     }
 }
-
-
-
-
-
-
-    
-
-
-      
-        
-
+  
         // view volunteer
         @GetMapping("/viewVolunteer")
         public String listVolunteer(Model model) {

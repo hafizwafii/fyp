@@ -53,10 +53,10 @@
                                 >
                                 
                                 <div class="btn-group" role="group" aria-label="Action buttons">
-                                    <a th:href="@{'/updateProgram?programid=' + ${program.pid}}" class="btn btn-primary">Update</a>
-                        
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" th:data-bs-target="'#exampleModal-' + ${program.pid}">Delete</button>
+                                  <a th:href="@{'/updateProgram?programid=' + ${program.pid}}" class="btn btn-primary">Update</a>
+                                  <button th:if="${role} == 'Super Admin' " type="button" class="btn btn-danger" data-bs-toggle="modal" th:data-bs-target="'#exampleModal-' + ${program.pid}">Delete</button>
                                 </div>
+                              
     
                                 </td>
 
