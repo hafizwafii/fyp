@@ -20,6 +20,7 @@ import com.heroku.java.SERVICES.IssueViewDAO;
 import com.heroku.java.SERVICES.ProgramDAO; //nama file dao
 
 import com.heroku.java.MODEL.Program; // nama model/bean
+import com.heroku.java.MODEL.Registration;
 
 @Controller
 public class ProgramController {
@@ -121,6 +122,25 @@ public class ProgramController {
             return "error";
         }
     }
+
+     @GetMapping("/update-registration")
+    public String showRegistration(@RequestParam("pid") int programid, Model model) {
+        try {
+            ProgramDAO programDAO = new ProgramDAO(dataSource);
+            Program programs = programDAO.getProgramById(programid);
+            if (programs != null) {
+                model.addAttribute("programs", programs);
+                return "update-registration";
+            } else {
+                return "homevolunteer"; // Or another error page if registration is not found
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "homevolunteer"; // Or another error page
+        }
+    }
+
+
 
 
 
