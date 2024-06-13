@@ -14,12 +14,13 @@ public class Program {
     public byte[] pimagebyte;
     public MultipartFile pimage;
     public String imageSrc;
+    public int adminId;
 
     public Program(){
     }
 
     public Program(int pid, String pname, String pdesc, String pvenue, String ptime, Date pdate, byte[] pimagebyte,
-            MultipartFile pimage, String imageSrc) {
+            MultipartFile pimage, String imageSrc, int adminId) {
                 
         this.pid = pid;
         this.pname = pname;
@@ -30,6 +31,7 @@ public class Program {
         this.pimagebyte = pimagebyte;
         this.pimage = pimage;
         this.imageSrc = imageSrc;
+        this.adminId = adminId;
     }
 
     public int getPid() {
@@ -104,6 +106,13 @@ public class Program {
         this.imageSrc = imageSrc;
     }
 
+    public int getAdminId() {
+        return adminId;
+    }
+
+    public void setAdminId(int adminId) {
+        this.adminId = adminId;
+    }
     
     
 }

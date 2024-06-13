@@ -37,8 +37,19 @@ public class ProgramController {
 
     @PostMapping("/addProgram")
     public String addProgram(HttpSession session, @ModelAttribute("ProgramDetail")Program program,  @RequestParam("pimage") MultipartFile pimage) throws IOException {
+        Integer adminId = (Integer) session.getAttribute("adminid");  // Retrieve admin ID from session
+
+        //debug
+        System.out.println("Admin id create (program): " + adminId);
+
+        if (adminId == null) {
+        return "redirect:/login";  // Redirect to login if admin ID is not found in session
+
+    }
+
         try {
             program.setPimagebyte(pimage.getBytes());
+            program.setAdminId(adminId); 
             ProgramDAO programDAO = new ProgramDAO(dataSource);
             programDAO.addProgram(program);
             return "redirect:/viewProgram"; 
@@ -57,8 +68,8 @@ public class ProgramController {
         String username = (String) session.getAttribute("username");
     
         //debug
-        System.out.println("Admin id in session program (admin profile): " + adminid);
-        System.out.println("Admin name in session program (admin profile): " + username);
+        // System.out.println("Admin id in session program (admin profile): " + adminid);
+        System.out.println("Admin username view (program) :" + username);
 
         try{
             List<Program> programlist = programDAO.listProgram();

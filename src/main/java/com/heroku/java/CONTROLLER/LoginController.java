@@ -56,7 +56,7 @@ public class LoginController {
             session.setAttribute("adminname", isAdmin.getAdminname());
             session.setAttribute("role", isAdmin.getRole()); 
 
-            System.out.println("Admin who login: " + isAdmin.getAdminusername());
+            System.out.println("Admin username who login: " + isAdmin.getAdminusername());
             System.out.println("Admin id who login: " + isAdmin.getAdminid());
             System.out.println("Admin name who login: " + isAdmin.getAdminname());
             System.out.println("Admin role who login: " + isAdmin.getRole());

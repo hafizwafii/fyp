@@ -31,12 +31,14 @@ public class IssueCreateDAO {
     
     public void addIssue(@ModelAttribute("IssueDetail") Issue issue) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
-            String insertIssueSql = "INSERT INTO issue ( issuename, issuedesc, issuedate, issueremark) VALUES (?, ?, ?, ?)";
+            String insertIssueSql = "INSERT INTO issue ( issuename, issuedesc, issuedate, issueremark,adminid) VALUES (?, ?, ?, ?,?)";
             PreparedStatement insertStatement = connection.prepareStatement(insertIssueSql); 
             insertStatement.setString(1, issue.getIname());
             insertStatement.setString(2, issue.getIdesc());
             insertStatement.setDate(3, issue.getIdate());
             insertStatement.setString(4, issue.getIremark());
+            insertStatement.setInt(5, issue.getAdminId());
+
 
 
             insertStatement.execute(); 

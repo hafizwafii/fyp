@@ -37,8 +37,8 @@ public class IssueViewController {
         String username = (String) session.getAttribute("username");
     
         //debug
-        System.out.println("Admin id in session issue (admin profile): " + adminid);
-        System.out.println("Admin name in session issue (admin profile): " + username);
+        // System.out.println("Admin id in session issue (admin profile): " + adminid);
+        System.out.println("Admin username view (issue): " + username);
 
         try{
             List<Issue> issuelist = issueViewDAO.listIssue();

@@ -20,7 +20,7 @@ import jakarta.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.heroku.java.MODEL.Issue;
+// import com.heroku.java.MODEL.Issue;
 import com.heroku.java.MODEL.Program;
 
 public class ProgramDAO {
@@ -32,7 +32,8 @@ public class ProgramDAO {
 
      public void addProgram(@ModelAttribute("ProgramDetail") Program program) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
-            String insertIssueSql = "INSERT INTO program ( pname, pdesc, pvenue, ptime, pdate, pimage) VALUES (?, ?, ?, ?, ?, ?)";
+            // String insertIssueSql = "INSERT INTO program ( pname, pdesc, pvenue, ptime, pdate, pimage) VALUES (?, ?, ?, ?, ?, ?)";
+            String insertIssueSql = "INSERT INTO program ( pname, pdesc, pvenue, ptime, pdate, pimage, adminid) VALUES (?, ?, ?, ?, ?, ?,?)";
             PreparedStatement insertStatement = connection.prepareStatement(insertIssueSql); 
             insertStatement.setString(1, program.getPname());
             insertStatement.setString(2, program.getPdesc());
@@ -40,8 +41,8 @@ public class ProgramDAO {
             insertStatement.setString(4, program.getPtime());
             insertStatement.setDate(5, program.getPdate());
             insertStatement.setBytes(6, program.getPimagebyte());
-
-
+            insertStatement.setInt(7, program.getAdminId());
+        
             insertStatement.execute(); 
             connection.close();
         } catch (SQLException e) {
@@ -67,13 +68,17 @@ public class ProgramDAO {
                 String pvenue = resultSet.getString("pvenue");
                 String ptime = resultSet.getString("ptime");
                 Date pdate = resultSet.getDate("pdate");
+                
 
 
                 byte[] pimageBytes = resultSet.getBytes("pimage");
                 String base64Image = Base64.getEncoder().encodeToString(pimageBytes);
                 String imageSrc = "data:image/jpeg;base64," + base64Image;
 
-                Program program = new Program(programid, pname, pdesc, pvenue, ptime, pdate, null, null, imageSrc);
+                int adminId  = resultSet.getInt("adminid");
+
+                // Program program = new Program(programid, pname, pdesc, pvenue, ptime, pdate, null, null, imageSrc);
+                Program program = new Program(programid, pname, pdesc, pvenue, ptime, pdate, null, null, imageSrc, adminId);
 
                 programlist.add(program);
 
@@ -91,7 +96,8 @@ public class ProgramDAO {
     public Program getProgramById(int programid) throws SQLException {
         Program program = null;
         try (Connection connection = dataSource.getConnection()) {
-            String sql = "SELECT pname, pdesc, pvenue, ptime, pdate, pimage FROM program WHERE programid = ?";
+            // String sql = "SELECT pname, pdesc, pvenue, ptime, pdate, pimage FROM program WHERE programid = ?";
+            String sql = "SELECT pname, pdesc, pvenue, ptime, pdate, pimage FROM program WHERE programid = ? AND  adminid=?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, programid);
             ResultSet resultSet = statement.executeQuery();
@@ -109,7 +115,10 @@ public class ProgramDAO {
                 String base64Image = Base64.getEncoder().encodeToString(pimageBytes);
                 String imageSrc = "data:image/jpeg;base64," + base64Image;
 
-                program = new Program(programid, pname, pdesc, pvenue, ptime, pdate, null, null,imageSrc);
+                int adminId  = resultSet.getInt("adminid");
+
+                // program = new Program(programid, pname, pdesc, pvenue, ptime, pdate, null, null,imageSrc);
+                program = new Program(programid, pname, pdesc, pvenue, ptime, pdate, null, null,imageSrc, adminId);
             }
             connection.close();
         } catch (SQLException e) {

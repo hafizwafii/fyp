@@ -50,8 +50,8 @@ public class LoginDAO {
 
     public Admin checkAdmin(String adminusername, String adminpassword) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
-            System.out.println("username : "+ adminusername);
-            System.out.println("password : "+ adminpassword);
+            // System.out.println("username : "+ adminusername);
+            // System.out.println("password : "+ adminpassword);
 
             String sql = "SELECT adminid, adminname, role FROM admin WHERE adminusername = ? AND adminpassword = ? ";// check attribute database
             PreparedStatement statement = connection.prepareStatement(sql);

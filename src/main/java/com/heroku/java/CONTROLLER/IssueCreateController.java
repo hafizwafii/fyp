@@ -38,8 +38,17 @@ public IssueCreateController(DataSource dataSource) {
 
 @PostMapping("/addIssue")
     public String addIssue(HttpSession session, @ModelAttribute("IssueDetail")Issue issue) {
+        Integer adminId = (Integer) session.getAttribute("adminid");  // Retrieve admin ID from session
+         //debug
+         System.out.println("Admin id create (issue): " + adminId);
+
+         if (adminId == null) {
+         return "redirect:/login";  // Redirect to login if admin ID is not found in session
+ 
+     }
         try {
             IssueCreateDAO issueCreateDAO = new IssueCreateDAO(dataSource);
+            issue.setAdminId(adminId);
             issueCreateDAO.addIssue(issue);
             return "redirect:/viewIssue"; 
             // issueCreateDAO.addIssue(issue);
