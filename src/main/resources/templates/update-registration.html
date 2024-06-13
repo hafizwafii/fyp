@@ -22,47 +22,66 @@
                     <div class="container mt-5">
                         <h2 class="text-center">Program Registration</h2>
 
-                        <form th:action="@{/update-registration(pid=${programs.pid})}" th:object="${programs}" method="post">
-                            <h3>Update Registration</h3><br>
+                        <form th:action="@{/update-registration(pid=${programs.pid})}" th:object="${programs}" method="post"  enctype="multipart/form-data">
+                            <!-- <h3>Update Registration</h3><br> -->
 
                             <!-- <div class="col-sm-10">
-                                <input type="hidden" th:value="${registrations.rid}" class="form-control" name="rid" id="rid" readonly>
+                                <input type="hidden" th:value="${registrations.rid}" class="form-control" name="rid" id="rid" >
                             </div> -->
+
+                            <!-- <div class="col-sm-10">
+                                <input type="hidden" th:value="${registrations.rid}" class="form-control" name="rid" id="rid" >
+                            </div> -->
+
+                            <div class="col-sm-10">
+                                <input type="hidden" th:value="${programs.pid}" class="form-control" name="pid" id="pid" >
+                            </div>
+
 
                             // amik session vid dengan programid : hidden
 
                             <div class="col mb-3">
+                                <label for="programimage" class="col-sm-2 col-form-label">Image</label>
+                                <div class="col-sm-10">
+                                    <div class="mt-2">
+                                        <img th:src="${programs.imageSrc}" alt="Program Image" style="width: 250px; height: 150px;">
+                                    </div>
+                                </div>
+                            </div>
+                            
+
+                            <div class="col mb-3">
                                 <label for="programname" class="col-sm-2 col-form-label">Name</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="programname" th:value="${programs.pname}" placeholder="Program name" id="programname" required>
+                                    <input type="text" class="form-control" name="programname" th:value="${programs.pname}" placeholder="Program name" id="programname" readonly  required>
                                 </div>
                             </div>
 
                             <div class="col mb-3">
                                 <label for="programdesc" class="col-sm-2 col-form-label">Description</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="programdesc" th:value="${programs.pdesc}" placeholder="Description" id="programdesc" required>
+                                    <input type="text" class="form-control" name="programdesc" th:value="${programs.pdesc}" placeholder="Description" id="programdesc" readonly  required>
                                 </div>
                             </div>
 
                             <div class="col mb-3">
                                 <label for="programvenue" class="col-sm-2 col-form-label">Venue</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="programvenue" th:value="${programs.pvenue}" placeholder="Venue" id="programvenue" required>
+                                    <input type="text" class="form-control" name="programvenue" th:value="${programs.pvenue}" placeholder="Venue" id="programvenue" readonly required>
                                 </div>
                             </div>
 
                             <div class="col mb-3">
                                 <label for="programtime" class="col-sm-2 col-form-label">Time</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="programtime" th:value="${programs.ptime}" placeholder="Time" id="programtime" required>
+                                    <input type="text" class="form-control" name="programtime" th:value="${programs.ptime}" placeholder="Time" id="programtime" readonly  required>
                                 </div>
                             </div>
 
                             <div class="col mb-3">
                                 <label for="programdate" class="col-sm-2 col-form-label">Date</label>
                                 <div class="col-sm-10">
-                                    <input type="date" class="form-control" readonly name="programdate" th:value="${programs.pdate}" placeholder="Date" id="programdate" required>
+                                    <input type="date" class="form-control" name="programdate" th:value="${programs.pdate}" placeholder="Date" id="programdate"  disabled  required>
                                 </div>
                             </div>
 
@@ -71,12 +90,12 @@
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" id="gridCheck1" required>
                                         <label class="form-check-label" for="gridCheck1">
-                                            Are the details above correct?
+                                            This action cannot be undone 
                                         </label>
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">Update Registration</button>
+                            <button type="submit" class="btn btn-primary">Create Registration</button>
                         </form>
                     </div>
                 </div>

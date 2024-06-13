@@ -55,7 +55,7 @@ public class ProgramDAO {
     public List<Program> listProgram() throws SQLException {
         List<Program> programlist = new ArrayList<>();
         try (Connection connection = dataSource.getConnection()) {
-            String sql = "SELECT * FROM program ORDER BY programid";
+            String sql = "SELECT * FROM program ORDER BY programid DESC";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
 
@@ -87,6 +87,7 @@ public class ProgramDAO {
         return programlist;
     }
 
+    // get Program by ID
     public Program getProgramById(int programid) throws SQLException {
         Program program = null;
         try (Connection connection = dataSource.getConnection()) {
@@ -102,7 +103,7 @@ public class ProgramDAO {
                 String ptime = resultSet.getString("ptime");
                 Date pdate = resultSet.getDate("pdate");
 
-                System.out.println("pname: " + pname);
+                System.out.println("program name: " + pname);
 
                 byte[] pimageBytes = resultSet.getBytes("pimage");
                 String base64Image = Base64.getEncoder().encodeToString(pimageBytes);
@@ -120,6 +121,7 @@ public class ProgramDAO {
         
     }
 
+    // update program
     public boolean updateProgram(Program program, MultipartFile pImage) {
         try (Connection connection = dataSource.getConnection()) {
             String sql;
@@ -178,6 +180,26 @@ public class ProgramDAO {
             throw e;
         }
     }
+
+    public void updateRegistration(int programid, String pname, String pdesc, String pvenue, String ptime, String pdate, String imageSrc) throws SQLException {
+        String sql = "UPDATE program SET pname = ?, pdesc = ?, pvenue = ?, ptime = ?, pdate = ?, imageSrc = ? WHERE pid = ?";
+        
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, pname);
+            statement.setString(2, pdesc);
+            statement.setString(3, pvenue);
+            statement.setString(4, ptime);
+            statement.setString(5, pdate);
+            statement.setString(6, imageSrc);
+            statement.setInt(7, programid);
+            
+            statement.executeUpdate();
+        }
+    }
+
+    
 
     
 

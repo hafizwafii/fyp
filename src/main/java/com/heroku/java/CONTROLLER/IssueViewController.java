@@ -32,6 +32,14 @@ public class IssueViewController {
     @GetMapping("/viewIssue")
     public String viewIssue(Model model, Issue issue, HttpSession session) {
         IssueViewDAO issueViewDAO = new IssueViewDAO(dataSource);
+
+        int adminid = (int) session.getAttribute("adminid");
+        String username = (String) session.getAttribute("username");
+    
+        //debug
+        System.out.println("Admin id in session issue (admin profile): " + adminid);
+        System.out.println("Admin name in session issue (admin profile): " + username);
+
         try{
             List<Issue> issuelist = issueViewDAO.listIssue();
             model.addAttribute("issuess", issuelist);

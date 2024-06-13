@@ -42,10 +42,7 @@ public class ProgramController {
             ProgramDAO programDAO = new ProgramDAO(dataSource);
             programDAO.addProgram(program);
             return "redirect:/viewProgram"; 
-            
-        
-
-        
+                
     } catch (SQLException e) {
         e.printStackTrace();
         return "/homepage";
@@ -55,6 +52,14 @@ public class ProgramController {
     @GetMapping("/viewProgram")
     public String viewProgram(Model model, Program program, HttpSession session) {
         ProgramDAO programDAO = new ProgramDAO(dataSource);
+
+        int adminid = (int) session.getAttribute("adminid");
+        String username = (String) session.getAttribute("username");
+    
+        //debug
+        System.out.println("Admin id in session program (admin profile): " + adminid);
+        System.out.println("Admin name in session program (admin profile): " + username);
+
         try{
             List<Program> programlist = programDAO.listProgram();
             model.addAttribute("programs", programlist);
@@ -123,9 +128,12 @@ public class ProgramController {
         }
     }
 
+
+    //view registration
      @GetMapping("/update-registration")
     public String showRegistration(@RequestParam("pid") int programid, Model model) {
         try {
+            System.out.println("programid in controller :"+ programid);
             ProgramDAO programDAO = new ProgramDAO(dataSource);
             Program programs = programDAO.getProgramById(programid);
             if (programs != null) {
@@ -139,6 +147,21 @@ public class ProgramController {
             return "homevolunteer"; // Or another error page
         }
     }
+
+    // @PostMapping("/update-registration")
+    // public String updateRegistration(@RequestParam("pid") int programid,
+    //                             @ModelAttribute("programs") Program programs) {
+    //     try {
+    //         ProgramDAO programDAO = new ProgramDAO(dataSource);
+    //         programDAO.updateRegistration(programid, programs.getPname(), programs.getPdesc(), programs.getPvenue(), programs.getPtime(), programs.getPdate(), programs.getImageSrc());
+    //         return "redirect:/homevolunteer";
+    //     } catch (SQLException e) {
+    //         System.out.println("message: " + e.getMessage());
+    //         return "redirect:/login";
+    //     }
+    // }
+
+    // public boolean bagi ada value true false
 
 
 

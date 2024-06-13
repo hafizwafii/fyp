@@ -1,150 +1,101 @@
 <!DOCTYPE html>
-<html
-  lang="en"
-  th:replace="~{fragments/volunteerlayout :: volunteerlayout (~{::body},'homepage')}"
->
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<html lang="en" th:replace="~{fragments/volunteerlayout :: volunteerlayout (~{::body},'homepage')}"> 
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Home Page</title>
-    <link rel="stylesheet" href="stylesheets/homepage.css" />
-    <link
-      th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css}"
-      rel="stylesheet"
-      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
-    />
+    <link rel="stylesheet" href="stylesheets/homepage.css">
+    <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     <style>
-      .horizontal-image {
-        object-fit: cover;
-        width: 100%;
-        height: auto;
-      }
+        .horizontal-image {
+            object-fit: cover;
+            width: 100%;
+            height: auto;
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div class="card" style="max-width: auto">
-      <img
-        th:src="@{wphomepage.jpg}"
-        class="img-fluid"
-        style="height: 500px; max-width: auto"
-      />
+        <img th:src="@{wphomepage.jpg}" class="img-fluid" style="height: 500px; max-width: auto"/>
 
-      <div class="card-body" style="background-color: #dfdfdf">
-        <style>
-          .bd-super-font {
-            font-family: "BD Super", sans-serif;
-          }
-        </style>
-        <div
-          class="container-fluid bd-super-font"
-          style="background: color #a5a5a5"
-        >
-          <h1 class="text-center">FILANTROPI FAKIR GELANDANGAN</h1>
-          <p class="text-center" style="font-size: 20px">
-            Their vision is to create a community where homeless is rare,brief,
-            and non-recurring, ensuring that every individual has access to
-            safe, affordable housing and the support needed to thrive. These
-            organizations are guided by values such as compassion, empowerment,
-            collaboration, equity, and innovation, striving to address the root
-            causes of homelessness, provide holistic support, and advocate for
-            systemic change to create a more just and equitable society
-          </p>
-        </div>
-
-        <div class="row justify-content-evenly container-fluid">
-
-              <div class="offset-2 justify-content-evenly align-items-center col-9"></div>
-                        <table class="table table-striped text-center m-2">
-                          <thead>
-                            <tr>
-                              <th scope="col" style="display:none;">Program ID</th>
-                              <th scope="col">Program Image</th>
-                              <th scope="col">Program  Name</th>
-                              <th scope="col">Program  Description</th>
-                              <th scope="col">Program Venue</th>
-                              <th scope="col">Program Time</th>
-                              <th scope="col">Program Date</th>
-                            </tr>
-                          </thead>
-
-                          <tbody>
-                            
-                            <tr th:each="program: ${programs}">
-                              <td th:text="${program.pid}" style="display:none;"></td>
-                              <td><img th:src="${program.imageSrc}" alt="Program Image" style="width: 250px; height: 150px;margin-top:10px"></td>
-                                <td th:text="${program.pname}"></td>
-                                <td th:text="${program.pdesc}"></td>
-                                <td th:text="${program.pvenue}"></td>
-                                <td th:text="${program.ptime}"></td>
-                                <td th:text="${program.pdate}"></td>
-                              
-                                
-
-                            </div>
-
-                            </td>
-                        </tr>   
-
-                        <div class="offset-2 justify-content-evenly align-items-center col-9"></div>
-                        <table class="table table-striped text-center m-3">
-                          <thead>
-                            <tr>
-                              <th scope="col" style="display:none;">Issue ID</th>
-                              <th scope="col">Issue Name</th>
-                              <th scope="col">Issue Description</th>
-                              <th scope="col">Issue Date</th>
-                              <th scope="col">Issue Remark</th>
-                              <th scope="col">Action</th>
-                            </tr>
-                          </thead>
-
-                          <tbody>
-                            <!-- Use Thymeleaf loop to iterate over the employees -->
-                            <tr th:each="issue: ${issuess}">
-                                <td th:text="${issue.iid}" style="display:none;"></td>
-                                <td th:text="${issue.iname}"></td>
-                                <td th:text="${issue.idesc}"></td>
-                                <td th:text="${issue.idate}"></td>
-                                <td th:text="${issue.iremark}"></td>
-                                <td
-                                >
-
-                            </td>
-                        </tr>   
-
-            <!-- <div class="col-4">
-            <div class="card-header text-center">Program 1</div>
-            <div class="card-body">
-              <h5 class="card-title text-center">Food Distribution</h5>
-              <p class="card-text">
-                "Our food distribution program is a cornerstone of our efforts
-                to support individuals experiencing homelessness in our
-                community. Through partnerships with local organizations,
-                businesses, and volunteers, we provide nutritious meals to those
-                in need.
-              </p>
-              <img
-                th:src="@{fooddist.jpg}"
-                class="img-fluid"
-                style="height: 300px; max-width: auto"
-              />
-
-              <div class="text-center mt-2">
-                <a href="#" class="btn btn-secondary">See Detail</a>
-              </div>  
-
+        <div class="card-body" style="background-color: #dfdfdf">
+            <style>
+                .bd-super-font {
+                    font-family: "BD Super", sans-serif;
+                }
+            </style>
+            <div class="container-fluid bd-super-font" style="background: color #a5a5a5">
+                <h1 class="text-center">FILANTROPI FAKIR GELANDANGAN</h1>
+                <p class="text-center" style="font-size: 20px">
+                    Their vision is to create a community where homelessness is rare, brief, and non-recurring, ensuring that every individual has access to safe, affordable housing and the support needed to thrive. These organizations are guided by values such as compassion, empowerment, collaboration, equity, and innovation, striving to address the root causes of homelessness, provide holistic support, and advocate for systemic change to create a more just and equitable society.
+                </p>
             </div>
-            <div class="card-footer text-body-secondary">2 days ago</div>
-          </div> -->
 
-      </div>
+            <div class="row justify-content-evenly container-fluid">
+                <div class="offset-2 justify-content-evenly align-items-center col-9"></div>
+                <table class="table table-striped text-center m-2">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="display:none;">Program ID</th>
+                            <th scope="col">Program Image</th>
+                            <th scope="col">Program Name</th>
+                            <th scope="col">Program Description</th>
+                            <th scope="col">Program Venue</th>
+                            <th scope="col">Program Time</th>
+                            <th scope="col">Program Date</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="program: ${programs}">
+                            <td th:text="${program.pid}" style="display:none;"></td>
+                            <td><img th:src="${program.imageSrc}" alt="Program Image" style="width: 250px; height: 150px;margin-top:10px"></td>
+                            <td th:text="${program.pname}"></td>
+                            <td th:text="${program.pdesc}"></td>
+                            <td th:text="${program.pvenue}"></td>
+                            <td th:text="${program.ptime}"></td>
+                            <td th:text="${program.pdate}"></td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="Action buttons">
+                                    <a href="javascript:void(0);" class="btn btn-primary" onclick="showPopup()">Register</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="offset-2 justify-content-evenly align-items-center col-9"></div>
+                <table class="table table-striped text-center m-3">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="display:none;">Issue ID</th>
+                            <th scope="col">Issue Name</th>
+                            <th scope="col">Issue Description</th>
+                            <th scope="col">Issue Date</th>
+                            <th scope="col">Issue Remark</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="issue: ${issuess}">
+                            <td th:text="${issue.iid}" style="display:none;"></td>
+                            <td th:text="${issue.iname}"></td>
+                            <td th:text="${issue.idesc}"></td>
+                            <td th:text="${issue.idate}"></td>
+                            <td th:text="${issue.iremark}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-  </body>
+
+    <script>
+        function showPopup() {
+            alert("You must create an account first before register");
+            window.location.href = "/signup"; // Redirect to signup page after the alert
+        }
+    </script>
+</body>
 </html>

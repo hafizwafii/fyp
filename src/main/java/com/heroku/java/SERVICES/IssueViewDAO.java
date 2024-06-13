@@ -31,7 +31,7 @@ public class IssueViewDAO {
     public List<Issue> listIssue() throws SQLException {
         List<Issue> issuelist = new ArrayList<>();
         try (Connection connection = dataSource.getConnection()) {
-            String sql = "SELECT * FROM issue ORDER BY issueid";
+            String sql = "SELECT * FROM issue ORDER BY issueid DESC";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
 

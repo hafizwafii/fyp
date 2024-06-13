@@ -70,11 +70,6 @@ public class GettingStartedApplication {
         return "homevolunteer";
     }
 
-    // @GetMapping("/update-registration")
-    // public String registrationform() {
-    //     return "update-registration";
-    // }
-    
     @GetMapping("/homepageadmin")
     public String homepageadmin() {
         return "homepageadmin";

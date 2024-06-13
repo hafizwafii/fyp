@@ -82,7 +82,6 @@
                     <input type="date" 
                     name="pdate"
                     id="programdate" 
-                    placeholder="30 June 2024" 
                     class="form-control" required>
                   </div>  
 
@@ -106,11 +105,15 @@
           </div>
         </div>
       </div>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('programdate').setAttribute('min', today);
+        });
+    </script>
               
 </body>
-
-
-
 
 <script th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js}"
     integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

@@ -23,7 +23,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </head>
   <body>
-    <div class="container-fluid" style="margin-left: 200px; padding-top: 56px">
+
+    <div class="container-fluid" style="margin-left: 230px; padding-top: 66px">
       <div class="row" style="height: 100%">
         <div class="col-10">
           <h3>
@@ -43,7 +44,7 @@
           <table class="table table-bordered border-dark image-table">
             <thead>
               <tr>
-                <th scope="col">Issue ID</th>
+                <!-- <th scope="col">Issue ID</th> -->
                 <th scope="col">Issue Name</th>
                 <th scope="col">Issue Description</th>
                 <th scope="col">Issue Date</th>
@@ -54,7 +55,7 @@
 
             <tbody>
               <tr th:each="issue: ${issuess}">
-                <td th:text="${issue.iid}"></td>
+                <!-- <td th:text="${issue.iid}"></td> -->
                 <td th:text="${issue.iname}"></td>
                 <td th:text="${issue.idesc}"></td>
                 <td th:text="${issue.idate}"></td>
