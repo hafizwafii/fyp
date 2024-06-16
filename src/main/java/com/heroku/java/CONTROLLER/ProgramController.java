@@ -8,17 +8,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam; 
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.ui.Model; 
-import jakarta.servlet.http.HttpSession; 
-import java.sql.SQLException; 
+import jakarta.servlet.http.HttpSession;
+
 import javax.sql.DataSource;
 
 import java.io.IOException;
 import java.sql.*;
 import java.util.List;
 
+import com.heroku.java.SERVICES.AdminDAO;
 import com.heroku.java.SERVICES.IssueViewDAO;
 import com.heroku.java.SERVICES.ProgramDAO; //nama file dao
-
+import com.heroku.java.MODEL.Issue;
 import com.heroku.java.MODEL.Program; // nama model/bean
 import com.heroku.java.MODEL.Registration;
 
@@ -51,6 +52,13 @@ public class ProgramController {
             program.setPimagebyte(pimage.getBytes());
             program.setAdminId(adminId); 
             ProgramDAO programDAO = new ProgramDAO(dataSource);
+
+            // int programId = programDAO.addProgram(program);  // Assuming addProgram returns the generated program ID
+
+            // // Update admin with program ID
+            //  AdminDAO adminDAO = new AdminDAO(dataSource);
+            // adminDAO.addProgramIdToAdmin(adminId, programId);
+
             programDAO.addProgram(program);
             return "redirect:/viewProgram"; 
                 
@@ -141,15 +149,16 @@ public class ProgramController {
 
 
     //view registration
-     @GetMapping("/update-registration")
+     @GetMapping("/addRegister")
     public String showRegistration(@RequestParam("pid") int programid, Model model) {
         try {
             System.out.println("programid in controller :"+ programid);
             ProgramDAO programDAO = new ProgramDAO(dataSource);
             Program programs = programDAO.getProgramById(programid);
+
             if (programs != null) {
                 model.addAttribute("programs", programs);
-                return "update-registration";
+                return "addRegister";
             } else {
                 return "homevolunteer"; // Or another error page if registration is not found
             }
@@ -161,16 +170,35 @@ public class ProgramController {
 
     // @PostMapping("/update-registration")
     // public String updateRegistration(@RequestParam("pid") int programid,
-    //                             @ModelAttribute("programs") Program programs) {
+    //                             @ModelAttribute("program") Program programs) {
     //     try {
     //         ProgramDAO programDAO = new ProgramDAO(dataSource);
-    //         programDAO.updateRegistration(programid, programs.getPname(), programs.getPdesc(), programs.getPvenue(), programs.getPtime(), programs.getPdate(), programs.getImageSrc());
+    //         programDAO.updateRegistration(programid, programs.getPname(), programs.getPdesc(), programs.getPvenue(), programs.getPtime(), programs.getPdate());
     //         return "redirect:/homevolunteer";
     //     } catch (SQLException e) {
     //         System.out.println("message: " + e.getMessage());
     //         return "redirect:/login";
     //     }
     // }
+
+    @GetMapping("/homevolunteer")
+    public String homevolunteer(Model model) {
+        ProgramDAO programDAO = new ProgramDAO(dataSource);
+        IssueViewDAO issueViewDAO = new IssueViewDAO(dataSource);
+        try {
+            List<Program> programlist = programDAO.listProgram();
+            model.addAttribute("programs", programlist);
+            List<Issue> issuelist = issueViewDAO.listIssue();
+            model.addAttribute("issuess", issuelist);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "error";
+        }
+        return "homevolunteer";
+    }
+
+    
+  
 
     // public boolean bagi ada value true false
 

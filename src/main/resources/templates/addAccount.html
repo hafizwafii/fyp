@@ -47,12 +47,18 @@
                   
                   <div class="col-md-6">
                     <label for="adminemail" class="form-label">Email:</label>
-                    <input type="text" 
-                    name="adminemail"
-                    id="adminnemail" 
-                    placeholder="ali@gmail.com" 
-                    class="form-control" required>
-                  </div>
+                    <input type="email" 
+                           name="adminemail" 
+                           id="adminemail" 
+                           placeholder="ali@gmail.com" 
+                           class="form-control" 
+                           pattern="[a-zA-Z0-9._%+-]+@gmail\.com" 
+                           required>
+                    <div class="invalid-feedback">
+                        Please enter a valid Gmail address.
+                    </div>
+                </div>
+                
 
                   <div class="col-md-6">
                     <label for="adminusername" class="form-label">Username:</label>
@@ -88,6 +94,18 @@
           </div>
         </div>
       </div>
+
+      <!-- <script>
+        document.getElementById('adminemail').addEventListener('input', function (event) {
+            const emailField = event.target;
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+            if (!emailPattern.test(emailField.value)) {
+                emailField.setCustomValidity('Please enter a valid Gmail address ending with @gmail.com');
+            } else {
+                emailField.setCustomValidity('');
+            }
+        });
+    </script> -->
               
 </body>
 

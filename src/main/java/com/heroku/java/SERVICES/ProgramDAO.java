@@ -97,7 +97,7 @@ public class ProgramDAO {
         Program program = null;
         try (Connection connection = dataSource.getConnection()) {
             // String sql = "SELECT pname, pdesc, pvenue, ptime, pdate, pimage FROM program WHERE programid = ?";
-            String sql = "SELECT pname, pdesc, pvenue, ptime, pdate, pimage FROM program WHERE programid = ? AND  adminid=?";
+            String sql = "SELECT pname, pdesc, pvenue, ptime, pdate, pimage FROM program WHERE programid = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, programid);
             ResultSet resultSet = statement.executeQuery();
@@ -115,10 +115,10 @@ public class ProgramDAO {
                 String base64Image = Base64.getEncoder().encodeToString(pimageBytes);
                 String imageSrc = "data:image/jpeg;base64," + base64Image;
 
-                int adminId  = resultSet.getInt("adminid");
+                // int adminId  = resultSet.getInt("adminid");
 
                 // program = new Program(programid, pname, pdesc, pvenue, ptime, pdate, null, null,imageSrc);
-                program = new Program(programid, pname, pdesc, pvenue, ptime, pdate, null, null,imageSrc, adminId);
+                program = new Program(programid, pname, pdesc, pvenue, ptime, pdate, null, null,imageSrc);
             }
             connection.close();
         } catch (SQLException e) {
@@ -190,8 +190,8 @@ public class ProgramDAO {
         }
     }
 
-    public void updateRegistration(int programid, String pname, String pdesc, String pvenue, String ptime, String pdate, String imageSrc) throws SQLException {
-        String sql = "UPDATE program SET pname = ?, pdesc = ?, pvenue = ?, ptime = ?, pdate = ?, imageSrc = ? WHERE pid = ?";
+    public void updateRegistration(int programid, String pname, String pdesc, String pvenue, String ptime, Date pdate) throws SQLException {
+        String sql = "UPDATE program SET pname = ?, pdesc = ?, pvenue = ?, ptime = ?, pdate = ? WHERE programid = ?";
         
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -200,13 +200,15 @@ public class ProgramDAO {
             statement.setString(2, pdesc);
             statement.setString(3, pvenue);
             statement.setString(4, ptime);
-            statement.setString(5, pdate);
-            statement.setString(6, imageSrc);
-            statement.setInt(7, programid);
+            statement.setDate(5, pdate);
+            // statement.setString(6, imageSrc);
+            statement.setInt(6, programid);
             
             statement.executeUpdate();
         }
     }
+
+    
 
     
 

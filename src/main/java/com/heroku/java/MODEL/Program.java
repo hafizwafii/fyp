@@ -20,6 +20,20 @@ public class Program {
     }
 
     public Program(int pid, String pname, String pdesc, String pvenue, String ptime, Date pdate, byte[] pimagebyte,
+            MultipartFile pimage, String imageSrc) {
+                
+        this.pid = pid;
+        this.pname = pname;
+        this.pdesc = pdesc;
+        this.pvenue = pvenue;
+        this.ptime = ptime;
+        this.pdate = pdate;
+        this.pimagebyte = pimagebyte;
+        this.pimage = pimage;
+        this.imageSrc = imageSrc;
+    }
+
+    public Program(int pid, String pname, String pdesc, String pvenue, String ptime, Date pdate, byte[] pimagebyte,
             MultipartFile pimage, String imageSrc, int adminId) {
                 
         this.pid = pid;

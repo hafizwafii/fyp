@@ -13,6 +13,7 @@ import javax.sql.DataSource;
 import java.sql.*;
 import java.util.List;
 
+import com.heroku.java.SERVICES.AdminDAO;
 import com.heroku.java.SERVICES.IssueCreateDAO; //nama file dao
 import com.heroku.java.MODEL.Issue; // nama model/bean
 
@@ -49,6 +50,13 @@ public IssueCreateController(DataSource dataSource) {
         try {
             IssueCreateDAO issueCreateDAO = new IssueCreateDAO(dataSource);
             issue.setAdminId(adminId);
+
+            // int issueId = issueCreateDAO.addIssue(issue);  // Assuming addIssue returns the generated issue ID
+
+            // // Update admin with issue ID
+            // AdminDAO adminDAO = new AdminDAO(dataSource);
+            // adminDAO.addIssueIdToAdmin(adminId, issueId);
+
             issueCreateDAO.addIssue(issue);
             return "redirect:/viewIssue"; 
             // issueCreateDAO.addIssue(issue);

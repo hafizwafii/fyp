@@ -1,24 +1,31 @@
 package com.heroku.java.MODEL;
 
 public class Admin {
-    private int adminid;
-    private String adminname;
-    private String adminemail;
-    private String adminusername;
-    private String adminpassword;
-    private String role;
+    public int adminid;
+    public String adminname;
+    public String adminemail;
+    public String adminusername;
+    public String adminpassword;
+    public String role;
 
+    public int programId;
+    public int issueId;
+    
     public Admin(){
     }
 
     public Admin(int adminid, String adminname, String adminemail, String adminusername,
-            String adminpassword, String role) {
+            String adminpassword, String role, int programId, int issueId) {
         this.adminid = adminid;
         this.adminname = adminname;
         this.adminemail = adminemail;
         this.adminusername = adminusername;
         this.adminpassword = adminpassword;
         this.role = role;
+
+        this.programId = programId;
+        this.issueId = issueId;
+
     }
 
     public Admin(int adminid, String adminname, String adminusername, String adminpassword,String role) {
@@ -27,6 +34,16 @@ public class Admin {
         this.adminusername = adminusername;
         this.adminpassword = adminpassword;
         this.role = role;
+    }
+
+    public Admin(int adminid, String adminname, String adminusername, String adminpassword,String role,int programId, int issueId) {
+        this.adminid = adminid;
+        this.adminname = adminname;
+        this.adminusername = adminusername;
+        this.adminpassword = adminpassword;
+        this.role = role;
+        this.programId = programId;
+        this.issueId = issueId;
     }
 
     public int getAdminid() {
@@ -77,6 +94,24 @@ public class Admin {
     public void setRole(String role) {
         this.role = role;
     }
+
+    public int getProgramId() {
+        return programId;
+    }
+
+    public void setProgramId(int programId) {
+        this.programId = programId;
+    }
+
+    public int getIssueId() {
+        return issueId;
+    }
+
+    public void setIssueId(int issueId) {
+        this.issueId = issueId;
+    }
+
+    
 
     
 

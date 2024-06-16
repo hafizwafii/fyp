@@ -52,67 +52,6 @@ public class AdminDAO {
         }
     }
 
-    // ni original
-    // public List<Admin> listAdmin() throws SQLException {
-    //     List<Admin> adminlist = new ArrayList<>();
-    //     try (Connection connection = dataSource.getConnection()) {
-    //         String sql = "SELECT * FROM admin ORDER BY adminid";
-    //         PreparedStatement statement = connection.prepareStatement(sql);
-    //         ResultSet resultSet = statement.executeQuery();
-
-    //         while (resultSet.next()) {
-
-    //             Admin admin = new Admin();
-    //             admin.setAdminid(resultSet.getInt("adminid"));
-    //             admin.setAdminname(resultSet.getString("adminname"));
-    //             admin.setAdminemail(resultSet.getString("adminemail"));
-    //             admin.setAdminusername(resultSet.getString("adminusername"));
-    //             admin.setAdminpassword(resultSet.getString("adminpassword"));
-    //             admin.setRole(resultSet.getString("role"));
-
-    //             adminlist.add(admin);
-    //         }
-    //             connection.close();
-    //         } catch (SQLException e) {
-    //             e.printStackTrace();
-    //             throw e;
-    //         }
-    //         return adminlist;
-  
-    // }
-
-    // ni updated
-    // public List<Admin> listAdmin() throws SQLException {
-    //     List<Admin> adminlist = new ArrayList<>();
-    //     try (Connection connection = dataSource.getConnection()) {
-    //         String sql = "SELECT * FROM admin";
-
-    //         PreparedStatement statement = connection.prepareStatement(sql);
-    //         // statement.setString(1, "Normal Admin");
-    //         ResultSet resultSet = statement.executeQuery();
-    //         System.out.println("nak tengok je >>>>>");
-
-    //         while (resultSet.next()) {
-
-    //             Admin admin = new Admin();
-    //             admin.setAdminid(resultSet.getInt("adminid"));
-    //             admin.setAdminname(resultSet.getString("adminname"));
-    //             admin.setAdminemail(resultSet.getString("adminemail"));
-    //             admin.setAdminusername(resultSet.getString("adminusername"));
-    //             admin.setAdminpassword(resultSet.getString("adminpassword"));
-    //             admin.setRole(resultSet.getString("role"));
-
-    //             adminlist.add(admin);
-    //         }
-    //             connection.close();
-    //         } catch (SQLException e) {
-    //             e.printStackTrace();
-    //             throw e;
-    //         }
-    //         return adminlist;
-  
-    // }
-
     public List<Admin> listAdmin(String role) throws SQLException {
         List<Admin> adminlist = new ArrayList<>();
         try (Connection connection = dataSource.getConnection()) {
@@ -221,9 +160,6 @@ public class AdminDAO {
         return admin;
     }
 
-
-
-
         //get Admin by ID
         public Admin getAdminById(int adminid) throws SQLException {
             Admin admin = null;
@@ -287,7 +223,7 @@ public class AdminDAO {
         }
 
          // update account
-    public void updateAccount(Admin admin) throws SQLException {
+        public void updateAccount(Admin admin) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             String sql = "UPDATE admin SET adminname=?, adminemail=?, adminusername=?, adminpassword=?, role=? "
                     + "WHERE adminid=?";
@@ -322,6 +258,34 @@ public class AdminDAO {
             throw e;
         }
     }
+
+    // public void addProgramIdToAdmin(int adminId, int programId) throws SQLException {
+    //     try (Connection connection = dataSource.getConnection()) {
+    //         String sql = "UPDATE admin SET programid = ? WHERE adminid = ?";
+    //         PreparedStatement statement = connection.prepareStatement(sql);
+    //         statement.setInt(1, programId);
+    //         statement.setInt(2, adminId);
+    //         statement.executeUpdate();
+    //     } catch (SQLException e) {
+    //         e.printStackTrace();
+    //         throw e;
+    //     }
+    // }
+    
+    // public void addIssueIdToAdmin(int adminId, int issueId) throws SQLException {
+    //     try (Connection connection = dataSource.getConnection()) {
+    //         String sql = "UPDATE admin SET issueid = ? WHERE adminid = ?";
+    //         PreparedStatement statement = connection.prepareStatement(sql);
+    //         statement.setInt(1, issueId);
+    //         statement.setInt(2, adminId);
+    //         statement.executeUpdate();
+    //     } catch (SQLException e) {
+    //         e.printStackTrace();
+    //         throw e;
+    //     }
+    // }
+    
+    
 
 
 }

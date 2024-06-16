@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="~{fragments/vafterloginlayout :: vafterloginlayout (~{::body},'update-registration')}">
+<html lang="en" th:replace="~{fragments/vafterloginlayout :: vafterloginlayout (~{::body},'viewRegistration')}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,38 +16,29 @@
             <div class="card-body">
                 <div class="container-fluid mt-2 justify-content-center rounded p-2" style="background-color: #dfdfdf">
                     <p class="text-capitalize text-center mt-3 fw-bold" style="font-family: sans-serif; font-size: 24px; font-weight: bold;">
-                        PLEASE READ THE FORM CAREFULLY
+                        WE WILL SEND THE TICKET THROUGH EMAIL
                     </p>
 
                     <div class="container mt-5">
-                        <h2 class="text-center">Program Registration</h2>
+
+                        <div class="row justify-content-center">
+                        <div class="col-md-8">
+                        <h2 class="text-center">View Registration</h2>
 
                         <form th:action="@{/update-registration(pid=${programs.pid})}" th:object="${programs}" method="post"  enctype="multipart/form-data">
-                            <!-- <h3>Update Registration</h3><br> -->
-
-                            <!-- <div class="col-sm-10">
-                                <input type="hidden" th:value="${registrations.rid}" class="form-control" name="rid" id="rid" >
-                            </div> -->
-
-                            <!-- <div class="col-sm-10">
-                                <input type="hidden" th:value="${registrations.rid}" class="form-control" name="rid" id="rid" >
-                            </div> -->
-
+                            
                             <div class="col-sm-10">
                                 <input type="hidden" th:value="${programs.pid}" class="form-control" name="pid" id="pid" >
                             </div>
 
-
-                            // amik session vid dengan programid : hidden
-
-                            <div class="col mb-3">
+                            <!-- <div class="col mb-3">
                                 <label for="programimage" class="col-sm-2 col-form-label">Image</label>
                                 <div class="col-sm-10">
                                     <div class="mt-2">
                                         <img th:src="${programs.imageSrc}" alt="Program Image" style="width: 250px; height: 150px;">
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             
 
                             <div class="col mb-3">
@@ -85,17 +76,6 @@
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
-                                <div class="col-sm-10">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="gridCheck1" required>
-                                        <label class="form-check-label" for="gridCheck1">
-                                            This action cannot be undone 
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Create Registration</button>
                         </form>
                     </div>
                 </div>

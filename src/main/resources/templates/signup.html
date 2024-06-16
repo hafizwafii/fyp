@@ -26,16 +26,19 @@
               modelAttribute="signup" 
               > 
               <h1>CREATE YOUR ACCOUNT</h1> 
+
               <div class="col-12"> 
                 <label for="InputFullName">Full Name</label> 
-                <input type="fullname"  
+                <input type="text"  
                   class="form-control" 
                   id="InputFullName" 
                   placeholder="Ali Bin Abu" 
-                 aria-describedby="fullnameHelp"  
-                 name="name"
-                 required> 
+                  aria-describedby="fullnameHelp"  
+                  name="name"
+                  required
+                  oninput="this.value = this.value.replace(/[0-9]/g, '')"> 
               </div> 
+              
               
               <div class="col"> 
                 <label for="InputEmail">Email:</label> 
@@ -82,6 +85,7 @@
                    aria-describedby="birthdateHelp"  
                    placeholder="YYYY-MM-DD"  
                    name="birthdate"
+                   disabled
                    required>
         </div> 
 

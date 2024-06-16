@@ -39,8 +39,6 @@ public class IssueCreateDAO {
             insertStatement.setString(4, issue.getIremark());
             insertStatement.setInt(5, issue.getAdminId());
 
-
-
             insertStatement.execute(); 
             connection.close();
         } catch (SQLException e) {

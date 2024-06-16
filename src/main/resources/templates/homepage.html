@@ -92,9 +92,10 @@
     </div>
 
     <script>
-        function showPopup() {
-            alert("You must create an account first before register");
-            window.location.href = "/signup"; // Redirect to signup page after the alert
+function showPopup() {
+            if (confirm("You must create an account first before register. Do you want to sign up now?")) {
+                window.location.href = "/login"; // Redirect to signup page if the user clicks "OK"
+            }
         }
     </script>
 </body>
