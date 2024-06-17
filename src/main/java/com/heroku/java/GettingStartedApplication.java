@@ -75,10 +75,10 @@ public class GettingStartedApplication {
         return "homepageadmin";
     }
 
-    @GetMapping("/viewRegistration")
-    public String viewRegistration() {
-        return "viewRegistration";
-    }
+    // @GetMapping("/viewRegistration")
+    // public String viewRegistration() {
+    //     return "viewRegistration";
+    // }
 
     
     // @GetMapping("/database")

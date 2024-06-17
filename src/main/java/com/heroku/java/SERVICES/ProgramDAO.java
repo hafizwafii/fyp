@@ -76,9 +76,10 @@ public class ProgramDAO {
                 String imageSrc = "data:image/jpeg;base64," + base64Image;
 
                 int adminId  = resultSet.getInt("adminid");
+                int volunteerId  = resultSet.getInt("vid");
 
                 // Program program = new Program(programid, pname, pdesc, pvenue, ptime, pdate, null, null, imageSrc);
-                Program program = new Program(programid, pname, pdesc, pvenue, ptime, pdate, null, null, imageSrc, adminId);
+                Program program = new Program(programid, pname, pdesc, pvenue, ptime, pdate, null, null, imageSrc, adminId,volunteerId);
 
                 programlist.add(program);
 

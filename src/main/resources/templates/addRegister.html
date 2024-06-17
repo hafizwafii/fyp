@@ -25,11 +25,16 @@
                         <div class="col-md-8">
                         <h2 class="text-center">Create Registration</h2>
 
-                        <form th:action="@{/addRegister(pid=${programs.pid})}" th:object="${programs}" method="post"  enctype="multipart/form-data">
+                        <form th:action="@{/addRegister(pid=${programs.pid})}" th:object="${registrations}" method="post"  enctype="multipart/form-data">
                             
                             <div class="col-sm-10">
                                 <input type="hidden" th:value="${programs.pid}" class="form-control" name="pid" id="pid" >
                             </div>
+
+                            <div>
+                                <input type="hidden" th:value="${programs.volunteerId}" class="form-control" name="volunteerId" id="volunteerId">
+                            </div>
+                            
 
                             <!-- <div class="col mb-3">
                                 <label for="programimage" class="col-sm-2 col-form-label">Image</label>
@@ -77,6 +82,16 @@
                             </div>
 
                             <div class="row mb-3">
+                                <label for="rdate" class="form-label">Register Date:</label>
+                                <div class="col-sm-10">
+                                <input type="date" 
+                                name="rdate"
+                                id="rdate" 
+                                class="form-control" required>
+                                </div>
+                            </div>  
+
+                            <div class="row mb-3">
                                 <div class="col-sm-10">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" id="gridCheck1" required>
@@ -86,6 +101,9 @@
                                     </div>
                                 </div>
                             </div>
+
+                            
+
                             <button type="submit" class="btn btn-primary">Create Registration</button>
                         </form>
                     </div>
@@ -96,11 +114,15 @@
     <script th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js}"></script>
     <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js}"></script>
     <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js}"></script>
+
     <script>
-        flatpickr("#programdate", {
-            dateFormat: "Y-m-d",
-            minDate: "today"
+        document.addEventListener('DOMContentLoaded', function() {
+            var today = new Date().toISOString().split('T')[0];
+            var rdateInput = document.getElementById('rdate');
+            rdateInput.setAttribute('min', today);
+            rdateInput.setAttribute('max', today);
         });
     </script>
+    
 </body>
 </html>

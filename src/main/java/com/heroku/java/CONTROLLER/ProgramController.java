@@ -148,11 +148,11 @@ public class ProgramController {
     }
 
 
-    //view registration
+    //add registration
      @GetMapping("/addRegister")
-    public String showRegistration(@RequestParam("pid") int programid, Model model) {
+    public String showRegistration(HttpSession session,@RequestParam("pid") int programid, Model model) {
         try {
-            System.out.println("programid in controller :"+ programid);
+            System.out.println("PROGRAM ID in registration :"+ programid);
             ProgramDAO programDAO = new ProgramDAO(dataSource);
             Program programs = programDAO.getProgramById(programid);
 
@@ -168,7 +168,7 @@ public class ProgramController {
         }
     }
 
-    // @PostMapping("/update-registration")
+    // @PostMapping("/addRegister")
     // public String updateRegistration(@RequestParam("pid") int programid,
     //                             @ModelAttribute("program") Program programs) {
     //     try {

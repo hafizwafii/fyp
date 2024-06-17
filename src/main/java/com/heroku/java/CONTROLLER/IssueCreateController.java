@@ -51,18 +51,9 @@ public IssueCreateController(DataSource dataSource) {
             IssueCreateDAO issueCreateDAO = new IssueCreateDAO(dataSource);
             issue.setAdminId(adminId);
 
-            // int issueId = issueCreateDAO.addIssue(issue);  // Assuming addIssue returns the generated issue ID
-
-            // // Update admin with issue ID
-            // AdminDAO adminDAO = new AdminDAO(dataSource);
-            // adminDAO.addIssueIdToAdmin(adminId, issueId);
-
             issueCreateDAO.addIssue(issue);
             return "redirect:/viewIssue"; 
-            // issueCreateDAO.addIssue(issue);
-        
-
-        
+            
     } catch (SQLException e) {
         e.printStackTrace();
         return "/homepage";

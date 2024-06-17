@@ -53,18 +53,6 @@ public class VolunteerController  {
     }
     }
 
-    // admin session
-    // @PostMapping("/addAccount")
-    // public String addAdmin(HttpSession session, @ModelAttribute("addAccount")Admin admin) {
-    //     try {
-    //         adminDAO.addAdmin(admin);
-        
-    //     return "redirect:/login";
-    // } catch (SQLException e) {
-    //     e.printStackTrace();
-    //     return "error";
-    // }
-    // }
     
     @GetMapping("/searchVolunteer")
     public String searchVolunteer(@RequestParam("vname") String volunteerName, Model model) {
