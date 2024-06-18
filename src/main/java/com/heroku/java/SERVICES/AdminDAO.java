@@ -259,33 +259,4 @@ public class AdminDAO {
         }
     }
 
-    // public void addProgramIdToAdmin(int adminId, int programId) throws SQLException {
-    //     try (Connection connection = dataSource.getConnection()) {
-    //         String sql = "UPDATE admin SET programid = ? WHERE adminid = ?";
-    //         PreparedStatement statement = connection.prepareStatement(sql);
-    //         statement.setInt(1, programId);
-    //         statement.setInt(2, adminId);
-    //         statement.executeUpdate();
-    //     } catch (SQLException e) {
-    //         e.printStackTrace();
-    //         throw e;
-    //     }
-    // }
-    
-    // public void addIssueIdToAdmin(int adminId, int issueId) throws SQLException {
-    //     try (Connection connection = dataSource.getConnection()) {
-    //         String sql = "UPDATE admin SET issueid = ? WHERE adminid = ?";
-    //         PreparedStatement statement = connection.prepareStatement(sql);
-    //         statement.setInt(1, issueId);
-    //         statement.setInt(2, adminId);
-    //         statement.executeUpdate();
-    //     } catch (SQLException e) {
-    //         e.printStackTrace();
-    //         throw e;
-    //     }
-    // }
-    
-    
-
-
 }

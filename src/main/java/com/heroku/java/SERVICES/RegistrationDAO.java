@@ -6,13 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.sql.DataSource;
 import org.springframework.stereotype.Repository;
-// import org.springframework.web.multipart.MultipartFile;
 
 import com.heroku.java.MODEL.Registration;
-import com.heroku.java.MODEL.Program;
-import com.heroku.java.MODEL.Volunteer;
-
-import java.sql.Date;
 
 @Repository
 public class RegistrationDAO {
@@ -23,16 +18,35 @@ public class RegistrationDAO {
         this.dataSource = dataSource;
     }
 
-    public void showRegistration(Registration registration) throws SQLException {
-        try (Connection connection = dataSource.getConnection()){
-            String insertIssueSql = "INSERT INTO registration (rdate, vid, programid) VALUES (?, ?, ?)";
-            PreparedStatement statement = connection.prepareStatement(insertIssueSql); 
-    
-            statement.setDate(1, registration.getRdate());
-            statement.setInt(2, registration.getVolunteerId());
-            statement.setInt(3, registration.getProgramId());
+    public boolean isAlreadyRegistered(int volunteerId, int programId) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            String checkSql = "SELECT COUNT(*) FROM registration WHERE vid = ? AND programid = ?";
+            PreparedStatement statement = connection.prepareStatement(checkSql);
+            statement.setInt(1, volunteerId);
+            statement.setInt(2, programId);
+            ResultSet resultSet = statement.executeQuery();
             
-            statement.executeUpdate();
+            if (resultSet.next()) {
+                return resultSet.getInt(1) > 0;
+            }
+            return false;
+        }
+    }
+
+    public void showRegistration(Registration registration) throws SQLException {
+        if (!isAlreadyRegistered(registration.getVolunteerId(), registration.getProgramId())) {
+            try (Connection connection = dataSource.getConnection()){
+                String insertIssueSql = "INSERT INTO registration (rdate, vid, programid) VALUES (?, ?, ?)";
+                PreparedStatement statement = connection.prepareStatement(insertIssueSql); 
+
+                statement.setDate(1, registration.getRdate());
+                statement.setInt(2, registration.getVolunteerId());
+                statement.setInt(3, registration.getProgramId());
+                
+                statement.executeUpdate();
+            }
+        } else {
+            throw new SQLException("Volunteer is already registered for this program.");
         }
     }
 }

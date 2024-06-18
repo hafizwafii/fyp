@@ -13,6 +13,8 @@ public class Volunteer {
     public String username;
     public String password;
     public int vpid;
+
+    
     
     public Volunteer() {
     }
@@ -166,10 +168,10 @@ public class Volunteer {
     }
 
     
-    public Date getVolunteerbirthdate() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getVolunteerbirthdate'");
-    }
+    // public Date getVolunteerbirthdate() {
+    //     // TODO Auto-generated method stub
+    //     throw new UnsupportedOperationException("Unimplemented method 'getVolunteerbirthdate'");
+    // }
 
 
 

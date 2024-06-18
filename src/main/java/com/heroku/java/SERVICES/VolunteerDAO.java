@@ -29,9 +29,9 @@ public class VolunteerDAO {
 
     public void addVolunteer(Volunteer volunteer) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
-            String insertVolunteerSql = "INSERT INTO volunteer ( vfullname, vemail, vphonenum, vicnum, vbirthdate, vage, vusername, vpassword) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement insertStatement = connection.prepareStatement(insertVolunteerSql); 
+            String insertVolunteerSql = "INSERT INTO volunteer (vfullname, vemail, vphonenum, vicnum, vbirthdate, vage, vusername, vpassword, programid) "
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement insertStatement = connection.prepareStatement(insertVolunteerSql, Statement.RETURN_GENERATED_KEYS);
             insertStatement.setString(1, volunteer.getName());
             insertStatement.setString(2, volunteer.getEmail());
             insertStatement.setInt(3, volunteer.getPhonenum());
@@ -40,13 +40,16 @@ public class VolunteerDAO {
             insertStatement.setInt(6, volunteer.getAge());
             insertStatement.setString(7, volunteer.getUsername());
             insertStatement.setString(8, volunteer.getPassword());
+            insertStatement.setInt(9, volunteer.getVpid());  // Set the program ID
 
-            insertStatement.execute(); 
+            System.out.println("whyyy :" + volunteer.getBirthdate());
+    
+            insertStatement.execute();
         } catch (SQLException e) {
-            // Handle any exceptions or errors that occurred during the database operation
             throw e;
         }
     }
+    
 
     public List<Volunteer> getAllvolunteers() throws SQLException {
         List<Volunteer> volunteers = new ArrayList<>();
@@ -105,16 +108,31 @@ public class VolunteerDAO {
             return volunteers;
             }
 
-            public Volunteer getVolunteerByID(int vid) throws SQLException {
+            public void updateVolunteer(Volunteer volunteer) throws SQLException {
+                try (Connection connection = dataSource.getConnection()) {
+                    String updateSql = "UPDATE volunteer SET programid = ? WHERE vid = ?";
+                    PreparedStatement updateStatement = connection.prepareStatement(updateSql);
+                    updateStatement.setInt(1, volunteer.getVpid());  // Consider hard-coding a test value here for debugging
+                    updateStatement.setInt(2, volunteer.getId());
+            
+                    int affectedRows = updateStatement.executeUpdate();
+                    System.out.println("Updated rows: " + affectedRows);  // Debugging output
+                } catch (SQLException e) {
+                    System.out.println("Update failed: " + e.getMessage());  // More detailed error logging
+                    throw e;
+                }
+            }
+
+            public Volunteer getVolunteerById(int vid) throws SQLException {
+                Volunteer volunteer = null;
                 try (Connection connection = dataSource.getConnection()) {
                     String sql = "SELECT * FROM volunteer WHERE vid = ?";
                     PreparedStatement statement = connection.prepareStatement(sql);
                     statement.setInt(1, vid);
             
                     ResultSet resultSet = statement.executeQuery();
-            
                     if (resultSet.next()) {
-                        Volunteer volunteer = new Volunteer();
+                        volunteer = new Volunteer();
                         volunteer.setId(resultSet.getInt("vid"));
                         volunteer.setName(resultSet.getString("vfullname"));
                         volunteer.setEmail(resultSet.getString("vemail"));
@@ -124,18 +142,14 @@ public class VolunteerDAO {
                         volunteer.setAge(resultSet.getInt("vage"));
                         volunteer.setUsername(resultSet.getString("vusername"));
                         volunteer.setPassword(resultSet.getString("vpassword"));
-                        // Set any other properties of the Customer object based on the ResultSet
-            
-                        return volunteer;
+                        volunteer.setVpid(resultSet.getInt("programid"));  // Ensure your DB schema includes this column
                     }
-                    connection.close();
-                    return null; // Return null if the customer is not found
                 } catch (SQLException e) {
-                    // Handle any exceptions or errors that occurred during the database operation
-                    e.printStackTrace();
-                    throw e;
+                    throw new SQLException("Error retrieving volunteer by ID: " + e.getMessage());
                 }
+                return volunteer;
             }
 
+           
 
 }

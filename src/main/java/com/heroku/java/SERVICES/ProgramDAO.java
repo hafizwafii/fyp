@@ -110,7 +110,7 @@ public class ProgramDAO {
                 String ptime = resultSet.getString("ptime");
                 Date pdate = resultSet.getDate("pdate");
 
-                System.out.println("program name: " + pname);
+                System.out.println("Program Name in registration : " + pname);
 
                 byte[] pimageBytes = resultSet.getBytes("pimage");
                 String base64Image = Base64.getEncoder().encodeToString(pimageBytes);

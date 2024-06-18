@@ -11,7 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </head>
 <body style="background-color: #dfdfdf">
-    <div class="container mt-3" style="height: 100%">
+    <div class="container mt-3">
         <div class="card col-12 mt-3 mx-auto" style="width: 75rem; background-color: #dfdfdf">
             <div class="card-body">
                 <div class="container-fluid mt-2 justify-content-center rounded p-2" style="background-color: #dfdfdf">
@@ -20,100 +20,58 @@
                     </p>
 
                     <div class="container mt-5">
-
                         <div class="row justify-content-center">
-                        <div class="col-md-8">
-                        <h2 class="text-center">Create Registration</h2>
+                            <div class="col-md-8">
+                                <h2 class="text-center">Create Registration</h2>
 
-                        <form th:action="@{/addRegister(pid=${programs.pid})}" th:object="${registrations}" method="post"  enctype="multipart/form-data">
-                            
-                            <div class="col-sm-10">
-                                <input type="hidden" th:value="${programs.pid}" class="form-control" name="pid" id="pid" >
-                            </div>
+                                <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+                                    <p th:text="${errorMessage}"></p>
+                                </div>
 
-                            <div>
-                                <input type="hidden" th:value="${programs.volunteerId}" class="form-control" name="volunteerId" id="volunteerId">
-                            </div>
-                            
-
-                            <!-- <div class="col mb-3">
-                                <label for="programimage" class="col-sm-2 col-form-label">Image</label>
-                                <div class="col-sm-10">
-                                    <div class="mt-2">
-                                        <img th:src="${programs.imageSrc}" alt="Program Image" style="width: 250px; height: 150px;">
+                                <form id="registrationForm" th:action="@{/addRegister(pid=${programid})}" th:object="${registrations}" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" th:value="${programid}" class="form-control" name="pid" id="pid">
+                                    <input type="hidden" th:value="${volunteerId}" class="form-control" name="volunteerId" id="volunteerId">
+                                    <div class="mb-3">
+                                        <label for="programname" class="form-label">Name</label>
+                                        <input type="text" class="form-control" name="programname" th:value="${programs.pname}" placeholder="Program name" id="programname" readonly required>
                                     </div>
-                                </div>
-                            </div> -->
-                            
-
-                            <div class="col mb-3">
-                                <label for="programname" class="col-sm-2 col-form-label">Name</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="programname" th:value="${programs.pname}" placeholder="Program name" id="programname" readonly  required>
-                                </div>
-                            </div>
-
-                            <div class="col mb-3">
-                                <label for="programdesc" class="col-sm-2 col-form-label">Description</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="programdesc" th:value="${programs.pdesc}" placeholder="Description" id="programdesc" readonly  required>
-                                </div>
-                            </div>
-
-                            <div class="col mb-3">
-                                <label for="programvenue" class="col-sm-2 col-form-label">Venue</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="programvenue" th:value="${programs.pvenue}" placeholder="Venue" id="programvenue" readonly required>
-                                </div>
-                            </div>
-
-                            <div class="col mb-3">
-                                <label for="programtime" class="col-sm-2 col-form-label">Time</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="programtime" th:value="${programs.ptime}" placeholder="Time" id="programtime" readonly  required>
-                                </div>
-                            </div>
-
-                            <div class="col mb-3">
-                                <label for="programdate" class="col-sm-2 col-form-label">Date</label>
-                                <div class="col-sm-10">
-                                    <input type="date" class="form-control" name="programdate" th:value="${programs.pdate}" placeholder="Date" id="programdate"  disabled  required>
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="rdate" class="form-label">Register Date:</label>
-                                <div class="col-sm-10">
-                                <input type="date" 
-                                name="rdate"
-                                id="rdate" 
-                                class="form-control" required>
-                                </div>
-                            </div>  
-
-                            <div class="row mb-3">
-                                <div class="col-sm-10">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="gridCheck1" required>
-                                        <label class="form-check-label" for="gridCheck1">
-                                            This action cannot be undone 
-                                        </label>
+                                    <div class="mb-3">
+                                        <label for="programdesc" class="form-label">Description</label>
+                                        <input type="text" class="form-control" name="programdesc" th:value="${programs.pdesc}" placeholder="Description" id="programdesc" readonly required>
                                     </div>
-                                </div>
+                                    <div class="mb-3">
+                                        <label for="programvenue" class="form-label">Venue</label>
+                                        <input type="text" class="form-control" name="programvenue" th:value="${programs.pvenue}" placeholder="Venue" id="programvenue" readonly required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="programtime" class="form-label">Time</label>
+                                        <input type="text" class="form-control" name="programtime" th:value="${programs.ptime}" placeholder="Time" id="programtime" readonly required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="programdate" class="form-label">Date</label>
+                                        <input type="date" class="form-control" name="programdate" th:value="${programs.pdate}" placeholder="Date" id="programdate" disabled required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="rdate" class="form-label">Register Date:</label>
+                                        <input type="date" name="rdate" id="rdate" class="form-control" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="gridCheck1" required>
+                                            <label class="form-check-label" for="gridCheck1">
+                                                This action cannot be undone
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" th:disabled="${alreadyRegistered}">Create Registration</button>
+                                </form>
                             </div>
-
-                            
-
-                            <button type="submit" class="btn btn-primary">Create Registration</button>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js}"></script>
-    <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js}"></script>
-    <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js}"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -124,5 +82,21 @@
         });
     </script>
     
+    <!-- JavaScript for pop-up message -->
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            // Simulate successful registration (replace with actual logic)
+            var isRegistered = true; // Replace with your actual logic
+
+            if (isRegistered) {
+                alert('Registration successful!');
+            }
+        });
+    </script>
+
+    <!-- Bootstrap and Flatpickr scripts -->
+    <script th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js}"></script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js}"></script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

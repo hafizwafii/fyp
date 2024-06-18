@@ -41,6 +41,9 @@
                           <th scope="col">IC Number</th>
                           <th scope="col">Username</th>
                           <th scope="col">Enroll Program</th>
+                          
+                          <th scope="col">Program ID</th>
+                          
                         </tr>
                       </thead>
 
@@ -52,7 +55,9 @@
                             <td th:text="${volunteer.phonenum}"></td>
                             <td th:text="${volunteer.icnum}"></td>
                             <td th:text="${volunteer.username}"></td>
-                            <td th:text="${volunteer.vpid != null ? 'NO' : 'YES'}"></td>
+                            <td th:text="${volunteer.vpid != null ? 'YES' : 'NO'}"></td>
+
+                            <td th:text="${volunteer.vpid != null ? volunteer.vpid : ''}"></td>
 
                         </div>
 

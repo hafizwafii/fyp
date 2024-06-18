@@ -148,38 +148,27 @@ public class ProgramController {
     }
 
 
-    //add registration
-     @GetMapping("/addRegister")
-    public String showRegistration(HttpSession session,@RequestParam("pid") int programid, Model model) {
-        try {
-            System.out.println("PROGRAM ID in registration :"+ programid);
-            ProgramDAO programDAO = new ProgramDAO(dataSource);
-            Program programs = programDAO.getProgramById(programid);
-
-            if (programs != null) {
-                model.addAttribute("programs", programs);
-                return "addRegister";
-            } else {
-                return "homevolunteer"; // Or another error page if registration is not found
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return "homevolunteer"; // Or another error page
-        }
-    }
-
-    // @PostMapping("/addRegister")
-    // public String updateRegistration(@RequestParam("pid") int programid,
-    //                             @ModelAttribute("program") Program programs) {
+    // //add registration
+    //  @GetMapping("/addRegister")
+    // public String showRegistration(HttpSession session,@RequestParam("pid") int programid, Model model) {
     //     try {
+    //         System.out.println("PROGRAM ID in registration :"+ programid);
     //         ProgramDAO programDAO = new ProgramDAO(dataSource);
-    //         programDAO.updateRegistration(programid, programs.getPname(), programs.getPdesc(), programs.getPvenue(), programs.getPtime(), programs.getPdate());
-    //         return "redirect:/homevolunteer";
+    //         Program programs = programDAO.getProgramById(programid);
+
+    //         if (programs != null) {
+    //             model.addAttribute("programs", programs);
+    //             return "addRegister";
+    //         } else {
+    //             return "homevolunteer"; // Or another error page if registration is not found
+    //         }
     //     } catch (SQLException e) {
-    //         System.out.println("message: " + e.getMessage());
-    //         return "redirect:/login";
+    //         e.printStackTrace();
+    //         return "homevolunteer"; // Or another error page
     //     }
     // }
+
+    
 
     @GetMapping("/homevolunteer")
     public String homevolunteer(Model model) {
