@@ -13,6 +13,7 @@ import javax.sql.DataSource;
 
 import java.security.Principal;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.heroku.java.SERVICES.AdminDAO; //nama file dao
@@ -74,7 +75,9 @@ public String viewAccount(HttpSession session, Model model) {
             adminlist = adminDAO.listNormalAdmins();
         } else {
             // Normal Admin sees only other Normal Admins
-            adminlist = adminDAO.listAdminsByRole(role);
+            // adminlist = adminDAO.listAdminsByRole(role);
+            adminlist = new ArrayList<>();
+            adminlist.add(currentAdmin);
         }
 
         model.addAttribute("admins", adminlist);

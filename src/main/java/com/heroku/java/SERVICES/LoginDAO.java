@@ -28,8 +28,11 @@ public class LoginDAO {
     //model V
     public Volunteer checkVolunteer(String username, String password) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
-            System.out.println("password : "+ password);
-            System.out.println("username : "+ username);
+
+            System.out.println("Username volunteer : "+ username);
+            System.out.println("Password volunteer : "+ password);
+            // System.out.println("username : "+ username);
+
             String sql = "SELECT vid, vfullname FROM volunteer WHERE vusername = ? AND vpassword = ?";// check attribute database
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, username);

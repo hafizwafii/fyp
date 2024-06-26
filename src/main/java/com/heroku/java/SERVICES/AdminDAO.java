@@ -80,8 +80,6 @@ public class AdminDAO {
     }
     
     
-    
-
     public List<Admin> listAdminsByRole(String role) throws SQLException {
         List<Admin> adminlist = new ArrayList<>();
         try (Connection connection = dataSource.getConnection()) {
@@ -207,11 +205,11 @@ public class AdminDAO {
                     int vage = resultSet.getInt("vage");
                     String vusername = resultSet.getString("vusername");
                     String vpassword = resultSet.getString("vpassword");
-                    int vpid = resultSet.getInt("programid");
+                    // int vpid = resultSet.getInt("programid");
 
 
                     // Volunteer volunteer = new Volunteer(vid, vfullname, vemail, vphonenum , vicnum ,vbirthdate, vage, vusername, vpassword, vpid);
-                    Volunteer volunteer = new Volunteer(vid, vfullname, vemail, vphonenum,  vicnum, vbirthdate,  vage,  vusername,  vpassword, vpid);
+                    Volunteer volunteer = new Volunteer(vid, vfullname, vemail, vphonenum,  vicnum, vbirthdate,  vage,  vusername,  vpassword);
                     volunteers.add(volunteer);
                 }
                 connection.close();

@@ -15,7 +15,7 @@ public class Program {
     public MultipartFile pimage;
     public String imageSrc;
     public int adminId;
-    public int volunteerId;
+    // public int volunteerId;
 
     public Program(){
     }
@@ -35,7 +35,7 @@ public class Program {
     }
 
     public Program(int pid, String pname, String pdesc, String pvenue, String ptime, Date pdate, byte[] pimagebyte,
-            MultipartFile pimage, String imageSrc, int adminId, int volunteerId) {
+            MultipartFile pimage, String imageSrc, int adminId) {
                 
         this.pid = pid;
         this.pname = pname;
@@ -47,7 +47,7 @@ public class Program {
         this.pimage = pimage;
         this.imageSrc = imageSrc;
         this.adminId = adminId;
-        this.volunteerId = volunteerId;
+        // this.volunteerId = volunteerId;
     }
 
     public int getPid() {
@@ -130,13 +130,13 @@ public class Program {
         this.adminId = adminId;
     }
 
-    public int getVolunteerId() {
-        return volunteerId;
-    }
+    // public int getVolunteerId() {
+    //     return volunteerId;
+    // }
 
-    public void setVolunteerId(int volunteerId) {
-        this.volunteerId = volunteerId;
-    }
+    // public void setVolunteerId(int volunteerId) {
+    //     this.volunteerId = volunteerId;
+    // }
 
     
     

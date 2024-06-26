@@ -33,16 +33,34 @@ public class RegistrationDAO {
         }
     }
 
+    // before push
+    // public void showRegistration(Registration registration) throws SQLException {
+    //     if (!isAlreadyRegistered(registration.getVolunteerId(), registration.getProgramId())) {
+    //         try (Connection connection = dataSource.getConnection()){
+    //             String insertIssueSql = "INSERT INTO registration (rdate, vid, programid) VALUES (?, ?, ?)";
+    //             PreparedStatement statement = connection.prepareStatement(insertIssueSql); 
+
+    //             statement.setDate(1, registration.getRdate());
+    //             statement.setInt(2, registration.getVolunteerId());
+    //             statement.setInt(3, registration.getProgramId());
+                
+    //             statement.executeUpdate();
+    //         }
+    //     } else {
+    //         throw new SQLException("Volunteer is already registered for this program.");
+    //     }
+    // }
+
     public void showRegistration(Registration registration) throws SQLException {
         if (!isAlreadyRegistered(registration.getVolunteerId(), registration.getProgramId())) {
             try (Connection connection = dataSource.getConnection()){
-                String insertIssueSql = "INSERT INTO registration (rdate, vid, programid) VALUES (?, ?, ?)";
-                PreparedStatement statement = connection.prepareStatement(insertIssueSql); 
+                String insertSql = "INSERT INTO registration (rdate, vid, programid) VALUES (?, ?, ?)";
+                PreparedStatement statement = connection.prepareStatement(insertSql); 
 
                 statement.setDate(1, registration.getRdate());
                 statement.setInt(2, registration.getVolunteerId());
                 statement.setInt(3, registration.getProgramId());
-                
+
                 statement.executeUpdate();
             }
         } else {

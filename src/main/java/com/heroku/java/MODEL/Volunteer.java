@@ -12,7 +12,8 @@ public class Volunteer {
     public int age;
     public String username;
     public String password;
-    public int vpid;
+
+    // public int vpid;
 
     
     
@@ -22,7 +23,7 @@ public class Volunteer {
     
 
     public Volunteer(int id, String name, String email, int phonenum, String icnum, Date vbirthdate, int age, String username,
-            String password, int vpid) {
+            String password) {
                 
         this.id=id;        
         this.name = name;
@@ -33,7 +34,7 @@ public class Volunteer {
         this.age = age;
         this.username = username;
         this.password = password;
-        this.vpid = vpid;
+        // this.vpid = vpid;
 
         
         
@@ -42,7 +43,6 @@ public class Volunteer {
 
 
     public Volunteer(int id, String name, String username, String password) {
-        //TODO Auto-generated constructor stub
         this.id=id;
         this.name=name;
         this.username=username;
@@ -157,15 +157,15 @@ public class Volunteer {
         this.password = password;
     }
 
-    public int getVpid() {
-        return vpid;
-    }
+    // public int getVpid() {
+    //     return vpid;
+    // }
 
 
 
-    public void setVpid(int vpid) {
-        this.vpid = vpid;
-    }
+    // public void setVpid(int vpid) {
+    //     this.vpid = vpid;
+    // }
 
     
     // public Date getVolunteerbirthdate() {
@@ -179,19 +179,6 @@ public class Volunteer {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getVolunteerusername'");
     }
-
-
-
-   
-
-   
-
-    
-
-    
-
-
-    
 
     
 }

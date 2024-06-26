@@ -43,8 +43,8 @@ public class LoginController {
             session.setAttribute("volunteerid", isVolunteer.getId());
 
             //try debug
-            System.out.println("Volunteer who login: "+ username);
-            System.out.println("Volunteer id who login: "+ isVolunteer.getId());
+            System.out.println("Volunteer username who login: "+ username);
+            System.out.println("Volunteer Id who login: "+ isVolunteer.getId());
             return "redirect:/homevolunteer"; // Replace with the appropriate customer home page URL
 
 

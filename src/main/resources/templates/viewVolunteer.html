@@ -39,10 +39,8 @@
                           <th scope="col">Email</th>
                           <th scope="col">Phone Number</th>
                           <th scope="col">IC Number</th>
-                          <th scope="col">Username</th>
+                          <!-- <th scope="col">Username</th> -->
                           <th scope="col">Enroll Program</th>
-                          
-                          <th scope="col">Program ID</th>
                           
                         </tr>
                       </thead>
@@ -54,12 +52,15 @@
                             <td th:text="${volunteer.email}"></td>
                             <td th:text="${volunteer.phonenum}"></td>
                             <td th:text="${volunteer.icnum}"></td>
-                            <td th:text="${volunteer.username}"></td>
-                            <td th:text="${volunteer.vpid != null ? 'YES' : 'NO'}"></td>
+                            <!-- <td th:text="${volunteer.username}"></td> -->
+                            <!-- <td th:text="${volunteer.registered ? 'Yes' : 'No'}"></td> -->
 
-                            <td th:text="${volunteer.vpid != null ? volunteer.vpid : ''}"></td>
+                            <td
+                            >
+                            <!-- <! <td th:text="${volunteer.vpid != null ? 'YES' : 'NO'}"></td> -->
 
-                        </div>
+                            <!-- <td th:text="${volunteer.vpid != null ? volunteer.vpid : ''}"></td>  -->
+
 
                         </td>
                     </tr>   
