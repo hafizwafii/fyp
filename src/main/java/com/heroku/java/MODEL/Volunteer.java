@@ -13,6 +13,8 @@ public class Volunteer {
     public String username;
     public String password;
 
+    public boolean isRegistered;
+
     // public int vpid;
 
     
@@ -152,28 +154,23 @@ public class Volunteer {
     }
 
 
-
+    
     public void setPassword(String password) {
         this.password = password;
     }
 
-    // public int getVpid() {
-    //     return vpid;
-    // }
+    public boolean isRegistered() {
+        return isRegistered;
+    }
 
+    public void setRegistered(boolean isRegistered) {
+        this.isRegistered = isRegistered;
+    }
 
-
-    // public void setVpid(int vpid) {
-    //     this.vpid = vpid;
-    // }
-
-    
     // public Date getVolunteerbirthdate() {
     //     // TODO Auto-generated method stub
     //     throw new UnsupportedOperationException("Unimplemented method 'getVolunteerbirthdate'");
     // }
-
-
 
     public String getVolunteerusername() {
         // TODO Auto-generated method stub

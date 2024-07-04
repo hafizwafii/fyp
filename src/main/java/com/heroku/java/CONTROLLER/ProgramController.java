@@ -19,6 +19,7 @@ import java.util.List;
 import com.heroku.java.SERVICES.AdminDAO;
 import com.heroku.java.SERVICES.IssueViewDAO;
 import com.heroku.java.SERVICES.ProgramDAO; //nama file dao
+import com.heroku.java.SERVICES.VolunteerEmailDAO;
 import com.heroku.java.MODEL.Issue;
 import com.heroku.java.MODEL.Program; // nama model/bean
 import com.heroku.java.MODEL.Registration;
@@ -53,13 +54,20 @@ public class ProgramController {
             program.setAdminId(adminId); 
             ProgramDAO programDAO = new ProgramDAO(dataSource);
 
-            // int programId = programDAO.addProgram(program);  // Assuming addProgram returns the generated program ID
-
-            // // Update admin with program ID
-            //  AdminDAO adminDAO = new AdminDAO(dataSource);
-            // adminDAO.addProgramIdToAdmin(adminId, programId);
-
             programDAO.addProgram(program);
+
+            // // Fetch all player emails from database (example)
+            // List<String> volunteerEmails = volunteerEmailDAO.getVolunteerEmail();
+
+            // // Send individualized email to each player
+            // for (String Email : Emails) {
+            //     String subject = "New Event Announcement: " + program.getPname();
+            //     String htmlContent = buildHtmlContent(event, ed);
+            //     emailService.sendHtmlEmail(Email, subject, htmlContent);
+            // }
+
+
+            // programDAO.addProgram(program);
             return "redirect:/viewProgram"; 
                 
     } catch (SQLException e) {
@@ -132,20 +140,38 @@ public class ProgramController {
 }
 
     //Delete the program
+    // @PostMapping("/deleteProgram")
+    // public String deleteProgram(@RequestParam("pid") int programid) {
+    //     try {
+    //         ProgramDAO programDAO = new ProgramDAO(dataSource);
+    //         programDAO.deleteProgram(programid);
+            
+    //         return "redirect:/viewProgram";
+    //     } catch (SQLException e) {
+    //         System.out.println("Error deleting program: " + e.getMessage());
+    //         // Handle the exception or display an error message to the user
+    //         // You can redirect to an error page or display a meaningful message
+    //         return "error";
+    //     }
+    // }
+
     @PostMapping("/deleteProgram")
     public String deleteProgram(@RequestParam("pid") int programid) {
-        try {
-            ProgramDAO programDAO = new ProgramDAO(dataSource);
+    try {
+        ProgramDAO programDAO = new ProgramDAO(dataSource);
+        if (programDAO.hasRegistrations(programid)) {
+            // If there are registrations, do not delete the program and return an appropriate message
+            return "redirect:/viewProgram?error= Sorry! It cannot be deleted because program has registrations";
+        } else {
             programDAO.deleteProgram(programid);
-            
-            return "redirect:/viewProgram";
-        } catch (SQLException e) {
-            System.out.println("Error deleting program: " + e.getMessage());
-            // Handle the exception or display an error message to the user
-            // You can redirect to an error page or display a meaningful message
-            return "error";
+            return "redirect:/viewProgram?success=This program has been successfully deleted";
         }
+    } catch (SQLException e) {
+        System.out.println("Error deleting program: " + e.getMessage());
+        return "error";
     }
+}
+
 
 
     // //add registration

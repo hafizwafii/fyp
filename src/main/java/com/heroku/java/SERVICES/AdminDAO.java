@@ -186,37 +186,64 @@ public class AdminDAO {
         }
 
         // view volunteer
+        // public List<Volunteer> getAllVolunteers() throws SQLException {
+        //     List<Volunteer> volunteers = new ArrayList<>();
+
+        //     try (Connection connection = dataSource.getConnection()) {
+        //         String sql = "SELECT * FROM volunteer";
+        //         // String sql = "SELECT vid,vfullname,vemail,vphonenum,vicnum FROM volunteer";
+        //         PreparedStatement statement = connection.prepareStatement(sql);
+        //         ResultSet resultSet = statement.executeQuery();
+
+        //         while (resultSet.next()) {
+        //             int vid = resultSet.getInt("vid");
+        //             String vfullname = resultSet.getString("vfullname");
+        //             String vemail = resultSet.getString("vemail");
+        //             int vphonenum = resultSet.getInt("vphonenum");
+        //             String vicnum = resultSet.getString("vicnum");
+        //             Date vbirthdate = resultSet.getDate("vbirthdate");
+        //             int vage = resultSet.getInt("vage");
+        //             String vusername = resultSet.getString("vusername");
+        //             String vpassword = resultSet.getString("vpassword");
+        //             // int vpid = resultSet.getInt("programid");
+
+
+        //             // Volunteer volunteer = new Volunteer(vid, vfullname, vemail, vphonenum , vicnum ,vbirthdate, vage, vusername, vpassword, vpid);
+        //             Volunteer volunteer = new Volunteer(vid, vfullname, vemail, vphonenum,  vicnum, vbirthdate,  vage,  vusername,  vpassword);
+        //             volunteers.add(volunteer);
+        //         }
+        //         connection.close();
+        //     } catch (SQLException e) {
+        //             e.printStackTrace();
+        //     }
+
+        //     return volunteers;
+        // }
+
         public List<Volunteer> getAllVolunteers() throws SQLException {
             List<Volunteer> volunteers = new ArrayList<>();
-
+        
             try (Connection connection = dataSource.getConnection()) {
-                String sql = "SELECT * FROM volunteer";
-                // String sql = "SELECT vid,vfullname,vemail,vphonenum,vicnum FROM volunteer";
+                String sql = "SELECT v.*, EXISTS (SELECT 1 FROM registration WHERE vid = v.vid) AS is_registered FROM volunteer v ORDER BY v.vid";
                 PreparedStatement statement = connection.prepareStatement(sql);
                 ResultSet resultSet = statement.executeQuery();
-
+        
                 while (resultSet.next()) {
-                    int vid = resultSet.getInt("vid");
-                    String vfullname = resultSet.getString("vfullname");
-                    String vemail = resultSet.getString("vemail");
-                    int vphonenum = resultSet.getInt("vphonenum");
-                    String vicnum = resultSet.getString("vicnum");
-                    Date vbirthdate = resultSet.getDate("vbirthdate");
-                    int vage = resultSet.getInt("vage");
-                    String vusername = resultSet.getString("vusername");
-                    String vpassword = resultSet.getString("vpassword");
-                    // int vpid = resultSet.getInt("programid");
-
-
-                    // Volunteer volunteer = new Volunteer(vid, vfullname, vemail, vphonenum , vicnum ,vbirthdate, vage, vusername, vpassword, vpid);
-                    Volunteer volunteer = new Volunteer(vid, vfullname, vemail, vphonenum,  vicnum, vbirthdate,  vage,  vusername,  vpassword);
+                    Volunteer volunteer = new Volunteer();
+                    volunteer.setId(resultSet.getInt("vid"));
+                    volunteer.setName(resultSet.getString("vfullname"));
+                    volunteer.setEmail(resultSet.getString("vemail"));
+                    volunteer.setPhonenum(resultSet.getInt("vphonenum"));
+                    volunteer.setIcnum(resultSet.getString("vicnum"));
+                    volunteer.setUsername(resultSet.getString("vusername"));
+                    volunteer.setRegistered(resultSet.getBoolean("is_registered"));  // Assuming the Volunteer model has this attribute
+        
                     volunteers.add(volunteer);
                 }
-                connection.close();
             } catch (SQLException e) {
-                    e.printStackTrace();
+                throw new SQLException("Error retrieving volunteers: " + e.getMessage());
             }
-
+        
             return volunteers;
         }
 

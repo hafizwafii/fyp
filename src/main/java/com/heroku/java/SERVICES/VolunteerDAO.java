@@ -50,63 +50,96 @@ public class VolunteerDAO {
         }
     }
     
+    // original 
+    // public List<Volunteer> getAllvolunteers() throws SQLException {
+    //     List<Volunteer> volunteers = new ArrayList<>();
+    
+    //     try (Connection connection = dataSource.getConnection()) {
+    //         String sql = "SELECT * FROM volunteer order by vid";
+    //         PreparedStatement statement = connection.prepareStatement(sql);
+    //         ResultSet resultSet = statement.executeQuery();
+    
+    //         while (resultSet.next()) {
+    //             Volunteer volunteer = new Volunteer();
+    //             volunteer.setName(resultSet.getString("vfullname"));
+    //             volunteer.setId(resultSet.getInt("vid"));
+    //             volunteer.setEmail(resultSet.getString("vemail"));
+    //             volunteer.setPhonenum(resultSet.getInt("vphonenum"));
+    //             volunteer.setIcnum(resultSet.getString("vicnum"));
+    //             volunteer.setUsername(resultSet.getString("vusername"));
+                
+    
+    //             volunteers.add(volunteer);
+    //         }
+    //         connection.close();
+    //     } catch (SQLException e) {
+    //         throw new SQLException("Error retrieving volunteer: " + e.getMessage());
+    //     }
+    
+    //     return volunteers;
+    // }
 
     public List<Volunteer> getAllvolunteers() throws SQLException {
         List<Volunteer> volunteers = new ArrayList<>();
     
         try (Connection connection = dataSource.getConnection()) {
-            String sql = "SELECT * FROM volunteer order by vid";
+            // Modified SQL to include a check for registrations
+            String sql = "SELECT v.*, (SELECT COUNT(*) FROM registration WHERE vid = r.vid) > 0 AS is_registered FROM volunteer v ORDER BY vid";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
     
             while (resultSet.next()) {
                 Volunteer volunteer = new Volunteer();
-                volunteer.setName(resultSet.getString("vfullname"));
                 volunteer.setId(resultSet.getInt("vid"));
+                volunteer.setName(resultSet.getString("vfullname"));
                 volunteer.setEmail(resultSet.getString("vemail"));
                 volunteer.setPhonenum(resultSet.getInt("vphonenum"));
                 volunteer.setIcnum(resultSet.getString("vicnum"));
                 volunteer.setUsername(resultSet.getString("vusername"));
+                volunteer.setRegistered(resultSet.getBoolean("is_registered")); // Assuming you have this setter in your Volunteer model
+
+                System.out.println("Volunteer ID: " + volunteer.getId() + ", Registered: " + volunteer.isRegistered());
                 
-    
                 volunteers.add(volunteer);
             }
             connection.close();
         } catch (SQLException e) {
-            throw new SQLException("Error retrieving volunteer: " + e.getMessage());
+            throw new SQLException("Error retrieving volunteers: " + e.getMessage());
         }
     
         return volunteers;
     }
+    
 
         // searchvolunteer
-        public List<Volunteer> searchVolunteersByName(String name) throws SQLException{
+        public List<Volunteer> searchVolunteersByName(String name) throws SQLException {
             List<Volunteer> volunteers = new ArrayList<>();
         
             try (Connection connection = dataSource.getConnection()) {
-                String sql = "SELECT * FROM volunteer WHERE vfullname LIKE ?";
-                try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                    statement.setString(1, "%" + name + "%");
-                    
-                    try (ResultSet resultSet = statement.executeQuery()) {
-                        while (resultSet.next()) {
-                           Volunteer volunteer = new Volunteer();
-                           volunteer.setId(resultSet.getInt("vid"));
-                           volunteer.setName(resultSet.getString("vfullname"));
-                           volunteer.setEmail(resultSet.getString("vemail"));
-                           volunteer.setPhonenum(resultSet.getInt("vphonenum"));
-                           volunteer.setIcnum(resultSet.getString("vicnum"));
-                           volunteer.setUsername(resultSet.getString("vusername"));
+                // Updated SQL to include a check for registrations
+                String sql = "SELECT v.*, EXISTS (SELECT 1 FROM registration WHERE vid = v.vid) AS is_registered FROM volunteer v WHERE v.vfullname LIKE ? ORDER BY v.vid";
+                PreparedStatement statement = connection.prepareStatement(sql);
+                statement.setString(1, "%" + name + "%");
         
-                           volunteers.add(volunteer);
-                        }
-                    }
+                ResultSet resultSet = statement.executeQuery();
+                while (resultSet.next()) {
+                    Volunteer volunteer = new Volunteer();
+                    volunteer.setId(resultSet.getInt("vid"));
+                    volunteer.setName(resultSet.getString("vfullname"));
+                    volunteer.setEmail(resultSet.getString("vemail"));
+                    volunteer.setPhonenum(resultSet.getInt("vphonenum"));
+                    volunteer.setIcnum(resultSet.getString("vicnum"));
+                    volunteer.setUsername(resultSet.getString("vusername"));
+                    volunteer.setRegistered(resultSet.getBoolean("is_registered")); // Set registration status
+        
+                    volunteers.add(volunteer);
                 }
             } catch (SQLException e) {
-                throw new SQLException("Error retrievingvolunteer: " + e.getMessage());
+                throw new SQLException("Error retrieving volunteers by name: " + e.getMessage());
             }
             return volunteers;
-            }
+        }
+        
 
         // update volunteer    
         // public void updateVolunteer(Volunteer volunteer) throws SQLException {

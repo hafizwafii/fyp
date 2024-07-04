@@ -177,9 +177,40 @@ public class ProgramDAO {
     }
 
     //delete program
+    // public void deleteProgram(int programid) throws SQLException {
+    //     try (Connection connection = dataSource.getConnection()) {
+    //         String sql = "DELETE FROM program WHERE programid=?";
+    //         PreparedStatement statement = connection.prepareStatement(sql);
+    //         statement.setInt(1, programid);
+
+    //         statement.executeUpdate();
+    //         connection.close();
+    //     } catch (SQLException e) {
+    //         e.printStackTrace();
+    //         throw e;
+    //     }
+    // }
+
+    public boolean hasRegistrations(int programid) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            String sql = "SELECT COUNT(*) FROM registration WHERE programid = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, programid);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getInt(1) > 0;
+            }
+            return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
     public void deleteProgram(int programid) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
-            String sql = "DELETE FROM program WHERE programid=?";
+            String sql = "DELETE FROM program WHERE programid = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, programid);
 
@@ -190,6 +221,7 @@ public class ProgramDAO {
             throw e;
         }
     }
+
 
     public void updateRegistration(int programid, String pname, String pdesc, String pvenue, String ptime, Date pdate) throws SQLException {
         String sql = "UPDATE program SET pname = ?, pdesc = ?, pvenue = ?, ptime = ?, pdate = ? WHERE programid = ?";
