@@ -17,6 +17,7 @@ public class EmailService {
         try {
             MimeMessage message =  emailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+            System.out.println("service email: " + toEmail);
             helper.setTo(toEmail);
             helper.setSubject(subject);
             helper.setText(htmlContent, true); // Set HTML content

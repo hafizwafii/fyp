@@ -124,10 +124,10 @@ public class RegistrationController {
                         program.getPdate(),
                         registration.getRdate().toString()
                 );
-
+                System.out.println("email volunteer: " + volunteer.getEmail());
                 // Send email
                 emailService.sendHtmlEmail(volunteer.getEmail(), subject, htmlContent);
-
+                
                 return "redirect:/homevolunteer";
             } catch (SQLException e) {
                 model.addAttribute("errorMessage", "You have already registered for this program.");
