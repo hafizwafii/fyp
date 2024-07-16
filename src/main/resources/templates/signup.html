@@ -23,7 +23,8 @@
               class="p-3"  
               method="post"  
               th:action="@{/signup}"  
-              modelAttribute="signup" 
+              modelAttribute="signup"
+              onsubmit="enableBirthdateField()"
               > 
               <h1>CREATE YOUR ACCOUNT</h1> 
 
@@ -85,6 +86,7 @@
                    aria-describedby="birthdateHelp"  
                    placeholder="YYYY-MM-DD"  
                    name="birthdate"
+                   disabled
                    required>
             </div> 
 
@@ -119,6 +121,10 @@
                 }
                 document.getElementById("InputAge").value = age;
             }
+        }
+
+        function enableBirthdateField() {
+            document.getElementById("Inputbirthdate").disabled = false;
         }
         
         // Initialize Flatpickr for the input field with ID 'Inputbirthdate'
