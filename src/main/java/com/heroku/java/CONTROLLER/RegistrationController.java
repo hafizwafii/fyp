@@ -59,32 +59,6 @@ public class RegistrationController {
         }
     }
 
-    // @PostMapping("/addRegister")
-    // public String handleRegistration(HttpSession session, @RequestParam("pid") int programid, Registration registration, Model model) {
-    //     try {
-    //         Integer volunteerId = (Integer) session.getAttribute("volunteerid");
-
-    //         if (volunteerId == null) {
-    //             return "redirect:/login"; // Redirect to login if volunteer ID is not found
-    //         }
-
-    //         registration.setVolunteerId(volunteerId);
-    //         registration.setProgramId(programid);
-
-    //         try {
-    //             registrationDAO.showRegistration(registration);
-    //             return "redirect:/homevolunteer";
-    //         } catch (SQLException e) {
-    //             model.addAttribute("errorMessage", "You have already registered for this program.");
-    //             model.addAttribute("alreadyRegistered", true);
-    //             return "redirect:/addRegister?pid=" + programid;
-    //         }
-
-    //     } catch (NumberFormatException e) {
-    //         e.printStackTrace();
-    //         return "redirect:/login";
-    //     }
-    // }
 
     @PostMapping("/addRegister")
     public String handleRegistration(HttpSession session, @RequestParam("pid") int programid, Registration registration, Model model) {
@@ -115,12 +89,14 @@ public class RegistrationController {
                         "<p>You have successfully registered for the following program:</p>" +
                         "<ul>" +
                         "<li>Program Name: %s</li>" +
+                        "<li>Program Description: %s</li>" +
                         "<li>Program Date: %s</li>" +
                         "<li>Registration Date: %s</li>" +
                         "</ul>" +
                         "<p>Thank you for registering!</p>",
                         volunteer.getName(),
                         program.getPname(),
+                        program.getPdesc(),
                         program.getPdate(),
                         registration.getRdate().toString()
                 );
@@ -140,5 +116,26 @@ public class RegistrationController {
             return "redirect:/login";
         }
     }
+
+    @GetMapping("/profileRegistration")
+    public String profileRegistration(HttpSession session, Model model) {
+    try {
+        Integer volunteerId = (Integer) session.getAttribute("volunteerid");
+
+        if (volunteerId == null) {
+            return "redirect:/login"; // Redirect to login if volunteer ID is not found
+        }
+
+        // Fetch the list of programs the volunteer has registered for
+        List<Program> programs = registrationDAO.getProgramsByVolunteerId(volunteerId);
+        model.addAttribute("programs", programs);
+        
+        return "profileRegistration"; // Redirect to profile registration view
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return "homevolunteer"; // Or another error page
+    }
+}
+
 }
 

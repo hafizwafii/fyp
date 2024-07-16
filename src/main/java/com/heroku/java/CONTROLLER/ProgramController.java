@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.ui.Model; 
 import jakarta.servlet.http.HttpSession;
 
+
 import javax.sql.DataSource;
 
 import java.io.IOException;
@@ -94,7 +95,7 @@ public class ProgramController {
             model.addAttribute("role", role);
         }  catch (SQLException e) {
             e.printStackTrace();
-            return "error";
+            return "login";
         }
         return "viewProgram";    
       
@@ -139,22 +140,6 @@ public class ProgramController {
     }
 }
 
-    //Delete the program
-    // @PostMapping("/deleteProgram")
-    // public String deleteProgram(@RequestParam("pid") int programid) {
-    //     try {
-    //         ProgramDAO programDAO = new ProgramDAO(dataSource);
-    //         programDAO.deleteProgram(programid);
-            
-    //         return "redirect:/viewProgram";
-    //     } catch (SQLException e) {
-    //         System.out.println("Error deleting program: " + e.getMessage());
-    //         // Handle the exception or display an error message to the user
-    //         // You can redirect to an error page or display a meaningful message
-    //         return "error";
-    //     }
-    // }
-
     @PostMapping("/deleteProgram")
     public String deleteProgram(@RequestParam("pid") int programid) {
     try {
@@ -171,31 +156,7 @@ public class ProgramController {
         return "error";
     }
 }
-
-
-
-    // //add registration
-    //  @GetMapping("/addRegister")
-    // public String showRegistration(HttpSession session,@RequestParam("pid") int programid, Model model) {
-    //     try {
-    //         System.out.println("PROGRAM ID in registration :"+ programid);
-    //         ProgramDAO programDAO = new ProgramDAO(dataSource);
-    //         Program programs = programDAO.getProgramById(programid);
-
-    //         if (programs != null) {
-    //             model.addAttribute("programs", programs);
-    //             return "addRegister";
-    //         } else {
-    //             return "homevolunteer"; // Or another error page if registration is not found
-    //         }
-    //     } catch (SQLException e) {
-    //         e.printStackTrace();
-    //         return "homevolunteer"; // Or another error page
-    //     }
-    // }
-
-    
-
+ 
     @GetMapping("/homevolunteer")
     public String homevolunteer(Model model) {
         ProgramDAO programDAO = new ProgramDAO(dataSource);
@@ -212,10 +173,7 @@ public class ProgramController {
         return "homevolunteer";
     }
 
-    
-  
 
-    // public boolean bagi ada value true false
 
 
 

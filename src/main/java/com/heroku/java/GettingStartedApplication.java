@@ -74,12 +74,6 @@ public class GettingStartedApplication {
     public String homepageadmin() {
         return "homepageadmin";
     }
-
-    // @GetMapping("/viewRegistration")
-    // public String viewRegistration() {
-    //     return "viewRegistration";
-    // }
-
     
     // @GetMapping("/database")
     // String database(Map<String, Object> model) {

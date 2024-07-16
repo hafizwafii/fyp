@@ -31,6 +31,7 @@
                                 <form id="registrationForm" th:action="@{/addRegister(pid=${programid})}" th:object="${registrations}" method="post" enctype="multipart/form-data">
                                     <input type="hidden" th:value="${programid}" class="form-control" name="pid" id="pid">
                                     <input type="hidden" th:value="${volunteerId}" class="form-control" name="volunteerId" id="volunteerId">
+                                    
                                     <div class="mb-3">
                                         <label for="programname" class="form-label">Name</label>
                                         <input type="text" class="form-control" name="programname" th:value="${programs.pname}" placeholder="Program name" id="programname" readonly required>

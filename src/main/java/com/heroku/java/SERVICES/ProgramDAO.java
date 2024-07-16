@@ -5,7 +5,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement; 
 import java.sql.ResultSet; 
 import java.sql.SQLException; 
-import java.sql.Statement; 
+import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List; 
@@ -56,35 +57,33 @@ public class ProgramDAO {
     public List<Program> listProgram() throws SQLException {
         List<Program> programlist = new ArrayList<>();
         try (Connection connection = dataSource.getConnection()) {
-            String sql = "SELECT * FROM program ORDER BY programid DESC";
+            // Get the current date
+            LocalDate currentDate = LocalDate.now();
+
+            // Modify the SQL query to filter out past programs
+            String sql = "SELECT * FROM program WHERE pdate >= ? ORDER BY programid DESC";
             PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setDate(1, Date.valueOf(currentDate));
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-
                 int programid = resultSet.getInt("programid");
                 String pname = resultSet.getString("pname");
                 String pdesc = resultSet.getString("pdesc");
                 String pvenue = resultSet.getString("pvenue");
                 String ptime = resultSet.getString("ptime");
                 Date pdate = resultSet.getDate("pdate");
-                
-
 
                 byte[] pimageBytes = resultSet.getBytes("pimage");
                 String base64Image = Base64.getEncoder().encodeToString(pimageBytes);
                 String imageSrc = "data:image/jpeg;base64," + base64Image;
 
-                int adminId  = resultSet.getInt("adminid");
-                // int volunteerId  = resultSet.getInt("vid");
+                int adminId = resultSet.getInt("adminid");
 
-                // Program program = new Program(programid, pname, pdesc, pvenue, ptime, pdate, null, null, imageSrc);
                 Program program = new Program(programid, pname, pdesc, pvenue, ptime, pdate, null, null, imageSrc, adminId);
 
                 programlist.add(program);
-
             }
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
             throw e;
@@ -92,6 +91,8 @@ public class ProgramDAO {
 
         return programlist;
     }
+
+    
 
     // get Program by ID
     public Program getProgramById(int programid) throws SQLException {

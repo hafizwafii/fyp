@@ -4,9 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.sql.DataSource;
 import org.springframework.stereotype.Repository;
 
+import com.heroku.java.MODEL.Program;
 import com.heroku.java.MODEL.Registration;
 
 @Repository
@@ -49,4 +53,32 @@ public class RegistrationDAO {
             throw new SQLException("Volunteer is already registered for this program.");
         }
     }
+
+    public List<Program> getProgramsByVolunteerId(int volunteerId) throws SQLException {
+    List<Program> programs = new ArrayList<>();
+    try (Connection connection = dataSource.getConnection()) {
+        String sql = "SELECT p.pname, p.pdesc, p.pvenue, p.ptime, p.pdate " +
+                     "FROM registration r " +
+                     "JOIN program p ON r.programid = p.programid " +
+                     "WHERE r.vid = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, volunteerId);
+        ResultSet resultSet = statement.executeQuery();
+        
+        while (resultSet.next()) {
+            Program program = new Program();
+            program.setPname(resultSet.getString("pname"));
+            program.setPdesc(resultSet.getString("pdesc"));
+            program.setPvenue(resultSet.getString("pvenue"));
+            program.setPtime(resultSet.getString("ptime"));
+            program.setPdate(resultSet.getDate("pdate"));
+            // program.setRdate(resultSet.getDate("rdate"));
+            programs.add(program);
+        }
+    }
+    return programs;
+}
+
+
+
 }
