@@ -64,7 +64,7 @@ public String viewAccount(HttpSession session, Model model) {
         Admin currentAdmin = adminDAO.findAdminByUsername(adminusername);
 
         if (currentAdmin == null) {
-            return "error";
+            return "login";
         }
 
         String role = currentAdmin.getRole();

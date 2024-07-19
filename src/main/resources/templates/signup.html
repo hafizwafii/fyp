@@ -24,21 +24,22 @@
               method="post"  
               th:action="@{/signup}"  
               modelAttribute="signup"
-              onsubmit="enableBirthdateField()"
+              onsubmit="enableBirthdateField(); showSuccessModal(event)"
               > 
               <h1>CREATE YOUR ACCOUNT</h1> 
 
-              <div class="col-12"> 
-                <label for="InputFullName">Full Name</label> 
+              <div class="col-12">
+                <label for="InputFullName">Full Name</label>
                 <input type="text"  
-                  class="form-control" 
-                  id="InputFullName" 
-                  placeholder="Ali Bin Abu" 
-                  aria-describedby="fullnameHelp"  
-                  name="name"
-                  required
-                  oninput="this.value = this.value.replace(/[0-9]/g, '')"> 
-              </div> 
+                    class="form-control" 
+                    id="InputFullName" 
+                    placeholder="Enter Your Full Name" 
+                    aria-describedby="fullnameHelp"  
+                    name="name"
+                    required
+                    oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')"> 
+              </div>
+            
               
               
               <div class="col"> 
@@ -46,7 +47,7 @@
                 <input type="email"  
                  class="form-control"  
                  id="InputEmail"  
-                 placeholder="abc@gmail.com"
+                 placeholder="Enter Valid Email Address Example : ali@gmail.com"
                  aria-describedby="usernameHelp"  
                  name="email"
                  required> 
@@ -55,7 +56,7 @@
               <div class="col"> 
                 <label for="InputPhonenum">Phone Number</label> 
                 <input type="tel" 
-                       placeholder="0123456789" 
+                       placeholder="Enter Phone Number" 
                        class="form-control"  
                        id="InputPhonenum"
                        pattern="[0-9]{10,11}"  
@@ -63,13 +64,14 @@
                        name="phonenum" required
                        > 
               </div> 
+            
 
             <div class="col"> 
               <label for="InputIcnumber">Identity Card Number(IC):</label> 
               <input type="text"  
                      class="form-control"  
                      id="InputUsername"  
-                     placeholder="000000-10-1111"
+                     placeholder="Enter IC Number Example : 000000112222"
                      aria-describedby="usernameHelp"  
                      name="icnum"
                      onkeypress="return event.charCode >= 48 && event.charCode <= 57"
@@ -126,6 +128,17 @@
         function enableBirthdateField() {
             document.getElementById("Inputbirthdate").disabled = false;
         }
+
+        function showSuccessModal(event) {
+            event.preventDefault();
+            var myModal = new bootstrap.Modal(document.getElementById('successModal'), {
+                keyboard: false
+            });
+            myModal.show();
+            document.getElementById('successModalOkButton').addEventListener('click', function() {
+                window.location.href = '/login'; // Replace '/nextPage' with your desired URL
+            });
+        }
         
         // Initialize Flatpickr for the input field with ID 'Inputbirthdate'
         flatpickr("#Inputbirthdate", {
@@ -142,7 +155,7 @@
                    class="form-control"  
                   id="InputUsername"  
                   aria-describedby="phonenumberHelp"  
-                  placeholder="example: apeswafi"  
+                  placeholder="example: amirulwafi"  
                   name="username"
                   required> 
                 </div> 
@@ -152,7 +165,7 @@
                   <input type="password"  
                    class="form-control"  
                    id="InputPassword"    
-                   placeholder="****"  
+                   placeholder="*******"  
                    name="password"
                    required> 
                 </div> 
@@ -161,12 +174,29 @@
               </div> 
 
             
-            <button type="submit" class="btn btn-dark col-10 mx-5 mt-4" style="margin-bottom: 10px; ">SIGN UP</button>
+            <button type="submit" class="btn btn-dark col-12 mx-1 mt-4" style="margin-bottom: 10px; ">SIGN UP</button>
 
             </form> 
         </div> 
     </div> 
-     
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Sign Up Successful</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Your account has been successfully created!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="successModalOkButton">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
          
 </body> 
   <script th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js}" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script> 

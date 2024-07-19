@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.heroku.java.MODEL.Program;
 import com.heroku.java.MODEL.Registration;
+import com.heroku.java.MODEL.Volunteer;
 
 @Repository
 public class RegistrationDAO {
@@ -78,6 +79,30 @@ public class RegistrationDAO {
     }
     return programs;
 }
+
+// program volunteer
+public List<Volunteer> getVolunteersByProgramId(int programId) throws SQLException {
+        List<Volunteer> volunteers = new ArrayList<>();
+        try (Connection connection = dataSource.getConnection()) {
+            String sql = "SELECT v.vid, v.vfullname, v.vemail, v.vphonenum " +
+                         "FROM registration r " +
+                         "JOIN volunteer v ON r.vid = v.vid " +
+                         "WHERE r.programid = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, programId);
+            ResultSet resultSet = statement.executeQuery();
+            
+            while (resultSet.next()) {
+                Volunteer volunteer = new Volunteer();
+                volunteer.setId(resultSet.getInt("vid"));
+                volunteer.setName(resultSet.getString("vfullname"));
+                volunteer.setEmail(resultSet.getString("vemail"));
+                volunteer.setPhonenum(resultSet.getInt("vphonenum"));
+                volunteers.add(volunteer);
+            }
+        }
+        return volunteers;
+    }
 
 
 

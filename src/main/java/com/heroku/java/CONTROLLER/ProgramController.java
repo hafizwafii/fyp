@@ -20,10 +20,12 @@ import java.util.List;
 import com.heroku.java.SERVICES.AdminDAO;
 import com.heroku.java.SERVICES.IssueViewDAO;
 import com.heroku.java.SERVICES.ProgramDAO; //nama file dao
+import com.heroku.java.SERVICES.RegistrationDAO;
 import com.heroku.java.SERVICES.VolunteerEmailDAO;
 import com.heroku.java.MODEL.Issue;
 import com.heroku.java.MODEL.Program; // nama model/bean
 import com.heroku.java.MODEL.Registration;
+import com.heroku.java.MODEL.Volunteer;
 
 @Controller
 public class ProgramController {
@@ -171,6 +173,26 @@ public class ProgramController {
             return "error";
         }
         return "homevolunteer";
+    }
+
+    // program volunteer
+    @GetMapping("/viewProgramVolunteer")
+    public String viewProgramVolunteer(@RequestParam("programid") int programId, Model model) {
+        try {
+            ProgramDAO programDAO = new ProgramDAO(dataSource);
+            RegistrationDAO registrationDAO = new RegistrationDAO(dataSource);
+            
+            Program program = programDAO.getProgramById(programId);
+            List<Volunteer> volunteers = registrationDAO.getVolunteersByProgramId(programId);
+            
+            model.addAttribute("programName", program.getPname());
+            model.addAttribute("volunteers", volunteers);
+            
+            return "viewProgramVolunteer";
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "error";
+        }
     }
 
 
