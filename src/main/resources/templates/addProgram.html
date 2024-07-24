@@ -15,15 +15,15 @@
     <div class="col-12">
         <div class="container" style="height: 100%;">
           <div class="offset-1"  style="margin-top: 5%;margin-bottom: 5%;">
-            <a th:href="@{/homepageadmin}" class="btn btn-dark">
-              <i class="bi bi-arrow-left-circle-fill"></i> Go Back
+            <a th:href="@{/viewProgram}" class="btn btn-dark">
+              <i class="bi bi-arrow-left-circle-fill"></i> View Program
             </a>
 
-            <h3>
+            <!-- <h3>
               <a th:href="@{/viewProgram}">
                 <i class="bi bi-plus-circle-fill" style="vertical-align: middle; margin-top: 5%;margin-bottom: 5%;"></i> View Program
               </a>
-            </h3>
+            </h3> -->
             
 
             <div class="card col-12 mt-2">
@@ -34,7 +34,8 @@
                  th:method="post" 
                  modelAttribute="ProgramDetail" 
                  enctype="multipart/form-data"
-                 class="row g-3">
+                 class="row g-3"
+                 onsubmit="showSuccessMessage(event)">
                   <!-- Rest of the form content -->
                   
                   
@@ -90,7 +91,7 @@
                       <label for="programimage" class="form-label me-2">Program Image (PNG AND JPEG):</label>
                       <div class="position-relative">
                         <input type="file" name="pimage" id="programimage" class="form-control" required>
-                        <button type="button" id="deleteImage" class="btn btn-link delete-icon"><i class="bi bi-trash"></i></button>
+                        <!-- <button type="button" id="deleteImage" class="btn btn-link delete-icon"><i class="bi bi-trash"></i></button> -->
                       </div>
                     </div>
                     <div id="imagePreview"></div>
@@ -111,7 +112,13 @@
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('programdate').setAttribute('min', today);
         });
-    </script>
+
+        function showSuccessMessage(event) {
+            event.preventDefault();
+            alert("Program successfully created");
+            event.target.submit();
+        }
+      </script>
               
 </body>
 

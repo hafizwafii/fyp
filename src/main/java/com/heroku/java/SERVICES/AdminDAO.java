@@ -158,7 +158,7 @@ public class AdminDAO {
         return admin;
     }
 
-        //get Admin by ID
+    //get Admin by ID
         public Admin getAdminById(int adminid) throws SQLException {
             Admin admin = null;
             try (Connection connection = dataSource.getConnection()) {
@@ -184,41 +184,6 @@ public class AdminDAO {
     
             return admin;
         }
-
-        // view volunteer
-        // public List<Volunteer> getAllVolunteers() throws SQLException {
-        //     List<Volunteer> volunteers = new ArrayList<>();
-
-        //     try (Connection connection = dataSource.getConnection()) {
-        //         String sql = "SELECT * FROM volunteer";
-        //         // String sql = "SELECT vid,vfullname,vemail,vphonenum,vicnum FROM volunteer";
-        //         PreparedStatement statement = connection.prepareStatement(sql);
-        //         ResultSet resultSet = statement.executeQuery();
-
-        //         while (resultSet.next()) {
-        //             int vid = resultSet.getInt("vid");
-        //             String vfullname = resultSet.getString("vfullname");
-        //             String vemail = resultSet.getString("vemail");
-        //             int vphonenum = resultSet.getInt("vphonenum");
-        //             String vicnum = resultSet.getString("vicnum");
-        //             Date vbirthdate = resultSet.getDate("vbirthdate");
-        //             int vage = resultSet.getInt("vage");
-        //             String vusername = resultSet.getString("vusername");
-        //             String vpassword = resultSet.getString("vpassword");
-        //             // int vpid = resultSet.getInt("programid");
-
-
-        //             // Volunteer volunteer = new Volunteer(vid, vfullname, vemail, vphonenum , vicnum ,vbirthdate, vage, vusername, vpassword, vpid);
-        //             Volunteer volunteer = new Volunteer(vid, vfullname, vemail, vphonenum,  vicnum, vbirthdate,  vage,  vusername,  vpassword);
-        //             volunteers.add(volunteer);
-        //         }
-        //         connection.close();
-        //     } catch (SQLException e) {
-        //             e.printStackTrace();
-        //     }
-
-        //     return volunteers;
-        // }
 
         public List<Volunteer> getAllVolunteers() throws SQLException {
             List<Volunteer> volunteers = new ArrayList<>();

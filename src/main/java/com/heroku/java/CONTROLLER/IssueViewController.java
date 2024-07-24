@@ -30,28 +30,32 @@ public class IssueViewController {
     }
     
     @GetMapping("/viewIssue")
-    public String viewIssue(Model model, Issue issue, HttpSession session) {
+    public String viewIssue(Model model, HttpSession session) {
+    Integer adminid = (Integer) session.getAttribute("adminid");  // Retrieve admin ID from session
+    String username = (String) session.getAttribute("username");
+
+    // Debug
+    System.out.println("Admin username view (issue): " + username);
+
+    // Check if admin ID is null
+    if (adminid == null) {
+        return "redirect:/login";  // Redirect to login if admin ID is not found in session
+    }
+
+    try {
         IssueViewDAO issueViewDAO = new IssueViewDAO(dataSource);
+        List<Issue> issuelist = issueViewDAO.listIssue();
+        model.addAttribute("issuess", issuelist);
+        String role = (String) session.getAttribute("role");
+        model.addAttribute("role", role);
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return "error";
+    }
 
-        int adminid = (int) session.getAttribute("adminid");
-        String username = (String) session.getAttribute("username");
-    
-        //debug
-        // System.out.println("Admin id in session issue (admin profile): " + adminid);
-        System.out.println("Admin username view (issue): " + username);
+    return "viewIssue";
+}
 
-        try{
-            List<Issue> issuelist = issueViewDAO.listIssue();
-            model.addAttribute("issuess", issuelist);
-            String role = (String) session.getAttribute("role");
-            model.addAttribute("role", role);
-        }  catch (SQLException e) {
-            e.printStackTrace();
-            return "error";
-        }
-        return "viewIssue";    
-      
-        }
 
     //updateissue
      @GetMapping("/updateIssue")

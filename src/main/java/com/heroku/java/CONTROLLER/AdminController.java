@@ -56,8 +56,8 @@ public AdminController(DataSource dataSource) {
     }
 
     
-@GetMapping("/viewAccount")
-public String viewAccount(HttpSession session, Model model) {
+    @GetMapping("/viewAccount")
+    public String viewAccount(HttpSession session, Model model) {
     AdminDAO adminDAO = new AdminDAO(dataSource);
     String adminusername = (String) session.getAttribute("username");  // Ensure you're using the correct session attribute name
     try {
@@ -91,41 +91,25 @@ public String viewAccount(HttpSession session, Model model) {
     }
 }
   
-        // view volunteer
-        @GetMapping("/viewVolunteer")
-        public String listVolunteer(Model model) {
-        try {
-            AdminDAO adminDAO = new AdminDAO(dataSource);
-            List<Volunteer> volunteers = adminDAO.getAllVolunteers();
-            model.addAttribute("volunteers", volunteers);
-            return "viewVolunteer";
-        } catch (SQLException e) {
-            System.out.println("Error retrieving volunteers: " + e.getMessage());
-            return "homepage";
-        }
-    
-    }   
+// view volunteer
+@GetMapping("/viewVolunteer")
+public String listVolunteer(Model model, HttpSession session) {
+Integer adminId = (Integer) session.getAttribute("adminid");  // Retrieve admin ID from session
 
-    // search volunteer
-    // @GetMapping("/searchCustomer")
-    // public String searchCustomer(@RequestParam(name = "searchValue", required = false) String searchValue, Model model) {
-    //     try {
-    //         // Perform the search based on the searchValue
-    //         VolunteerDAO volunteerDAO = new VolunteerDAO(dataSource);
-    //         List<Volunteer> searchResults = volunteerDAO.searchVolunteersByName(searchValue);
-    
-    //         // Add the search results and the searchValue to the model
-    //         model.addAttribute("volunteers", searchResults);
-    //         model.addAttribute("searchValue", searchValue);
-    //     } catch (SQLException e) {
-    //         // Handle the SQLException, log it, or rethrow it as a RuntimeException if needed
-    //         e.printStackTrace(); // You may want to log the exception instead
-    //         // You can also redirect to an error page or handle it in a way that makes sense for your application
-    //         model.addAttribute("error", "An error occurred during the search: " + e.getMessage());
-    //     }
-    // // Return the view name to display the search results
-    // return "viewVolunteer";
-    // }
+// Check if admin ID is null
+if (adminId == null) {
+    return "redirect:/login";  // Redirect to login if admin ID is not found in session
+}
+    try {
+        AdminDAO adminDAO = new AdminDAO(dataSource);
+        List<Volunteer> volunteers = adminDAO.getAllVolunteers();
+        model.addAttribute("volunteers", volunteers);
+        return "viewVolunteer";
+    } catch (SQLException e) {
+        System.out.println("Error retrieving volunteers: " + e.getMessage());
+        return "homepage";
+    }
+}
 
     //update account
      @GetMapping("/updateAccount")

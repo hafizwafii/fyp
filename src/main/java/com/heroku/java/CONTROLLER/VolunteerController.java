@@ -55,7 +55,6 @@ public class VolunteerController  {
     }
     }
 
-    
     @GetMapping("/searchVolunteer")
     public String searchVolunteer(@RequestParam("vname") String volunteerName, Model model) {
         try{

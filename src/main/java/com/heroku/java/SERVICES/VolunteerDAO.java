@@ -35,14 +35,19 @@ public class VolunteerDAO {
             PreparedStatement insertStatement = connection.prepareStatement(insertVolunteerSql, Statement.RETURN_GENERATED_KEYS);
             insertStatement.setString(1, volunteer.getName());
             insertStatement.setString(2, volunteer.getEmail());
-            insertStatement.setInt(3, volunteer.getPhonenum());
+            
+            // Format phone number to ensure it starts with zero
+            String formattedPhoneNum = String.format("%010d", volunteer.getPhonenum());
+            insertStatement.setString(3, formattedPhoneNum);
+
+            // insertStatement.setInt(3, volunteer.getPhonenum()); // Store phone number as int
+            
             insertStatement.setString(4, volunteer.getIcnum());
             insertStatement.setDate(5, volunteer.getBirthdate());
             insertStatement.setInt(6, volunteer.getAge());
             insertStatement.setString(7, volunteer.getUsername());
             insertStatement.setString(8, volunteer.getPassword());
-            // insertStatement.setInt(9, volunteer.getVpid());  // Set the program ID
-
+    
             System.out.println("birthday awak bila ? :" + volunteer.getBirthdate());
     
             insertStatement.execute();
@@ -50,6 +55,7 @@ public class VolunteerDAO {
             throw e;
         }
     }
+    
     
     // original 
     // public List<Volunteer> getAllvolunteers() throws SQLException {

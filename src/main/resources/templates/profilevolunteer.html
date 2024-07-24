@@ -43,7 +43,7 @@
 
                     <div class="mb-3">
                       <label for="phonenum" class="form-label fw-semibold">Phone Number</label>
-                      <input type="text" class="form-control" th:value="${VolunteerProfile.phonenum}" id="phonenum" name="phonenum" required maxlength="11">
+                      <input type="text" class="form-control" th:value="${VolunteerProfile.formattedPhonenum}" id="phonenum" name="phonenum" required maxlength="11">
                     </div>
 
                     <div class="mb-3">
@@ -87,39 +87,71 @@
 
     <!-- Success Modal -->
     <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="successModalLabel">Update Successful</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                  Your profile has been successfully updated!
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
-              </div>
-          </div>
-      </div>
-  </div>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Update Successful</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Your profile has been successfully updated!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<script th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js}" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQK+C+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js}" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
-<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js}" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-<script>
-    function togglePassword() {
-        var passwordField = document.getElementById('password');
-        var passwordFieldType = passwordField.getAttribute('type');
-        var togglePasswordIcon = document.getElementById('togglePasswordIcon');
+    <!-- No Changes Modal -->
+    <div class="modal fade" id="noChangesModal" tabindex="-1" aria-labelledby="noChangesModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="noChangesModalLabel">No Changes</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    No changes were made to your profile.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        if (passwordFieldType === 'password') {
-            passwordField.setAttribute('type', 'text');
-            togglePasswordIcon.src = 'https://cdn.jsdelivr.net/npm/bootstrap-icons/icons/eye-slash.svg';
-        } else {
-            passwordField.setAttribute('type', 'password');
-            togglePasswordIcon.src = 'https://cdn.jsdelivr.net/npm/bootstrap-icons/icons/eye.svg';
+    <script th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js}" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQK+C+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js}" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js}" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const profileSuccess = urlParams.get('profileSuccess');
+            const noChanges = urlParams.get('noChanges');
+
+            if (profileSuccess) {
+                var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                successModal.show();
+            } else if (noChanges) {
+                var noChangesModal = new bootstrap.Modal(document.getElementById('noChangesModal'));
+                noChangesModal.show();
+            }
+        });
+
+        function togglePassword() {
+            var passwordField = document.getElementById('password');
+            var passwordFieldType = passwordField.getAttribute('type');
+            var togglePasswordIcon = document.getElementById('togglePasswordIcon');
+
+            if (passwordFieldType === 'password') {
+                passwordField.setAttribute('type', 'text');
+                togglePasswordIcon.src = 'https://cdn.jsdelivr.net/npm/bootstrap-icons/icons/eye-slash.svg';
+            } else {
+                passwordField.setAttribute('type', 'password');
+                togglePasswordIcon.src = 'https://cdn.jsdelivr.net/npm/bootstrap-icons/icons/eye.svg';
+            }
         }
-    }
-</script>
+    </script>
 </body>
 </html>

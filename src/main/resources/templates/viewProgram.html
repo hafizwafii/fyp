@@ -15,12 +15,6 @@
     <div class="container-fluid" style="margin-left: 230px; padding-top: 66px;">
         <div class="row" style="height: 100%;">
             <div class="col-10">
-                <h3>
-                    View Program
-                    <a th:href="@{/addProgram}">
-                        <i class="bi bi-plus-circle-fill" style="vertical-align: middle; margin-left: 60%;"></i> Add Program
-                    </a>
-                </h3>
                 <!-- Display success or error message -->
                 <div th:if="${param.success}" class="alert alert-success" role="alert">
                     <span th:text="${param.success}"></span>
@@ -29,10 +23,15 @@
                     <span th:text="${param.error}"></span>
                 </div>
                 
-                <!-- Filter Buttons -->
-                <div class="mb-3">
-                    <button id="upcomingBtn" class="btn btn-primary">Upcoming Programs</button>
-                    <button id="pastBtn" class="btn btn-success">Past Programs</button>
+                <!-- Filter and Add Program Buttons -->
+                <div class="d-flex justify-content-between mb-4 mt-4">
+                    <div>
+                        <button id="upcomingBtn" class="btn btn-primary">Upcoming Programs</button>
+                        <button id="pastBtn" class="btn btn-success">Past Programs</button>
+                    </div>
+                    <div>
+                        <a th:href="@{/addProgram}" class="btn btn-info"><i class="bi bi-plus-circle-fill"></i> Add Program</a>
+                    </div>
                 </div>
                 
                 <!-- Cards Container -->

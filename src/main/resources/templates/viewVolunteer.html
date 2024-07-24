@@ -12,18 +12,14 @@
 
 <body>
 
-    <div class="container-fluid" style="margin-left: 200px; padding-top: 56px;">
+    <div class="container-fluid" style="margin-left: 220px; padding-top: 56px;">
         <div class="row" style="height: 100%;">
             <div class="col-10">
-                <h3>
-                    View Volunteer
-                    
-                </h3>
-
+        
                 <div class="offset-2 justify-content-evenly align-items-center col-9"></div>
 
                 <form th:action="@{/searchVolunteer}" method="get">
-                    <div class="input-group mb-3">
+                    <div class="input-group mb-4 mt-4">
                         <input id="volunteerSearchInput" name="vname" type="text" class="form-control" placeholder="Search Volunteer Name" aria-label="Search" aria-describedby="basic-addon2">
                         <div class="input-group-append">
                             <button class="btn btn-primary" type="submit">Search</button>
@@ -83,4 +79,3 @@ crossorigin="anonymous"></script>
 integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
 crossorigin="anonymous"></script>
 </html>
-

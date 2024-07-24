@@ -58,18 +58,6 @@ public class ProgramController {
             ProgramDAO programDAO = new ProgramDAO(dataSource);
 
             programDAO.addProgram(program);
-
-            // // Fetch all player emails from database (example)
-            // List<String> volunteerEmails = volunteerEmailDAO.getVolunteerEmail();
-
-            // // Send individualized email to each player
-            // for (String Email : Emails) {
-            //     String subject = "New Event Announcement: " + program.getPname();
-            //     String htmlContent = buildHtmlContent(event, ed);
-            //     emailService.sendHtmlEmail(Email, subject, htmlContent);
-            // }
-
-
             // programDAO.addProgram(program);
             return "redirect:/viewProgram"; 
                 
@@ -83,12 +71,16 @@ public class ProgramController {
     public String viewProgram(Model model, Program program, HttpSession session) {
         ProgramDAO programDAO = new ProgramDAO(dataSource);
 
-        int adminid = (int) session.getAttribute("adminid");
+        Integer adminid = (Integer) session.getAttribute("adminid");
         String username = (String) session.getAttribute("username");
-    
+
+        if (adminid == null) {
+        return "redirect:/login";  // Redirect to login if admin ID is not found in session
+        }
         //debug
         // System.out.println("Admin id in session program (admin profile): " + adminid);
         System.out.println("Admin username view (program) :" + username);
+
 
         try{
             List<Program> programlist = programDAO.listProgram();
@@ -97,7 +89,7 @@ public class ProgramController {
             model.addAttribute("role", role);
         }  catch (SQLException e) {
             e.printStackTrace();
-            return "login";
+            return "error";
         }
         return "viewProgram";    
       

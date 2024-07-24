@@ -65,16 +65,38 @@ public class VolunteerProfileDAO {
         return null;
     }
 
-    //update profile
-    public Volunteer UpdateProfile (Volunteer volunteer) throws SQLException {
+    // update profile
+    // public Volunteer UpdateProfile (Volunteer volunteer) throws SQLException {
+    //     try (Connection connection = dataSource.getConnection()) {
+    //         String sql = "UPDATE volunteer SET vfullname=?, vemail=?, vphonenum=?, vicnum=?, vbirthdate=? , vusername=? , vpassword=? WHERE vid=?";
+    //         final var statement = connection.prepareStatement(sql);
+
+    //         String vpassword = volunteer.getPassword();
+    //         System.out.println("password: " + vpassword);
+            
+
+    //         statement.setString(1, volunteer.getName());
+    //         statement.setString(2, volunteer.getEmail());
+    //         statement.setInt(3, volunteer.getPhonenum());
+    //         statement.setString(4, volunteer.getIcnum());
+    //         statement.setDate(5, volunteer.getBirthdate());
+    //         statement.setString(6, volunteer.getUsername());
+    //         statement.setString(7, volunteer.getPassword());
+    //         statement.setInt(8, volunteer.getId());
+
+    //         statement.executeUpdate();
+    //     }
+    //     return volunteer;
+    // }
+
+    public boolean updateProfile(Volunteer volunteer) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             String sql = "UPDATE volunteer SET vfullname=?, vemail=?, vphonenum=?, vicnum=?, vbirthdate=? , vusername=? , vpassword=? WHERE vid=?";
             final var statement = connection.prepareStatement(sql);
-
+    
             String vpassword = volunteer.getPassword();
             System.out.println("password: " + vpassword);
-            
-
+    
             statement.setString(1, volunteer.getName());
             statement.setString(2, volunteer.getEmail());
             statement.setInt(3, volunteer.getPhonenum());
@@ -83,11 +105,12 @@ public class VolunteerProfileDAO {
             statement.setString(6, volunteer.getUsername());
             statement.setString(7, volunteer.getPassword());
             statement.setInt(8, volunteer.getId());
-
-            statement.executeUpdate();
+    
+            int rowsUpdated = statement.executeUpdate();
+            return rowsUpdated > 0; // Return true if at least one row was updated, false otherwise
         }
-        return volunteer;
     }
+    
 
     private String volunteerpassword() {
         // TODO Auto-generated method stub

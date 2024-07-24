@@ -57,34 +57,63 @@ public String volunteerProfile(@RequestParam(name = "success", required = false)
     return "/profilevolunteer";
 }
 
- @PostMapping("/UpdateProfile")
-    public String updateProfile(HttpSession session, @ModelAttribute("VolunteerProfile") Volunteer volunteer, Model model) {
+//  @PostMapping("/UpdateProfile")
+//     public String updateProfile(HttpSession session, @ModelAttribute("VolunteerProfile") Volunteer volunteer, Model model) {
        
-        int vid=volunteer.getId();
+//         int vid=volunteer.getId();
 
-        String vfullname = volunteer.getName();
+//         String vfullname = volunteer.getName();
        
-        System.out.println("Volunteer id in session (volunteer update): " + vid);
-        System.out.println("Volunteer name in session (volunteer update): " + vfullname);
+//         System.out.println("Volunteer id in session (volunteer update): " + vid);
+//         System.out.println("Volunteer name in session (volunteer update): " + vfullname);
         
 
-        if (vid != 0) {
-            try {
+//         if (vid != 0) {
+//             try {
                 
-                volunteer = volunteerProfileDAO.UpdateProfile(volunteer);
+//                 volunteer = volunteerProfileDAO.UpdateProfile(volunteer);
+//                 session.setAttribute("VolunteerProfile", volunteer);
+//                 return "redirect:/profilevolunteer?profileSuccess=true";
+//             } catch (SQLException sqe) {
+//                 System.out.println("Error Code = " + sqe.getErrorCode());
+//                 System.out.println("SQL state = " + sqe.getSQLState());
+//                 System.out.println("Message = " + sqe.getMessage());
+//                 System.out.println("printTrace /n");
+//                 sqe.printStackTrace();
+//                 return "redirect:/homevolunteer";
+//             }
+//         }
+//         return "redirect:/profilevolunteer?profileSuccess=true";
+//     }
+
+@PostMapping("/UpdateProfile")
+public String updateProfile(HttpSession session, @ModelAttribute("VolunteerProfile") Volunteer volunteer, Model model) {
+    int vid = volunteer.getId();
+    String vfullname = volunteer.getName();
+    System.out.println("Volunteer id in session (volunteer update): " + vid);
+    System.out.println("Volunteer name in session (volunteer update): " + vfullname);
+
+    if (vid != 0) {
+        try {
+            boolean isUpdated = volunteerProfileDAO.updateProfile(volunteer);
+            if (isUpdated) {
                 session.setAttribute("VolunteerProfile", volunteer);
                 return "redirect:/profilevolunteer?profileSuccess=true";
-            } catch (SQLException sqe) {
-                System.out.println("Error Code = " + sqe.getErrorCode());
-                System.out.println("SQL state = " + sqe.getSQLState());
-                System.out.println("Message = " + sqe.getMessage());
-                System.out.println("printTrace /n");
-                sqe.printStackTrace();
-                return "redirect:/homevolunteer";
+            } else {
+                return "redirect:/profilevolunteer?noChanges=true";
             }
+        } catch (SQLException sqe) {
+            System.out.println("Error Code = " + sqe.getErrorCode());
+            System.out.println("SQL state = " + sqe.getSQLState());
+            System.out.println("Message = " + sqe.getMessage());
+            System.out.println("printTrace /n");
+            sqe.printStackTrace();
+            return "redirect:/homevolunteer";
         }
-        return "redirect:/profilevolunteer?profileSuccess=true";
     }
+    return "redirect:/profilevolunteer?profileSuccess=true";
+}
+
 
     
 }

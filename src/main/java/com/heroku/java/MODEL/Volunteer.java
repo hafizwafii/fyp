@@ -7,6 +7,9 @@ public class Volunteer {
     public String name;
     public String email;
     public int phonenum;
+
+    // public String formattedPhonenum; // Store formatted phone number
+
     public String icnum;
     public Date birthdate;
     public int age;
@@ -36,6 +39,7 @@ public class Volunteer {
         this.age = age;
         this.username = username;
         this.password = password;
+        // this.formattedPhonenum= formattedPhonenum;
         // this.vpid = vpid;
 
         
@@ -87,74 +91,54 @@ public class Volunteer {
         this.email = email;
     }
 
-
-
     public int getPhonenum() {
         return phonenum;
     }
-
-
 
     public void setPhonenum(int phonenum) {
         this.phonenum = phonenum;
     }
 
-
+    public String getFormattedPhonenum() {
+        return "0" + phonenum; // Add a leading zero to the phone number
+    }
 
     public String getIcnum() {
         return icnum;
     }
 
-
-
     public void setIcnum(String icnum) {
         this.icnum = icnum;
     }
-
-
 
     public Date getBirthdate() {
         return birthdate;
     }
 
-
-
     public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }
-
-
 
     public int getAge() {
         return age;
     }
 
-
-
     public void setAge(int age) {
         this.age = age;
     }
-
-
 
     public String getUsername() {
         return username;
     }
 
-
-
     public void setUsername(String username) {
         this.username = username;
     }
-
-
 
     public String getPassword() {
         return password;
     }
 
-
-    
     public void setPassword(String password) {
         this.password = password;
     }
