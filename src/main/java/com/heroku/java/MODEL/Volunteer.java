@@ -8,8 +8,6 @@ public class Volunteer {
     public String email;
     public String phonenum;
 
-    // public String formattedPhonenum; // Store formatted phone number
-
     public String icnum;
     public Date birthdate;
     public int age;
@@ -17,10 +15,6 @@ public class Volunteer {
     public String password;
 
     public boolean isRegistered;
-
-    // public int vpid;
-
-    
     
     public Volunteer() {
     }
@@ -99,10 +93,6 @@ public class Volunteer {
         this.phonenum = phonenum;
     }
 
-    public String getFormattedPhonenum() {
-        return phonenum; // Add a leading zero to the phone number
-    }
-
     public String getIcnum() {
         return icnum;
     }
@@ -149,16 +139,6 @@ public class Volunteer {
 
     public void setRegistered(boolean isRegistered) {
         this.isRegistered = isRegistered;
-    }
-
-    // public Date getVolunteerbirthdate() {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'getVolunteerbirthdate'");
-    // }
-
-    public String getVolunteerusername() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getVolunteerusername'");
     }
 
     
