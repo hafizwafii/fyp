@@ -198,7 +198,7 @@ public class AdminDAO {
                     volunteer.setId(resultSet.getInt("vid"));
                     volunteer.setName(resultSet.getString("vfullname"));
                     volunteer.setEmail(resultSet.getString("vemail"));
-                    volunteer.setPhonenum(resultSet.getInt("vphonenum"));
+                    volunteer.setPhonenum(resultSet.getString("vphonenum"));
                     volunteer.setIcnum(resultSet.getString("vicnum"));
                     volunteer.setUsername(resultSet.getString("vusername"));
                     volunteer.setRegistered(resultSet.getBoolean("is_registered"));  // Assuming the Volunteer model has this attribute
