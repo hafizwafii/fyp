@@ -145,6 +145,7 @@ public class VolunteerDAO {
                 throw new SQLException("Error retrieving volunteers by name: " + e.getMessage());
             }
             return volunteers;
+            
         }
         
 
