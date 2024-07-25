@@ -97,7 +97,7 @@ public List<Volunteer> getVolunteersByProgramId(int programId) throws SQLExcepti
                 volunteer.setId(resultSet.getInt("vid"));
                 volunteer.setName(resultSet.getString("vfullname"));
                 volunteer.setEmail(resultSet.getString("vemail"));
-                volunteer.setPhonenum(resultSet.getInt("vphonenum"));
+                volunteer.setPhonenum(resultSet.getString("vphonenum"));
                 volunteers.add(volunteer);
             }
         }

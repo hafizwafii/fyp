@@ -100,7 +100,7 @@ public class VolunteerDAO {
                 volunteer.setId(resultSet.getInt("vid"));
                 volunteer.setName(resultSet.getString("vfullname"));
                 volunteer.setEmail(resultSet.getString("vemail"));
-                volunteer.setPhonenum(resultSet.getInt("vphonenum"));
+                volunteer.setPhonenum(resultSet.getString("vphonenum"));
                 volunteer.setIcnum(resultSet.getString("vicnum"));
                 volunteer.setUsername(resultSet.getString("vusername"));
                 volunteer.setRegistered(resultSet.getBoolean("is_registered")); // Assuming you have this setter in your Volunteer model
@@ -134,7 +134,7 @@ public class VolunteerDAO {
                     volunteer.setId(resultSet.getInt("vid"));
                     volunteer.setName(resultSet.getString("vfullname"));
                     volunteer.setEmail(resultSet.getString("vemail"));
-                    volunteer.setPhonenum(resultSet.getInt("vphonenum"));
+                    volunteer.setPhonenum(resultSet.getString("vphonenum"));
                     volunteer.setIcnum(resultSet.getString("vicnum"));
                     volunteer.setUsername(resultSet.getString("vusername"));
                     volunteer.setRegistered(resultSet.getBoolean("is_registered")); // Set registration status
@@ -224,7 +224,7 @@ public class VolunteerDAO {
                     volunteer.setId(resultSet.getInt("vid"));
                     volunteer.setName(resultSet.getString("vfullname"));
                     volunteer.setEmail(resultSet.getString("vemail"));
-                    volunteer.setPhonenum(resultSet.getInt("vphonenum"));
+                    volunteer.setPhonenum(resultSet.getString("vphonenum"));
                     volunteer.setIcnum(resultSet.getString("vicnum"));
                     volunteer.setBirthdate(resultSet.getDate("vbirthdate"));
                     volunteer.setAge(resultSet.getInt("vage"));

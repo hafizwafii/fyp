@@ -6,7 +6,7 @@ public class Volunteer {
     public int id;
     public String name;
     public String email;
-    public int phonenum;
+    public String phonenum;
 
     // public String formattedPhonenum; // Store formatted phone number
 
@@ -27,7 +27,7 @@ public class Volunteer {
 
     
 
-    public Volunteer(int id, String name, String email, int phonenum, String icnum, Date vbirthdate, int age, String username,
+    public Volunteer(int id, String name, String email, String phonenum, String icnum, Date vbirthdate, int age, String username,
             String password) {
                 
         this.id=id;        
@@ -91,16 +91,16 @@ public class Volunteer {
         this.email = email;
     }
 
-    public int getPhonenum() {
+    public String getPhonenum() {
         return phonenum;
     }
 
-    public void setPhonenum(int phonenum) {
+    public void setPhonenum(String phonenum) {
         this.phonenum = phonenum;
     }
 
     public String getFormattedPhonenum() {
-        return "0" + phonenum; // Add a leading zero to the phone number
+        return phonenum; // Add a leading zero to the phone number
     }
 
     public String getIcnum() {

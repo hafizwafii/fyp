@@ -46,7 +46,7 @@ public class VolunteerProfileDAO {
                 volunteer.setId(resultSet.getInt("vid"));
                 volunteer.setName(resultSet.getString("vfullname"));
                 volunteer.setEmail(resultSet.getString("vemail"));
-                volunteer.setPhonenum(resultSet.getInt("vphonenum"));
+                volunteer.setPhonenum(resultSet.getString("vphonenum"));
                 volunteer.setIcnum(resultSet.getString("vicnum"));
                 volunteer.setBirthdate(resultSet.getDate("vbirthdate"));
                 volunteer.setAge(resultSet.getInt("vage"));
@@ -99,7 +99,7 @@ public class VolunteerProfileDAO {
     
             statement.setString(1, volunteer.getName());
             statement.setString(2, volunteer.getEmail());
-            statement.setInt(3, volunteer.getPhonenum());
+            statement.setString(3, volunteer.getPhonenum());
             statement.setString(4, volunteer.getIcnum());
             statement.setDate(5, volunteer.getBirthdate());
             statement.setString(6, volunteer.getUsername());

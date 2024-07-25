@@ -52,8 +52,6 @@ public String volunteerProfile(@RequestParam(name = "success", required = false)
             sqe.printStackTrace();
         }
     }
-    
-
     return "/profilevolunteer";
 }
 
