@@ -34,7 +34,18 @@ public class GettingStartedApplication {
     }
 
     @GetMapping("/")
-    public String index() {
+    public String index(Model model, Program program, Issue issue) {
+        ProgramDAO programDAO = new ProgramDAO(dataSource);
+        IssueViewDAO issueViewDAO = new IssueViewDAO(dataSource);
+        try{
+            List<Program> programlist = programDAO.listProgram();
+            model.addAttribute("programs", programlist);
+            List<Issue> issuelist = issueViewDAO.listIssue();
+            model.addAttribute("issuess", issuelist);
+        }  catch (SQLException e) {
+            e.printStackTrace();
+            return "error";
+        }
         return "homepage";
     }
     
