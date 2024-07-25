@@ -36,8 +36,10 @@ public class VolunteerDAO {
             insertStatement.setString(1, volunteer.getName());
             insertStatement.setString(2, volunteer.getEmail());
             
-            String formattedPhoneNum = String.format("%010d", volunteer.getPhonenum());
-            insertStatement.setString(3, formattedPhoneNum);
+            // String formattedPhoneNum = String.format("%010d", volunteer.getPhonenum());
+            // insertStatement.setString(3, formattedPhoneNum);
+
+            insertStatement.setString(3, volunteer.getPhonenum()); // Store phone number as string
     
             insertStatement.setString(4, volunteer.getIcnum());
             insertStatement.setDate(5, new java.sql.Date(volunteer.getBirthdate().getTime()));
