@@ -31,30 +31,6 @@ public class VolunteerEmailDAO {
         return volunteers;
     }
 
-    //  public ArrayList<String> getMemberEmail(int programId) throws SQLException {
-    //     ArrayList<String> volunteers = new ArrayList<>();
-        
-    //     try (Connection connection = dataSource.getConnection()) {
-    //         String sql = "SELECT player.playeremail " +
-    //                      "FROM player " +
-    //                      "JOIN member ON player.playerid = member.playerid " +
-    //                      "JOIN team ON member.teamid = team.teamid " +
-    //                      "WHERE team.eventdetailid = ?";
-            
-    //         PreparedStatement statement = connection.prepareStatement(sql);
-    //         statement.setInt(1, programId);
-            
-    //         ResultSet resultSet = statement.executeQuery();
-
-    //         while (resultSet.next()) {
-    //             String emailToMember = resultSet.getString("vemail");
-    //             volunteers.add(emailToMember);
-    //         }
-    //     }
-
-    //     return volunteers;
-    // }
-
     public ArrayList<String> getRegisterEmail(int programId) throws SQLException {
         ArrayList<String> volunteers = new ArrayList<>();
         try (Connection connection = dataSource.getConnection()) {

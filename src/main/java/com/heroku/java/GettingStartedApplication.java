@@ -54,22 +54,6 @@ public class GettingStartedApplication {
         return "homepage";
     }
 
-    // @GetMapping("/homevolunteer")
-    // public String homevolunteer(Model model, Program program, Issue issue) {
-    //     ProgramDAO programDAO = new ProgramDAO(dataSource);
-    //     IssueViewDAO issueViewDAO = new IssueViewDAO(dataSource);
-    //     try{
-    //         List<Program> programlist = programDAO.listProgram();
-    //         model.addAttribute("programs", programlist);
-    //         List<Issue> issuelist = issueViewDAO.listIssue();
-    //         model.addAttribute("issuess", issuelist);
-    //     }  catch (SQLException e) {
-    //         e.printStackTrace();
-    //         return "error";
-    //     }
-    //     return "homevolunteer";
-    // }
-
     @GetMapping("/homepageadmin")
     public String homepageadmin() {
         return "homepageadmin";

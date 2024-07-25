@@ -28,34 +28,6 @@ public class VolunteerDAO {
         this.dataSource = dataSource;
     }
 
-    // public void addVolunteer(Volunteer volunteer) throws SQLException {
-    //     try (Connection connection = dataSource.getConnection()) {
-    //         String insertVolunteerSql = "INSERT INTO volunteer (vfullname, vemail, vphonenum, vicnum, vbirthdate, vage, vusername, vpassword) "
-    //                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    //         PreparedStatement insertStatement = connection.prepareStatement(insertVolunteerSql, Statement.RETURN_GENERATED_KEYS);
-    //         insertStatement.setString(1, volunteer.getName());
-    //         insertStatement.setString(2, volunteer.getEmail());
-            
-    //         // Format phone number to ensure it starts with zero
-    //         String formattedPhoneNum = String.format("%010d", volunteer.getPhonenum());
-    //         insertStatement.setString(3, formattedPhoneNum);
-
-    //         // insertStatement.setInt(3, volunteer.getPhonenum()); // Store phone number as int
-            
-    //         insertStatement.setString(4, volunteer.getIcnum());
-    //         insertStatement.setDate(5, volunteer.getBirthdate());
-    //         insertStatement.setInt(6, volunteer.getAge());
-    //         insertStatement.setString(7, volunteer.getUsername());
-    //         insertStatement.setString(8, volunteer.getPassword());
-    
-    //         System.out.println("birthday awak bila ? :" + volunteer.getBirthdate());
-    
-    //         insertStatement.execute();
-    //     } catch (SQLException e) {
-    //         throw e;
-    //     }
-    // }
-
     public void addVolunteer(Volunteer volunteer) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             String insertVolunteerSql = "INSERT INTO volunteer (vfullname, vemail, vphonenum, vicnum, vbirthdate, vage, vusername, vpassword) "
@@ -64,8 +36,7 @@ public class VolunteerDAO {
             insertStatement.setString(1, volunteer.getName());
             insertStatement.setString(2, volunteer.getEmail());
             
-            // Format phone number to ensure it starts with zero
-            String formattedPhoneNum = String.format("%010d", Integer.parseInt(volunteer.getPhonenum()));
+            String formattedPhoneNum = String.format("%010d", volunteer.getPhonenum());
             insertStatement.setString(3, formattedPhoneNum);
     
             insertStatement.setString(4, volunteer.getIcnum());

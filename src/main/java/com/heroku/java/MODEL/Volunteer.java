@@ -19,8 +19,6 @@ public class Volunteer {
     public Volunteer() {
     }
 
-    
-
     public Volunteer(int id, String name, String email, String phonenum, String icnum, Date vbirthdate, int age, String username,
             String password) {
                 
@@ -33,14 +31,8 @@ public class Volunteer {
         this.age = age;
         this.username = username;
         this.password = password;
-        // this.formattedPhonenum= formattedPhonenum;
-        // this.vpid = vpid;
-
-        
         
     }
-
-
 
     public Volunteer(int id, String name, String username, String password) {
         this.id=id;
@@ -49,37 +41,25 @@ public class Volunteer {
         this.password=password;
     }
 
-
-
     public int getId() {
         return id;
     }
-
-
 
     public void setId(int id) {
         this.id = id;
     }
 
-
-
     public String getName() {
         return name;
     }
-
-
 
     public void setName(String name) {
         this.name = name;
     }
 
-
-
     public String getEmail() {
         return email;
     }
-
-
 
     public void setEmail(String email) {
         this.email = email;
@@ -91,6 +71,10 @@ public class Volunteer {
 
     public void setPhonenum(String phonenum) {
         this.phonenum = phonenum;
+    }
+
+    public String getFormattedPhonenum() {
+        return phonenum;
     }
 
     public String getIcnum() {

@@ -177,21 +177,6 @@ public class ProgramDAO {
         return false;
     }
 
-    //delete program
-    // public void deleteProgram(int programid) throws SQLException {
-    //     try (Connection connection = dataSource.getConnection()) {
-    //         String sql = "DELETE FROM program WHERE programid=?";
-    //         PreparedStatement statement = connection.prepareStatement(sql);
-    //         statement.setInt(1, programid);
-
-    //         statement.executeUpdate();
-    //         connection.close();
-    //     } catch (SQLException e) {
-    //         e.printStackTrace();
-    //         throw e;
-    //     }
-    // }
-
     public boolean hasRegistrations(int programid) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             String sql = "SELECT COUNT(*) FROM registration WHERE programid = ?";
