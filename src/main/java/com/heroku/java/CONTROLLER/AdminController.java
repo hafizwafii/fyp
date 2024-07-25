@@ -51,7 +51,7 @@ public AdminController(DataSource dataSource) {
         
     } catch (SQLException e) {
         e.printStackTrace();
-        return "/homepage";
+        return "/";
     }
     }
 
@@ -107,7 +107,7 @@ if (adminId == null) {
         return "viewVolunteer";
     } catch (SQLException e) {
         System.out.println("Error retrieving volunteers: " + e.getMessage());
-        return "homepage";
+        return "redirect:/login";
     }
 }
 

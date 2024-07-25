@@ -63,7 +63,7 @@ public class ProgramController {
                 
     } catch (SQLException e) {
         e.printStackTrace();
-        return "/homepage";
+        return "redirect:/login";
     }
     }
 

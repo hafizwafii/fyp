@@ -57,7 +57,7 @@ public IssueCreateController(DataSource dataSource) {
             
     } catch (SQLException e) {
         e.printStackTrace();
-        return "/homepage";
+        return "redirect:/login";
     }
     }
 

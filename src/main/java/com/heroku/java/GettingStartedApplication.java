@@ -35,7 +35,7 @@ public class GettingStartedApplication {
 
     @GetMapping("/")
     public String index() {
-        return "index";
+        return "homepage";
     }
     
     @GetMapping("/homepage")
