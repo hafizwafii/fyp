@@ -90,6 +90,7 @@
             const programCardsContainer = document.getElementById("programCardsContainer");
             const cards = programCardsContainer.getElementsByClassName("col-4");
             const today = new Date();
+            today.setHours(0, 0, 0, 0); // Set the time to the start of the current day
 
             upcomingBtn.addEventListener("click", function() {
                 filterPrograms(true);
@@ -102,6 +103,7 @@
             function filterPrograms(isUpcoming) {
                 for (let card of cards) {
                     const programDate = new Date(card.getAttribute("data-date"));
+                    programDate.setHours(0, 0, 0, 0); // Set the time to the start of the program day
                     if (isUpcoming && programDate >= today) {
                         card.style.display = "";
                     } else if (!isUpcoming && programDate < today) {

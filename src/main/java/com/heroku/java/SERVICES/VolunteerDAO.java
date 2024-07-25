@@ -124,7 +124,7 @@ public class VolunteerDAO {
         
             try (Connection connection = dataSource.getConnection()) {
                 // Updated SQL to include a check for registrations
-                String sql = "SELECT v.*, EXISTS (SELECT 1 FROM registration WHERE vid = v.vid) AS is_registered FROM volunteer v WHERE v.vfullname LIKE ? ORDER BY v.vid";
+                String sql = "SELECT v.*, EXISTS (SELECT 1 FROM registration WHERE vid = v.vid) AS is_registered FROM volunteer v WHERE v.vfullname LIKE ? ";
                 PreparedStatement statement = connection.prepareStatement(sql);
                 statement.setString(1, "%" + name + "%");
         
