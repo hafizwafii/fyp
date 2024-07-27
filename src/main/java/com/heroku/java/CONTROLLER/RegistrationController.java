@@ -31,6 +31,7 @@ public class RegistrationController {
         this.emailService = emailService;
     }
 
+    // -------------------CREATE REGISTRATION FOR VOLUNTEER---------------------------------//
     @GetMapping("/addRegister")
     public String showRegistration(HttpSession session, @RequestParam("pid") int programid, Model model) {
         try {
@@ -58,8 +59,7 @@ public class RegistrationController {
             return "homevolunteer"; // Or another error page
         }
     }
-
-
+// -------------------EMAIL NOTIFICATION AFTER REGISTRATION----------------------------------//
     @PostMapping("/addRegister")
     public String handleRegistration(HttpSession session, @RequestParam("pid") int programid, Registration registration, Model model) {
         try {
@@ -117,6 +117,7 @@ public class RegistrationController {
         }
     }
 
+    // -------------------VIEW PROGRAM THAT HAVE BEEN REGISTERED FOR VOLUNTEER----------------------------------//
     @GetMapping("/profileRegistration")
     public String profileRegistration(HttpSession session, Model model) {
     try {

@@ -21,52 +21,43 @@ import com.heroku.java.MODEL.Volunteer;
 
 @Controller
 public class VolunteerController  {   
-    private VolunteerDAO volunteerDAO;
-    private DataSource dataSource;
+private VolunteerDAO volunteerDAO;
+private DataSource dataSource;
 
-    @Autowired
-    public VolunteerController (VolunteerDAO volunteerDAO){
-        this.volunteerDAO=volunteerDAO;
-    }
-
-    // private final DataSource dataSource;
-
-    // public volunteerController(DataSource dataSource) {
-    //     this.dataSource = dataSource;
-    // }
+@Autowired
+public VolunteerController (VolunteerDAO volunteerDAO){
+this.volunteerDAO=volunteerDAO;
+}
     
-    
-    //CREATE ACCOUNT
-    @GetMapping("/signup")
-    public String signup() {
-        return "signup";
-    }
+// -------------------CREATE ACCOUNT FOR VOLUNTEER----------------------------------//
+@GetMapping("/signup")
+public String signup() {
+return "signup";
+}
 
-    // volunteer session
-    @PostMapping("/signup")
-    public String addVolunteer(HttpSession session, @ModelAttribute("signup")Volunteer volunteer) {
-        try {
-            volunteerDAO.addVolunteer(volunteer);
+@PostMapping("/signup")
+public String addVolunteer(HttpSession session, @ModelAttribute("signup")Volunteer volunteer) {
+    try {
+        volunteerDAO.addVolunteer(volunteer);
         
         return "redirect:/login";
     } catch (SQLException e) {
         e.printStackTrace();
         return "error";
     }
-    }
+}
 
-    @GetMapping("/searchVolunteer")
-    public String searchVolunteer(@RequestParam("vname") String volunteerName, Model model) {
-        try{
-            List<Volunteer> volunteers = volunteerDAO.searchVolunteersByName(volunteerName);
-            model.addAttribute("volunteers", volunteers); 
-        }catch (SQLException e) {
+// -------------------SEARCH VOLUNTEER BY NAME FOR ADMIN----------------------------------//
+@GetMapping("/searchVolunteer")
+public String searchVolunteer(@RequestParam("vname") String volunteerName, Model model) {
+    try{
+        List<Volunteer> volunteers = volunteerDAO.searchVolunteersByName(volunteerName);
+        model.addAttribute("volunteers", volunteers); 
+    }catch (SQLException e) {
                    
-                    e.printStackTrace(); // You may want to log the exception instead
-                    model.addAttribute("error", "An error occurred during the search: " + e.getMessage());
-                }
-        return "viewVolunteer"; // Replace with the name of your results view
+    e.printStackTrace(); // You may want to log the exception instead
+    model.addAttribute("error", "An error occurred during the search: " + e.getMessage());
     }
-    
-    
+    return "viewVolunteer"; // Replace with the name of your results view
+    }   
 }

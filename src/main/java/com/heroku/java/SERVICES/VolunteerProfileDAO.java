@@ -86,11 +86,4 @@ public class VolunteerProfileDAO {
             return rowsUpdated > 0; // Return true if at least one row was updated, false otherwise
         }
     }
-    
-    // private String volunteerpassword() {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'volunteerpassword'");
-    // }
-
-
 }

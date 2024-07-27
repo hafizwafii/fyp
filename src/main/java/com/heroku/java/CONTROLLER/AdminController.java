@@ -11,17 +11,17 @@ import jakarta.servlet.http.HttpSession;
 import java.sql.SQLException; 
 import javax.sql.DataSource;
 
-import java.security.Principal;
-import java.sql.*;
+// import java.security.Principal;
+// import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.heroku.java.SERVICES.AdminDAO; //nama file dao
-import com.heroku.java.SERVICES.IssueViewDAO;
-import com.heroku.java.SERVICES.VolunteerDAO;
+// import com.heroku.java.SERVICES.IssueViewDAO;
+// import com.heroku.java.SERVICES.VolunteerDAO;
 
 import com.heroku.java.MODEL.Admin; // nama model/bean
-import com.heroku.java.MODEL.Issue;
+// import com.heroku.java.MODEL.Issue;
 import com.heroku.java.MODEL.Volunteer;
 
 @Controller
@@ -36,6 +36,7 @@ public AdminController(DataSource dataSource) {
   
 }
 
+// -------------------CREATE ACCOUNT FOR NORMAL ADMIN----------------------------------// 
 @GetMapping("/addAccount")
     public String addAccount () {
         return "addAccount";
@@ -55,7 +56,7 @@ public AdminController(DataSource dataSource) {
     }
     }
 
-    
+    // -------------------VIEW ACCOUNT FOR NORMAL ADMIN AND ITSELF----------------------------------//
     @GetMapping("/viewAccount")
     public String viewAccount(HttpSession session, Model model) {
     AdminDAO adminDAO = new AdminDAO(dataSource);
@@ -91,7 +92,7 @@ public AdminController(DataSource dataSource) {
     }
 }
   
-// view volunteer
+// -------------------VIEW ALL VOLUNTEER----------------------------------//
 @GetMapping("/viewVolunteer")
 public String listVolunteer(Model model, HttpSession session) {
 Integer adminId = (Integer) session.getAttribute("adminid");  // Retrieve admin ID from session
@@ -111,10 +112,10 @@ if (adminId == null) {
     }
 }
 
-    //update account
-     @GetMapping("/updateAccount")
-    public String updateAccount(@RequestParam("adminid") int adminid, Model model) {
-        try {
+// -------------------UPDATE ACCOUNT FOR NORMAL ADMIN----------------------------------//
+@GetMapping("/updateAccount")
+public String updateAccount(@RequestParam("adminid") int adminid, Model model) {
+    try {
             System.out.println("adminid in controller :"+ adminid);
 
             AdminDAO adminDAO = new AdminDAO(dataSource);
@@ -125,10 +126,10 @@ if (adminId == null) {
             e.printStackTrace();
             return "error";
         }
-    }
+}
 
-    @PostMapping("/updateAccount")
-    public String updateAccount(@ModelAttribute("AdminDetail") Admin admin) {
+@PostMapping("/updateAccount")
+public String updateAccount(@ModelAttribute("AdminDetail") Admin admin) {
         try {
             AdminDAO adminDAO = new AdminDAO(dataSource);
             adminDAO.updateAccount(admin);
@@ -137,13 +138,11 @@ if (adminId == null) {
             e.printStackTrace();
             return "error";
         }
-    }
+}
 
-
-
-    //Delete account
-    @PostMapping("/deleteAccount")
-    public String deleteAccount(@RequestParam("adminid") int adminid) {
+// -------------------DELETE ACCOUNT FOR NORMAL ADMIN----------------------------------//
+@PostMapping("/deleteAccount")
+public String deleteAccount(@RequestParam("adminid") int adminid) {
     try {
         AdminDAO adminDAO = new AdminDAO(dataSource);
         adminDAO.deleteAccount(adminid);
@@ -153,10 +152,6 @@ if (adminId == null) {
         return "error";
     }
 }
-
-
-
-
 
 }
 
