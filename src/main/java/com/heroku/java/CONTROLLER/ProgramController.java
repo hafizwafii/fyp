@@ -17,14 +17,14 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.List;
 
-import com.heroku.java.SERVICES.AdminDAO;
+// import com.heroku.java.SERVICES.AdminDAO;
 import com.heroku.java.SERVICES.IssueViewDAO;
 import com.heroku.java.SERVICES.ProgramDAO; //nama file dao
 import com.heroku.java.SERVICES.RegistrationDAO;
-import com.heroku.java.SERVICES.VolunteerEmailDAO;
+// import com.heroku.java.SERVICES.VolunteerEmailDAO;
 import com.heroku.java.MODEL.Issue;
 import com.heroku.java.MODEL.Program; // nama model/bean
-import com.heroku.java.MODEL.Registration;
+// import com.heroku.java.MODEL.Registration;
 import com.heroku.java.MODEL.Volunteer;
 
 @Controller
@@ -35,6 +35,7 @@ public class ProgramController {
         this.dataSource = dataSource;
     }
 
+    // -------------------CREATE PROGRAM FOR ADMIN----------------------------------//
     @GetMapping("/addProgram")
     public String addProgram(HttpSession session) {
         return "addProgram";
@@ -67,6 +68,7 @@ public class ProgramController {
     }
     }
 
+    // -------------------VIEW PROGRAM FOR ADMIN----------------------------------//
     @GetMapping("/viewProgram")
     public String viewProgram(Model model, Program program, HttpSession session) {
         ProgramDAO programDAO = new ProgramDAO(dataSource);
@@ -95,7 +97,7 @@ public class ProgramController {
       
         }
 
-        // update program
+        // -------------------UPDATE PROGRAM FOR ADMIN----------------------------------//
         @GetMapping("/updateProgram")
         public String updateProgram(@RequestParam("programid") int programid, Model model) {
             try {
@@ -134,6 +136,7 @@ public class ProgramController {
     }
 }
 
+// -------------------DELETE PROGRAM FOR ADMIN----------------------------------//
     @PostMapping("/deleteProgram")
     public String deleteProgram(@RequestParam("pid") int programid) {
     try {
@@ -150,7 +153,8 @@ public class ProgramController {
         return "error";
     }
 }
- 
+
+// -------------------HOME PAGE AFTER LOGIN FOR VOLUNTEER----------------------------------//
     @GetMapping("/homevolunteer")
     public String homevolunteer(Model model) {
         ProgramDAO programDAO = new ProgramDAO(dataSource);
@@ -167,7 +171,7 @@ public class ProgramController {
         return "homevolunteer";
     }
 
-    // program volunteer
+   // -------------------VIEW VOLUNTEER THAT JOINED THE PROGRAM----------------------------------//
     @GetMapping("/viewProgramVolunteer")
     public String viewProgramVolunteer(@RequestParam("programid") int programId, Model model) {
         try {
@@ -185,20 +189,5 @@ public class ProgramController {
             e.printStackTrace();
             return "error";
         }
-    }
-
-
-
-
-
-
-
-
-
-
-       
-
-
-
-    
+    }    
 }

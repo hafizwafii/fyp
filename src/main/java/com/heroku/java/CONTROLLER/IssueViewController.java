@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model; 
 import jakarta.servlet.http.HttpSession; 
 import java.sql.SQLException;
-import java.util.ArrayList;
+// import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
-import javax.xml.crypto.Data;
+// import javax.xml.crypto.Data;
 
 import com.heroku.java.SERVICES.IssueViewDAO; 
 import com.heroku.java.MODEL.Issue; 
@@ -29,6 +29,7 @@ public class IssueViewController {
         this.dataSource = dataSource;
     }
     
+    // -------------------VIEW ISSUE FOR ADMIN----------------------------------//
     @GetMapping("/viewIssue")
     public String viewIssue(Model model, HttpSession session) {
     Integer adminid = (Integer) session.getAttribute("adminid");  // Retrieve admin ID from session
@@ -39,7 +40,7 @@ public class IssueViewController {
 
     // Check if admin ID is null
     if (adminid == null) {
-        return "redirect:/login";  // Redirect to login if admin ID is not found in session
+        return "redirect:/login";  
     }
 
     try {
@@ -56,38 +57,39 @@ public class IssueViewController {
     return "viewIssue";
 }
 
+// -------------------UPDATE ISSUE FOR ADMIN----------------------------------//
+@GetMapping("/updateIssue")
+public String updateIssue(@RequestParam("iid") int issueid, Model model) {
+    try {
+        System.out.println("issueid in controller :"+ issueid);
+        IssueViewDAO issueViewDAO = new IssueViewDAO(dataSource);
+        Issue issue = issueViewDAO.getIssueById(issueid);
+        model.addAttribute("issue", issue);
 
-    //updateissue
-     @GetMapping("/updateIssue")
-    public String updateIssue(@RequestParam("iid") int issueid, Model model) {
-        try {
-            System.out.println("issueid in controller :"+ issueid);
+        return "updateIssue";
 
-            IssueViewDAO issueViewDAO = new IssueViewDAO(dataSource);
-            Issue issue = issueViewDAO.getIssueById(issueid);
-            model.addAttribute("issue", issue);
-            return "updateIssue";
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return "error";
-        }
+    } catch (SQLException e) {
+      e.printStackTrace();
+
+      return "error";
     }
+}
 
-    @PostMapping("/updateIssue")
-    public String updateIssue(@ModelAttribute("IssueDetail") Issue issue) {
-        try {
+@PostMapping("/updateIssue")
+public String updateIssue(@ModelAttribute("IssueDetail") Issue issue) {
+    try {
             IssueViewDAO issueViewDAO = new IssueViewDAO(dataSource);
             issueViewDAO.updateIssue(issue);
             return "redirect:/viewIssue"; // Redirect to the viewIssue page after updating the issue
-        } catch (SQLException e) {
+    } catch (SQLException e) {
             e.printStackTrace();
             return "error";
-        }
     }
+}
     
-    //Delete the issue//
-    @PostMapping("/deleteIssue")
-    public String deleteIssue(@RequestParam("iid") int issueid) {
+// -------------------DELETE ISSUE FOR ADMIN----------------------------------//
+@PostMapping("/deleteIssue")
+public String deleteIssue(@RequestParam("iid") int issueid) {
     try {
         IssueViewDAO issueViewDAO = new IssueViewDAO(dataSource);
         issueViewDAO.deleteIssue(issueid);
@@ -98,10 +100,5 @@ public class IssueViewController {
     }
 }
 
-    
-
-
-        
-    
 }
 

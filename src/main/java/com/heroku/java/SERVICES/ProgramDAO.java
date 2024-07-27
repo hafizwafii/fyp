@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet; 
 import java.sql.SQLException; 
 import java.sql.Statement;
+import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List; 
@@ -21,9 +23,9 @@ import jakarta.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import org.springframework.web.multipart.MultipartFile;
 
-// import com.heroku.java.MODEL.Issue;
 import com.heroku.java.MODEL.Program;
 
+@Repository
 public class ProgramDAO {
     private DataSource dataSource;
 
@@ -54,6 +56,7 @@ public class ProgramDAO {
         }
     }
 
+    // LIST ALL PROGRAM
     public List<Program> listProgram() throws SQLException {
         List<Program> programlist = new ArrayList<>();
         try (Connection connection = dataSource.getConnection()) {
@@ -91,8 +94,6 @@ public class ProgramDAO {
 
         return programlist;
     }
-
-    
 
     // get Program by ID
     public Program getProgramById(int programid) throws SQLException {
@@ -226,16 +227,5 @@ public class ProgramDAO {
             statement.executeUpdate();
         }
     }
-
-    
-
-    
-
-    
-
-
-
-
-
     
 }

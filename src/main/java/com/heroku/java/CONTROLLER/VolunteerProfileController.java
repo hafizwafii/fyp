@@ -25,17 +25,18 @@ public VolunteerProfileController(VolunteerProfileDAO volunteerProfileDAO) { //d
     this.volunteerProfileDAO = volunteerProfileDAO;
 }    
 
+// -------------------VIEW ACCOUNT FOR VOLUNTEER----------------------------------//
 @GetMapping("/profilevolunteer")
 public String volunteerProfile(@RequestParam(name = "success", required = false) Boolean success, HttpSession session,
         Model model, Volunteer volunteer) { //model mana nak pakai
 
-    //setup session dekat page        
-    int vid = (int) session.getAttribute("volunteerid");
-    String username = (String) session.getAttribute("username");
+//setup session dekat page        
+int vid = (int) session.getAttribute("volunteerid");
+String username = (String) session.getAttribute("username");
 
-    //debug
-    System.out.println("Volunteer id in session (volunteer profile): " + vid);
-    System.out.println("Volunteer name in session (volunteer profile): " + username);
+//debug
+System.out.println("Volunteer id in session (volunteer profile): " + vid);
+System.out.println("Volunteer name in session (volunteer profile): " + username);
     
 
     if (vid != 0) {
@@ -54,35 +55,6 @@ public String volunteerProfile(@RequestParam(name = "success", required = false)
     }
     return "profilevolunteer";
 }
-
-//  @PostMapping("/UpdateProfile")
-//     public String updateProfile(HttpSession session, @ModelAttribute("VolunteerProfile") Volunteer volunteer, Model model) {
-       
-//         int vid=volunteer.getId();
-
-//         String vfullname = volunteer.getName();
-       
-//         System.out.println("Volunteer id in session (volunteer update): " + vid);
-//         System.out.println("Volunteer name in session (volunteer update): " + vfullname);
-        
-
-//         if (vid != 0) {
-//             try {
-                
-//                 volunteer = volunteerProfileDAO.UpdateProfile(volunteer);
-//                 session.setAttribute("VolunteerProfile", volunteer);
-//                 return "redirect:/profilevolunteer?profileSuccess=true";
-//             } catch (SQLException sqe) {
-//                 System.out.println("Error Code = " + sqe.getErrorCode());
-//                 System.out.println("SQL state = " + sqe.getSQLState());
-//                 System.out.println("Message = " + sqe.getMessage());
-//                 System.out.println("printTrace /n");
-//                 sqe.printStackTrace();
-//                 return "redirect:/homevolunteer";
-//             }
-//         }
-//         return "redirect:/profilevolunteer?profileSuccess=true";
-//     }
 
 @PostMapping("/UpdateProfile")
 public String updateProfile(HttpSession session, @ModelAttribute("VolunteerProfile") Volunteer volunteer, Model model) {
@@ -111,7 +83,5 @@ public String updateProfile(HttpSession session, @ModelAttribute("VolunteerProfi
     }
     return "redirect:/profilevolunteer?profileSuccess=true";
 }
-
-
     
 }
