@@ -30,32 +30,40 @@ import com.heroku.java.MODEL.Volunteer;
 @Controller
 public class ProgramController {
     private final DataSource dataSource;
+    private ProgramDAO programDAO;
 
-    public ProgramController(DataSource dataSource) {
+    public ProgramController(DataSource dataSource, ProgramDAO programDAO) {
         this.dataSource = dataSource;
+        this.programDAO = programDAO;
     }
 
     // -------------------CREATE PROGRAM FOR ADMIN----------------------------------//
     @GetMapping("/addProgram")
     public String addProgram(HttpSession session) {
+    if (session.getAttribute("adminid") != null) {
+        // Admin is logged in, proceed to addProgram
         return "addProgram";
+    } else {
+        // Admin is not logged in, redirect to login page
+        return "redirect:/login";
+    }
     }
 
     @PostMapping("/addProgram")
     public String addProgram(HttpSession session, @ModelAttribute("ProgramDetail")Program program,  @RequestParam("pimage") MultipartFile pimage) throws IOException {
-        Integer adminId = (Integer) session.getAttribute("adminid");  // Retrieve admin ID from session
+        Integer adminid = (Integer) session.getAttribute("adminid");  // Retrieve admin ID from session
 
         //debug
-        System.out.println("Admin id create (program): " + adminId);
+        System.out.println("Admin id create (program): " + adminid);
 
-        if (adminId == null) {
-        return "redirect:/login";  // Redirect to login if admin ID is not found in session
+        if (adminid == null) {
+        return "redirect:/login"; 
 
     }
 
         try {
             program.setPimagebyte(pimage.getBytes());
-            program.setAdminId(adminId); 
+            program.setAdminId(adminid); 
             ProgramDAO programDAO = new ProgramDAO(dataSource);
 
             programDAO.addProgram(program);
@@ -83,7 +91,6 @@ public class ProgramController {
         // System.out.println("Admin id in session program (admin profile): " + adminid);
         System.out.println("Admin username view (program) :" + username);
 
-
         try{
             List<Program> programlist = programDAO.listProgram();
             model.addAttribute("programs", programlist);
@@ -97,33 +104,86 @@ public class ProgramController {
       
         }
 
+        // -------------------VIEW PAST AND UPCOMING PROGRAM FOR ADMIN----------------------------------//
+        @GetMapping("/viewUpcomingProgram")
+        public String viewUpcomingPrograms(Model model, HttpSession session) {
+        Integer adminid = (Integer) session.getAttribute("adminid");
+        String username = (String) session.getAttribute("username");
+
+        if (adminid == null) {
+            return "redirect:/login";  // Redirect to login if admin ID is not found in session
+        }
+
+        System.out.println("Admin username view (upcoming programs): " + username);
+
+        try {
+            List<Program> programList = programDAO.listUpcomingPrograms();
+            model.addAttribute("programs", programList);
+            String role = (String) session.getAttribute("role");
+            model.addAttribute("role", role);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "error";
+        }
+        return "viewUpcomingProgram";
+    }
+
+    @GetMapping("/viewPastProgram")
+    public String viewPastPrograms(Model model, HttpSession session) {
+        Integer adminid = (Integer) session.getAttribute("adminid");
+        String username = (String) session.getAttribute("username");
+
+        if (adminid == null) {
+            return "redirect:/login";  // Redirect to login if admin ID is not found in session
+        }
+
+        System.out.println("Admin username view (past programs): " + username);
+
+        try {
+            List<Program> programList = programDAO.listPastPrograms();
+            model.addAttribute("programs", programList);
+            String role = (String) session.getAttribute("role");
+            model.addAttribute("role", role);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "error";
+        }
+        return "viewPastProgram";
+    }
+
+
         // -------------------UPDATE PROGRAM FOR ADMIN----------------------------------//
         @GetMapping("/updateProgram")
-        public String updateProgram(@RequestParam("programid") int programid, Model model) {
-            try {
+        public String updateProgram(@RequestParam("programid") int programid, Model model, HttpSession session) {
+        if (session.getAttribute("adminid") != null) {
+        // Admin is logged in, proceed with updating the program
+        try {
+            System.out.println("programid in controller :" + programid);
+            ProgramDAO programDAO = new ProgramDAO(dataSource);
+            Program program = programDAO.getProgramById(programid);
 
-                System.out.println("programid in controller :"+ programid);
-                ProgramDAO programDAO = new ProgramDAO(dataSource);
-                Program program = programDAO.getProgramById(programid);
-    
-                if (program != null) {
-                    model.addAttribute("programs", program);
-                }
-    
-                return "updateProgram";
-            } catch (SQLException sqe) {
-                System.out.println("Error Code = " + sqe.getErrorCode());
-                System.out.println("SQL state = " + sqe.getSQLState());
-                System.out.println("Message = " + sqe.getMessage());
-                System.out.println("printTrace /n");
-                sqe.printStackTrace();
-                return "redirect:/viewProgram";
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println("E message : " + e.getMessage());
-                return "error";
+            if (program != null) {
+                model.addAttribute("programs", program);
             }
+
+            return "updateProgram";
+        } catch (SQLException sqe) {
+            System.out.println("Error Code = " + sqe.getErrorCode());
+            System.out.println("SQL state = " + sqe.getSQLState());
+            System.out.println("Message = " + sqe.getMessage());
+            System.out.println("printTrace /n");
+            sqe.printStackTrace();
+            return "redirect:/viewProgram";
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("E message : " + e.getMessage());
+            return "error";
         }
+        } else {
+        // Admin is not logged in, redirect to login page
+        return "redirect:/login";
+        }
+    }   
 
         @PostMapping("/updateProgram")
         public String updateProgram(@ModelAttribute("ProgramDetail") Program program, @RequestParam("pimage") MultipartFile pimage) {
@@ -134,7 +194,7 @@ public class ProgramController {
     }   else {
         return "error";
     }
-}
+    }   
 
 // -------------------DELETE PROGRAM FOR ADMIN----------------------------------//
     @PostMapping("/deleteProgram")

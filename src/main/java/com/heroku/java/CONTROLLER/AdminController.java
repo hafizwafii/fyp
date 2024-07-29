@@ -114,9 +114,11 @@ if (adminId == null) {
 
 // -------------------UPDATE ACCOUNT FOR NORMAL ADMIN----------------------------------//
 @GetMapping("/updateAccount")
-public String updateAccount(@RequestParam("adminid") int adminid, Model model) {
-    try {
-            System.out.println("adminid in controller :"+ adminid);
+public String updateAccount(@RequestParam("adminid") int adminid, Model model, HttpSession session) {
+    if (session.getAttribute("adminid") != null) {
+        // Admin is logged in, proceed with updating the account
+        try {
+            System.out.println("adminid in controller :" + adminid);
 
             AdminDAO adminDAO = new AdminDAO(dataSource);
             Admin admin = adminDAO.getAdminById(adminid);
@@ -126,6 +128,10 @@ public String updateAccount(@RequestParam("adminid") int adminid, Model model) {
             e.printStackTrace();
             return "error";
         }
+    } else {
+        // Admin is not logged in, redirect to login page
+        return "redirect:/login";
+    }
 }
 
 @PostMapping("/updateAccount")

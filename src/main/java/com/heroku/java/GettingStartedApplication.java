@@ -66,9 +66,15 @@ public class GettingStartedApplication {
     }
 
     @GetMapping("/homepageadmin")
-    public String homepageadmin() {
+    public String homepageadmin(HttpSession session) {
+    if (session.getAttribute("adminid") != null) {
+        // Admin is logged in, proceed to homepageadmin
         return "homepageadmin";
+    } else {
+        // Admin is not logged in, redirect to login page
+        return "redirect:/login";
     }
+}
     
     // @GetMapping("/database")
     // String database(Map<String, Object> model) {

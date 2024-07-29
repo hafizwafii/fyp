@@ -12,12 +12,8 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-
-
 import com.heroku.java.SERVICES.VolunteerDAO;
 import com.heroku.java.MODEL.Volunteer;
-
-
 
 @Controller
 public class VolunteerController  {   
@@ -28,7 +24,7 @@ private DataSource dataSource;
 public VolunteerController (VolunteerDAO volunteerDAO){
 this.volunteerDAO=volunteerDAO;
 }
-    
+
 // -------------------CREATE ACCOUNT FOR VOLUNTEER----------------------------------//
 @GetMapping("/signup")
 public String signup() {

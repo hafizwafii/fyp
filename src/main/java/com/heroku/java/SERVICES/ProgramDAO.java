@@ -95,6 +95,70 @@ public class ProgramDAO {
         return programlist;
     }
 
+    // -------------------VIEW UPCOMING PROGRAM FOR ADMIN----------------------------------//
+    public List<Program> listUpcomingPrograms() throws SQLException {
+        List<Program> programList = new ArrayList<>();
+        try (Connection connection = dataSource.getConnection()) {
+            LocalDate currentDate = LocalDate.now();
+            String sql = "SELECT * FROM program WHERE pdate >= ? ORDER BY programid DESC";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setDate(1, Date.valueOf(currentDate));
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+                        int programid = resultSet.getInt("programid");
+                        String pname = resultSet.getString("pname");
+                        String pdesc = resultSet.getString("pdesc");
+                        String pvenue = resultSet.getString("pvenue");
+                        String ptime = resultSet.getString("ptime");
+                        Date pdate = resultSet.getDate("pdate");
+
+                        byte[] pimageBytes = resultSet.getBytes("pimage");
+                        String base64Image = Base64.getEncoder().encodeToString(pimageBytes);
+                        String imageSrc = "data:image/jpeg;base64," + base64Image;
+
+                        int adminId = resultSet.getInt("adminid");
+
+                        Program program = new Program(programid, pname, pdesc, pvenue, ptime, pdate, null, null, imageSrc, adminId);
+                        programList.add(program);
+                    }
+                }
+            }
+        }
+        return programList;
+    }
+
+    // -------------------VIEW PAST PROGRAM FOR ADMIN----------------------------------//
+    public List<Program> listPastPrograms() throws SQLException {
+        List<Program> programList = new ArrayList<>();
+        try (Connection connection = dataSource.getConnection()) {
+            LocalDate currentDate = LocalDate.now();
+            String sql = "SELECT * FROM program WHERE pdate < ? ORDER BY programid DESC";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setDate(1, Date.valueOf(currentDate));
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+                        int programid = resultSet.getInt("programid");
+                        String pname = resultSet.getString("pname");
+                        String pdesc = resultSet.getString("pdesc");
+                        String pvenue = resultSet.getString("pvenue");
+                        String ptime = resultSet.getString("ptime");
+                        Date pdate = resultSet.getDate("pdate");
+
+                        byte[] pimageBytes = resultSet.getBytes("pimage");
+                        String base64Image = Base64.getEncoder().encodeToString(pimageBytes);
+                        String imageSrc = "data:image/jpeg;base64," + base64Image;
+
+                        int adminId = resultSet.getInt("adminid");
+
+                        Program program = new Program(programid, pname, pdesc, pvenue, ptime, pdate, null, null, imageSrc, adminId);
+                        programList.add(program);
+                    }
+                }
+            }
+        }
+        return programList;
+    }
+
     // get Program by ID
     public Program getProgramById(int programid) throws SQLException {
         Program program = null;
@@ -209,7 +273,6 @@ public class ProgramDAO {
         }
     }
 
-
     public void updateRegistration(int programid, String pname, String pdesc, String pvenue, String ptime, Date pdate) throws SQLException {
         String sql = "UPDATE program SET pname = ?, pdesc = ?, pvenue = ?, ptime = ?, pdate = ? WHERE programid = ?";
         
@@ -227,5 +290,4 @@ public class ProgramDAO {
             statement.executeUpdate();
         }
     }
-    
 }
