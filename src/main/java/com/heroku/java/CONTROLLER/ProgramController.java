@@ -232,22 +232,33 @@ public class ProgramController {
     }
 
    // -------------------VIEW VOLUNTEER THAT JOINED THE PROGRAM----------------------------------//
-    @GetMapping("/viewProgramVolunteer")
-    public String viewProgramVolunteer(@RequestParam("programid") int programId, Model model) {
-        try {
-            ProgramDAO programDAO = new ProgramDAO(dataSource);
-            RegistrationDAO registrationDAO = new RegistrationDAO(dataSource);
-            
-            Program program = programDAO.getProgramById(programId);
-            List<Volunteer> volunteers = registrationDAO.getVolunteersByProgramId(programId);
-            
-            model.addAttribute("programName", program.getPname());
-            model.addAttribute("volunteers", volunteers);
-            
-            return "viewProgramVolunteer";
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return "error";
-        }
-    }    
-}
+   @GetMapping("/viewProgramVolunteer")
+   public String viewProgramVolunteer(@RequestParam("programid") int programId, Model model, HttpSession session) {
+       Integer adminid = (Integer) session.getAttribute("adminid");
+       String username = (String) session.getAttribute("username");
+   
+       // Check if admin ID is null
+       if (adminid == null) {
+           return "redirect:/login";
+       }
+   
+       // Debug
+       System.out.println("Admin username view (program volunteer): " + username);
+   
+       try {
+           ProgramDAO programDAO = new ProgramDAO(dataSource);
+           RegistrationDAO registrationDAO = new RegistrationDAO(dataSource);
+           
+           Program program = programDAO.getProgramById(programId);
+           List<Volunteer> volunteers = registrationDAO.getVolunteersByProgramId(programId);
+           
+           model.addAttribute("programName", program.getPname());
+           model.addAttribute("volunteers", volunteers);
+           
+           return "viewProgramVolunteer";
+       } catch (SQLException e) {
+           e.printStackTrace();
+           return "error";
+       }
+    }
+   }
