@@ -28,33 +28,35 @@ public VolunteerProfileController(VolunteerProfileDAO volunteerProfileDAO) { //d
 // -------------------VIEW ACCOUNT FOR VOLUNTEER----------------------------------//
 @GetMapping("/profilevolunteer")
 public String volunteerProfile(@RequestParam(name = "success", required = false) Boolean success, HttpSession session,
-        Model model, Volunteer volunteer) { //model mana nak pakai
+        Model model, Volunteer volunteer) {
 
-//setup session dekat page        
-int vid = (int) session.getAttribute("volunteerid");
-String username = (String) session.getAttribute("username");
+    Integer vid = (Integer) session.getAttribute("volunteerid");
+    String username = (String) session.getAttribute("username");
 
-//debug
-System.out.println("Volunteer id in session (volunteer profile): " + vid);
-System.out.println("Volunteer name in session (volunteer profile): " + username);
-    
-
-    if (vid != 0) {
-        try {
-            //dia amik Volunteerprofiledao (yang biru tu function dalam daoprofile) (vid tu dia nak pass pergi dao)
-            volunteer = volunteerProfileDAO.VolunteerProfile(vid);
-            model.addAttribute("VolunteerProfile", volunteer);
-            
-        } catch (SQLException sqe) {
-            System.out.println("Error Code = " + sqe.getErrorCode());
-            System.out.println("SQL state = " + sqe.getSQLState());
-            System.out.println("Message = " + sqe.getMessage());
-            System.out.println("printTrace /n");
-            sqe.printStackTrace();
-        }
+    // Check if volunteer ID is null
+    if (vid == null) {
+        return "redirect:/login";  
     }
+
+    // Debug
+    System.out.println("Volunteer id in session (volunteer profile): " + vid);
+    System.out.println("Volunteer name in session (volunteer profile): " + username);
+
+    try {
+        // Fetch volunteer profile using the DAO method
+        volunteer = volunteerProfileDAO.VolunteerProfile(vid);
+        model.addAttribute("VolunteerProfile", volunteer);
+    } catch (SQLException sqe) {
+        System.out.println("Error Code = " + sqe.getErrorCode());
+        System.out.println("SQL state = " + sqe.getSQLState());
+        System.out.println("Message = " + sqe.getMessage());
+        System.out.println("printTrace /n");
+        sqe.printStackTrace();
+    }
+
     return "profilevolunteer";
 }
+
 
 @PostMapping("/UpdateProfile")
 public String updateProfile(HttpSession session, @ModelAttribute("VolunteerProfile") Volunteer volunteer, Model model) {

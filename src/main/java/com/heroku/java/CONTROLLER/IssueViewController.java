@@ -59,19 +59,22 @@ public class IssueViewController {
 
 // -------------------UPDATE ISSUE FOR ADMIN----------------------------------//
 @GetMapping("/updateIssue")
-public String updateIssue(@RequestParam("iid") int issueid, Model model) {
-    try {
-        System.out.println("issueid in controller :"+ issueid);
-        IssueViewDAO issueViewDAO = new IssueViewDAO(dataSource);
-        Issue issue = issueViewDAO.getIssueById(issueid);
-        model.addAttribute("issue", issue);
-
-        return "updateIssue";
-
-    } catch (SQLException e) {
-      e.printStackTrace();
-
-      return "error";
+public String updateIssue(@RequestParam("iid") int issueid, Model model, HttpSession session) {
+    if (session.getAttribute("adminid") != null) {
+        // Admin is logged in, proceed with updating the issue
+        try {
+            System.out.println("issueid in controller :" + issueid);
+            IssueViewDAO issueViewDAO = new IssueViewDAO(dataSource);
+            Issue issue = issueViewDAO.getIssueById(issueid);
+            model.addAttribute("issue", issue);
+            return "updateIssue";
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "error";
+        }
+    } else {
+        // Admin is not logged in, redirect to login page
+        return "redirect:/login";
     }
 }
 

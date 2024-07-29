@@ -31,8 +31,14 @@ public IssueCreateController(DataSource dataSource) {
 
 // -------------------CREATE ISSUE FOR ADMIN----------------------------------//
 @GetMapping("/addIssue")
-public String addIssue() { 
-    return "addIssue";
+public String addIssue(HttpSession session) {
+    if (session.getAttribute("adminid") != null) {
+        // Admin is logged in, proceed to addIssue
+        return "addIssue";
+    } else {
+        // Admin is not logged in, redirect to login page
+        return "redirect:/login";
+    }
 }
 
 @PostMapping("/addIssue")
