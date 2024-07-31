@@ -20,7 +20,7 @@
                 method="post"
                 th:action="@{/signup}"
                 modelAttribute="signup"
-                onsubmit="enableBirthdateField()"
+                onsubmit="return validateForm()"
             >
                 <h1>CREATE YOUR ACCOUNT</h1>
 
@@ -64,7 +64,7 @@
                     <input type="text"
                            class="form-control"
                            id="InputUsername"
-                           placeholder="Enter IC Number Example : 000000112222"
+                           placeholder="Enter IC Number Example : 060000112222"
                            aria-describedby="usernameHelp"
                            name="icnum"
                            onkeypress="return event.charCode >= 48 && event.charCode <= 57"
@@ -127,10 +127,17 @@
         function updateBirthdateAndAge(icnum) {
             if (icnum.length === 14) {
                 const year = icnum.substring(0, 2);
+                if (parseInt(year) > 6) {
+                    alert('IC number must start with 06 or higher.');
+                    document.getElementById("InputIcnumber").value = '';
+                    document.getElementById("Inputbirthdate").value = '';
+                    document.getElementById("InputAge").value = '';
+                    return;
+                }
                 const month = icnum.substring(2, 4);
                 const day = icnum.substring(4, 6);
 
-                const fullYear = (year > 20 ? '19' : '20') + year;
+                const fullYear = '20' + year;  // Assuming all years start with 20 (i.e., 2006 or later)
                 const birthdate = `${fullYear}-${month}-${day}`;
                 
                 document.getElementById("Inputbirthdate").value = birthdate;
@@ -154,6 +161,22 @@
             dateFormat: "Y-m-d",
             maxDate: "2006-12-31"
         });
+
+        function validateEmail(email) {
+            const allowedDomains = ['gmail.com', 'student.uitm.edu.my', 'uitm.edu.my', 'yahoo.com'];
+            const emailDomain = email.split('@')[1];
+            return allowedDomains.includes(emailDomain);
+        }
+
+        function validateForm() {
+            const email = document.getElementById('InputEmail').value;
+            if (!validateEmail(email)) {
+                alert('Please enter an email address with one of the following domains: @gmail.com, @student.uitm.edu.my, @uitm.edu.my, or @yahoo.com');
+                return false;
+            }
+            enableBirthdateField();
+            return true;
+        }
     </script>
 </body>
 
